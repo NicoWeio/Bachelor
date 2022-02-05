@@ -1,0 +1,43 @@
+\chapter{Abbildungen und Tabellen}
+
+\section{Abbildungen}
+
+Achten Sie bei ihren Plots auf ausreichend große Achsenbschriftungen, ausreichende Schriftdicken und gut unterscheidbare Farben.
+Im Idealfall haben Sie im Plot und der Arbeit die gleiche Schriftgröße und Schriftart.
+Dies lässt sich durch Erstellen des Plots in der korrekten Größe und Einbinden mit dem optionalen Argument \texttt{scale=1} erreichen. Ein Beispiel sehen Sie in Abbildung \ref{fig:bsp}.
+
+Nutzen Sie wenn möglich Vektorgrafiken (pdf) und nur in Ausnahmen Rastergrafiken wie .png oder .jpg.
+Setzen Sie Punkte hinter Abbildungsunterschriften.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=1]{./Plots/Histogramm.pdf}
+    \caption{Ein Histogramm mit Fehlerbalken für zwei Datensätze, Schriftgröße und -art entsprechen der des Dokuments.}
+    \label{fig:bsp}
+\end{figure}
+
+\section{Tabellen}
+
+Tabellen sollten so einfach wie möglich aufgebaut sein, verzichten Sie auf zu viele Linien. In fast allen Fällen reichen drei horizontale Linien aus, jeweils über und unter der Tabelle und zwischen den Spaltenüberschriften und der eigentlichen Tabelle.
+
+Das Paket \texttt{booktabs} stellt hierfür \verb_\toprule_, \verb_\midrule_ und 
+\verb_\bottomrule_ zur Verfügung.
+Das Paket \texttt{siunitx} stellt eine extrem mächtige neue Spalteneinstellung bereit: \texttt{S}, mit ihr können Zahlen und Einheiten sehr sauber und gut ausgerichtet gesetzt werden.
+
+Diese Vorlage geht von Tabellenüberschriften aus, möchten Sie dagegen Tabellenunterschriften entfernen Sie das entsprechende optionale Argument für die Dokumentenklasse in der Präambel.
+
+Ein Beispiel ist Tabelle~\ref{tab:bsp}.
+\begin{table}
+    \centering
+    \caption{Beispieltabelle mit willkürlichen Werten, für die Zahlenwerte wurde die S-Option aus \texttt{siunitx} verwendet.}
+    \label{tab:bsp}
+    \begin{tabular}{S[table-format=4.2] S[table-format=3.2]}
+        \toprule
+        {$p \mathrel{/} \si{\pascal}$}  & {$T \mathrel{/} \si{\kelvin}$} \\
+        \midrule
+        1024,23 & 273,15 \\
+        1025,31 & 274,5 \\
+        1026,27 & 276,2 \\
+        \bottomrule
+    \end{tabular}
+\end{table}

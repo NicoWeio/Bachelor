@@ -1,0 +1,162 @@
+\chapter{Wichtige Hinweise zum Dokument}\label{make}
+
+Diese Vorlage ist auf die Kompilierung mit \texttt{lualatex} ausgelegt. 
+Als Dokumentenklasse  wird die \KOMAScript\-Klasse \texttt{scrbook} verwendet.
+Falls Sie Änderungen am Layout vornehmen möchten, lesen Sie die \KOMAScript-Dokumentation: \cite{koma}.
+
+Eine umfangreiche Einführung in die moderne Verwendung von \LaTeX{} gibt es hier: \cite{toolbox}, lesenswert ist außerdem das \LaTeX-Tabu: \cite{l2tabu}
+
+Um dieses Dokument vollständig zu erstellen sind maximal vier Programmläufe nötig:
+\begin{enumerate}[nosep]
+    \item \texttt{lualatex BachelorArbeit.tex}
+    \item \texttt{biber BachelorArbeit.bcf}
+    \item \texttt{lualatex BachelorArbeit.tex}
+    \item \texttt{lualatex BachelorArbeit.tex}
+\end{enumerate}
+
+Beim ersten Lauf des \LaTeX-Compilers werden die Kapitel, Links und zitierten Bibliographieeinträge in Hilfsdateien geschrieben.
+
+Dann ist ein Lauf des Programms \texttt{biber} nötig, welches die benötigten Einträge aus der Hilfsdatei einliest, die Einträge aus der \texttt{.bib} Datei einliest, sortiert und formatiert und in eine weitere Hilfsdatei schreibt.
+
+Beim nächsten \LaTeX-Lauf werden dann diese Hilfsdateien eingelesen und Literatur- und Inhaltsverzeichnis erstellt.
+
+Manchmal ist ein vierter Lauf nötig, falls sich durch das einfügen des Literaturverzeichnisses Seitenzahlen verändert haben.
+
+Das Tool \texttt{latexmk} übernimmt dies mit nur einem Programmaufruf und
+führ nur so viele Aufrufe durch, wie nötig sind.
+
+\texttt{latexmk --lualatex BachelorArbeit.tex}
+
+Eine gute Option ist es, den \LaTeX{} Output in einem anderen 
+Ordner zu erzeugen, dies ist mit der \texttt{--output-directory} Option möglich:
+
+\texttt{latexmk --output-directory=build --lualatex BachelorArbeit.tex}
+
+
+\section{Erstellen des Ausgabedokuments mit Make}
+
+Für diese Vorlage wird ein Makefile zur Verfügung gestellt, welches automatisch alle Schritte ausführt, die für das fertige Dokument nötig sind.
+Die Ausgabe erfolgt dabei in den Unterordner \texttt{build/}.
+Make prüft, ob die Quelldateien verändert wurden, falls nicht, werden auch keine Befehle ausgeführt.
+
+Falls Sie das Makefile benutzen möchten, sollten Sie alle Abhängigkeiten eintragen (Eigene Dateien für Kapitel, Plots, etc.).
+
+
+Download und weitere Informationen zu Make gibt es unter \cite{make}. Die Befehle sind für die Bash ausgelegt.
+Wenn Sie sie unter Windows nutzen wollen, benötigen Sie einen Bash-Emulator, wie Git Bash, Download unter \cite{gitbash} möglich.
+Wenn Sie Make installiert haben, rufen Sie einfach in der Konsole im Verzeichnis der Arbeit den Befehl \texttt{make}.
+
+\section{Erstellen des Ausgabedokuments mit Texmaker}
+\subsection{Einrichten der nötigen Befehle}
+Ein beliebter Editor für alle Betriebssysteme ist Texmaker, Download unter \cite{texmaker}.
+Damit Texmaker das Dokument korrekt kompiliert, fügen sie einen benutzerdefinierten Befehl hinzu:
+\begin{enumerate}[nosep]
+    \item Klicken sie oben in der Menüleiste auf \emph{Benutzer/in}
+    \item Klick auf \emph{Eigene Befehle}
+    \item Klich auf \emph{Eigene Befehle editieren}, dort können Sie bis zu 5 eigene Befehle definieren
+    \item Geben Sie dem Befehl unter \emph{Menüeintrag} einen Namen und tragen sie folgende Befehle in das Befehlsfeld ein: \\
+      \small\verb+latexmk --lualatex --interaction=batchmode --halt-on-error %.tex |+
+    \item Bestätigen Sie mit \emph{OK}
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=12cm]{Plots/texmaker.png}
+    \caption{Screenshot zur Erstellung des Kompilier-Befehls in Texmaker}
+    \label{fig:texmaker}
+\end{figure}
+
+
+In Abbildung \ref{fig:texmaker} ist ein Screenshot des Befehlsmenü gezeigt. Ihren Befehl können Sie nun im Drop-Down-Menü zum 
+Kompilieren des Dokuments auswählen und mit einem Klick auf den Pfeil starten.
+
+\subsection{Aufräumen}
+
+Nach einem \LaTeX-Fehler ist es oft notwendig, die erstellten Hilfsdateien zu löschen.
+Klicken Sie hierzu auf \emph{Werkzeuge}→\emph{Aufräumen}.
+
+
+\chapter{\LaTeX-Grundlagen}
+
+Bitte beachten Sie beim Schreiben der Arbeit folgende Konventionen bzw. Grundlagen:
+
+\begin{itemize}
+    \item \textbf{Abschnitte und Zeilenumbrüche} \\
+        Es sollten im Fließtext keine Zeilenumbrüche mit \textbackslash\textbackslash \ erzwungen werden.
+        Schreiben Sie höchsten einen Satz in eine Code-Zeile.
+        Absätze werden im Code mit einer Leerzeile markiert und dann entsprechend der Einstellung von \texttt{parskip} in der Dokumentenklasse gesetzt.
+    \item \textbf{Kursiv/Aufrecht} \\
+        \begin{itemize}
+            \item Variablen und physikalische Größen werden kursiv gesetzt. 
+            \item Einheiten werden immer aufrecht und mit einem halben Leerzeichen Abstand zur Zahl gesetzt. Nutzen Sie \texttt{siunitx}!
+            \item Mathematische Konstanten und Funktionen werden ebenfalls aufrecht gesetzt. Zum Beispiel die Eulersche Zahl e, das imaginäre i und das infinitesimale d.
+                Im Mathematikmodus können Sie dies mit dem Befehl \verb_\mathrm{}_ erreichen. Für die Funktionen stellt \LaTeX \ Befehle bereit, z.B. \verb+\arccos+.
+            \item Integrand und ein $\mathrm{d}x$ sollten ebenfalls durch ein kleines Leerzeichen (\verb+\,+) getrennt werden.
+        \end{itemize}
+        
+
+
+\end{itemize}
+
+\section{Zahlen und Einheiten}
+
+Jede Zahl, jede Einheit und jede Zahl mit Einheit sollte mit Hilfe der in dem Paket \texttt{siunitx} zur Verfügung gestellten Befehle gesetzt werden.
+Grundsätzlich gilt: Einheiten werden aufrecht gesetzt und haben ein kleines Leerzeichen (\verb+\,+) Abstand zu ihrer Zahl. 
+Werden Fließkommazahlen ohne \texttt{siunitx} gesetzt, entsteht ein hässlicher Leerraum zwischen Komma und erster Nachkommastelle, da \LaTeX \ das Komma nicht als Dezimaltrennzeichen, sondern als Satzzeichen interpretiert.
+
+Das Paket wurde mit deutschen Spracheinstellungen (also mit Komma als Dezimaltrennzeichen und $\cdot$ zwischen Zahl und Zehnerpotenz) geladen, sowie mit den Einstellungen, dass die Standardabweichung stets durch $\pm$ abgetrennt wird und Einheiten falls nötig als Brüche ausgegeben werden.
+
+\begin{table}
+    \centering
+    \caption{Beispiele für siunitx}
+    \label{tab:si}
+    \begin{tabular}{l r}
+        \toprule
+        Befehl     &   Ergebnis \\
+        \midrule
+        \verb+\num{1.2345}+ & \num{1.2345} \\
+        \verb+\num{1.2e3}+ & \num{1.2e3} \\
+        \verb_\num{1.2 +- 0.2}_ & \num{1.2+-0.2} \\
+        \verb+\num{10000}+ & \num{10000} \\
+        \verb+\si{\meter\per\second}+ & \si{\meter\per\second} \\
+        \verb+\SI{1.2(1)}{\micro\ampere}+ & \SI{1.2(1)}{\micro\ampere} \\
+        \verb+\SI{1.2\pm0.1e3}{\kilo\gram\per\cubic\meter}+ & \SI{1.2\pm0.1e3}{\kilo\gram\per\cubic\meter} \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+Das Paket stellt unter anderem die drei wichtigen Befehle
+\begin{itemize}
+    \item \texttt{\textbackslash num\{Zahl\}},
+    \item \texttt{\textbackslash si\{Einheit\}} und
+    \item \texttt{\textbackslash SI\{Zahl\}\{Einheit\}}
+\end{itemize}
+zur Verfügung.
+Diese Befehle sollten stets genutzt werden, wenn Zahlen angegeben werden. 
+Sie funktionieren sowohl im Text- als auch im Mathematikmodus.
+In Tabelle \ref{tab:si} sind einige Beispiele aufgetragen. Bitte lesen Sie die Dokumentation \cite{siunitx}.
+
+\section{Das Literaturverzeichnis}
+
+Das Literaturverzeichnis wird mit Hilfe von BibLaTeX und biber erstellt.
+Tragen Sie alle ihre Quellen in die Datei \texttt{references.bib} ein, Sie enthält bereits
+einige Beispiele. Für weitere Informationen lesen Sie bitte die Dokumentation \cite{biblatex}.
+
+Im Text können Sie mit \verb_\cite{kürzel}_ zitieren. Seitenzahlen geben Sie in eckigen Klammern an:
+\verb_\cite[10]{kürzel}_. 
+
+Das Literaturverzeichnis ist so eingestellt, dass es Ihre Quellen in alphabetischer Reihenfolge nach Autoren nummeriert.
+Möchten Sie das Literaturverzeichnis nach der Reihenfolge des Auftauchens im Text sortieren, fügen sie die Paktetoption \texttt{sorting=none} beim Laden
+des BibLaTeX-Pakets hinzu.
+
+Den Zitier- und Bibliographie-Stil geben sie mit der Option \texttt{style=Stil} an. Die beiden gebräuchlisten Stile sind \texttt{numeric} und \texttt{alphabetic}. 
+Bei \texttt{numeric} werden die Quellen durchnummeriert, bei \texttt{alphabetic} wird ein Buchstabenkürzel aus Autor(en)-Name(n) und Jahr verwendet.
+Für weitere Stile konsultieren Sie bitte die Dokumentation: \cite{biblatex}.
+
+Ein Beispiel für das Zitieren eines Buches lautet so \cite{handbook_adhesives},
+wissenschaftliche Artikel hingegen werden so \cite{einstein} zitiert.
+
+Damit das Literaturverzeichnis erstellt wird, ist ein Aufruf von \texttt{biber} nach einem ersten kompilieren mit \texttt{lualatex} nötig.
+Danach muss das Dokument erneut mit \texttt{lualatex} kompiliert werden. 
+
+Zum korrekten Kompilieren des Dokuments siehe Kapitel \ref{make}.

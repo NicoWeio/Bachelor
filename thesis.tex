@@ -1,0 +1,172 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%   Vorlage für eine Abschlussarbeit   %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Erstellt von Maximilian Nöthe, <maximilian.noethe@tu-dortmund.de>
+% ausgelegt für lualatex und Biblatex mit biber
+
+% Kompilieren mit
+% latexmk --lualatex --output-directory=build thesis.tex
+% oder einfach mit:
+% make
+
+\documentclass[
+  tucolor,       % remove for less green,
+  BCOR=12mm,     % 12mm binding corrections, adjust to fit your binding
+  parskip=half,  % new paragraphs start with half line vertical space
+  open=any,      % chapters start on both odd and even pages
+  cleardoublepage=plain,  % no header/footer on blank pages
+]{tudothesis}
+
+
+% Warning, if another latex run is needed
+\usepackage[aux]{rerunfilecheck}
+
+% just list chapters and sections in the toc, not subsections or smaller
+\setcounter{tocdepth}{1}
+
+%------------------------------------------------------------------------------
+%------------------------------ Fonts, Unicode, Language ----------------------
+%------------------------------------------------------------------------------
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}  % -- becomes en-dash etc.
+
+% load english (for abstract) and ngerman language
+% the main language has to come last
+\usepackage[american, ngerman]{babel}
+
+% intelligent quotation marks, language and nesting sensitive
+\usepackage[autostyle]{csquotes}
+
+% microtypographical features, makes the text look nicer on the small scale
+\usepackage{microtype}
+
+%------------------------------------------------------------------------------
+%------------------------ Math Packages and settings --------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+% Enable Unicode-Math and follow the ISO-Standards for typesetting math
+\usepackage[
+  math-style=ISO,
+  bold-style=ISO,
+  sans-style=italic,
+  nabla=upright,
+  partial=upright,
+]{unicode-math}
+\setmathfont{Latin Modern Math}
+
+% nice, small fracs for the text with \sfrac{}{}
+\usepackage{xfrac}
+
+
+%------------------------------------------------------------------------------
+%---------------------------- Numbers and Units -------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage[
+  locale=DE,
+  separate-uncertainty=true,
+  per-mode=symbol-or-fraction,
+]{siunitx}
+\sisetup{math-micro=\text{µ},text-micro=µ}
+
+%------------------------------------------------------------------------------
+%-------------------------------- tables  -------------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{booktabs}       % \toprule, \midrule, \bottomrule, etc
+
+%------------------------------------------------------------------------------
+%-------------------------------- graphics -------------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{graphicx}
+% currently broken
+% \usepackage{grffile}
+
+% allow figures to be placed in the running text by default:
+\usepackage{scrhack}
+\usepackage{float}
+\floatplacement{figure}{htbp}
+\floatplacement{table}{htbp}
+
+% keep figures and tables in the section
+\usepackage[section, below]{placeins}
+
+
+%------------------------------------------------------------------------------
+%---------------------- customize list environments ---------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{enumitem}
+
+%------------------------------------------------------------------------------
+%------------------------------ Bibliographie ---------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage[
+  backend=biber,   % use modern biber backend
+  autolang=hyphen, % load hyphenation rules for if language of bibentry is not
+                   % german, has to be loaded with \setotherlanguages
+                   % in the references.bib use langid={en} for english sources
+]{biblatex}
+\addbibresource{references.bib}  % the bib file to use
+\DefineBibliographyStrings{german}{andothers = {{et\,al\adddot}}}  % replace u.a. with et al.
+
+
+% Last packages, do not change order or insert new packages after these ones
+\usepackage[pdfusetitle, unicode, linkbordercolor=tugreen, citebordercolor=tugreen]{hyperref}
+\usepackage{bookmark}
+\usepackage[shortcuts]{extdash}
+
+%------------------------------------------------------------------------------
+%-------------------------    Angaben zur Arbeit   ----------------------------
+%------------------------------------------------------------------------------
+
+\author{Maximilian Nöthe}
+\title{\LaTeX-Dokumentenklasse und Vorlage für Abschlussarbeiten an der TU Dortmund}
+\date{2014}
+\birthplace{Castrop-Rauxel}
+\chair{Lehrstuhl für Experimentelle Physik V}
+\division{Fakultät Physik}
+\thesisclass{Bachelor of Science}
+\submissiondate{31. September 2015}
+\firstcorrector{Prof.~Dr.~Erstgutachter}
+\secondcorrector{Prof.~Dr.~Zweitgutachter}
+
+% tu logo on top of the titlepage
+\titlehead{\includegraphics[height=1.5cm]{logos/tu-logo.pdf}}
+
+\begin{document}
+\frontmatter
+\input{content/hints.tex}
+\maketitle
+
+% Gutachterseite
+\makecorrectorpage
+
+% hier beginnt der Vorspann, nummeriert in römischen Zahlen
+\input{content/00_abstract.tex}
+\tableofcontents
+
+\mainmatter
+% Hier beginnt der Inhalt mit Seite 1 in arabischen Ziffern
+\input{content/01_einleitung.tex}
+\input{content/02_struktur.tex}
+\input{content/03_grundlagen.tex}
+\input{content/04_figs_tabs.tex}
+
+\appendix
+% Hier beginnt der Anhang, nummeriert in lateinischen Buchstaben
+\input{content/a_anhang.tex}
+
+\backmatter
+\printbibliography
+
+\cleardoublepage
+\input{content/eid_versicherung.tex}
+\end{document}
