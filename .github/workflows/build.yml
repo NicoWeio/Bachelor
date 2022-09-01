@@ -8,24 +8,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
 
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
+      - name: Add conda to system path
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          echo $CONDA/bin >> $GITHUB_PATH
 
-    - name: Install texlive
-      run: |
-        pip install https://github.com/maxnoe/texlive-batch-installation/archive/refs/tags/v0.3.0.tar.gz
-        install_texlive -p $HOME/texlive -t 2021 --collections="-a" --package-file tex-packages.txt --update
-        echo "$HOME/texlive/2021/bin/x86_64-linux" >> $GITHUB_PATH
+      - name: Install texlive
+        run: |
+          pip install https://github.com/maxnoe/texlive-batch-installation/archive/refs/tags/v0.3.0.tar.gz
+          install_texlive -p $HOME/texlive -t 2021 --collections="-a" --package-file tex-packages.txt --update
+          echo "$HOME/texlive/2021/bin/x86_64-linux" >> $GITHUB_PATH
 
-    - name: Build document
-      run: |
-        latexmk
+      - name: Build document
+        run: |
+          latexmk
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: thesis
+          path: build/thesis.pdf
