@@ -1,7 +1,7 @@
 koma-script
 babel
-babel-german
 babel-english
+babel-german
 csquotes
 placeins
 enumitem
@@ -39,4 +39,3 @@ hyperref
 bookmark
 epstopdf-pkg
 grfext
-hyphen-german

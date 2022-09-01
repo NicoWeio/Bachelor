@@ -33,7 +33,7 @@
 
 % load english (for abstract) and ngerman language
 % the main language has to come last
-\usepackage[american, ngerman]{babel}
+\usepackage[ngerman, american]{babel}
 
 % intelligent quotation marks, language and nesting sensitive
 \usepackage[autostyle]{csquotes}
@@ -68,7 +68,7 @@
 %------------------------------------------------------------------------------
 
 \usepackage[
-  locale=DE,
+  locale=US,
   separate-uncertainty=true,
   per-mode=symbol-or-fraction,
 ]{siunitx}
@@ -115,7 +115,7 @@
                    % in the references.bib use langid={en} for english sources
 ]{biblatex}
 \addbibresource{references.bib}  % the bib file to use
-\DefineBibliographyStrings{german}{andothers = {{et\,al\adddot}}}  % replace u.a. with et al.
+\DefineBibliographyStrings{american}{andothers = {{et\,al\adddot}}}  % replace u.a. with et al.
 
 
 % Last packages, do not change order or insert new packages after these ones
