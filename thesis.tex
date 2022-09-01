@@ -124,6 +124,12 @@
 \usepackage[shortcuts]{extdash}
 
 %------------------------------------------------------------------------------
+%------------------------------ "Dev dependencies" ----------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{blindtext}
+
+%------------------------------------------------------------------------------
 %-------------------------    Angaben zur Arbeit   ----------------------------
 %------------------------------------------------------------------------------
 
@@ -149,16 +155,16 @@
 \makecorrectorpage
 
 % hier beginnt der Vorspann, nummeriert in römischen Zahlen
-\input{content/00_abstract.tex}
+\input{content/abstract.tex}
 \tableofcontents
 
 \mainmatter
 % Hier beginnt der Inhalt mit Seite 1 in arabischen Ziffern
-\input{content/01_einleitung.tex}
+\input{content/main.tex}
 
 \appendix
 % Hier beginnt der Anhang, nummeriert in lateinischen Buchstaben
-\input{content/a_anhang.tex}
+\input{content/appendix.tex}
 
 \backmatter
 \printbibliography

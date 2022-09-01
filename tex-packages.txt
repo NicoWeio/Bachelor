@@ -39,3 +39,4 @@ hyperref
 bookmark
 epstopdf-pkg
 grfext
+blindtext
