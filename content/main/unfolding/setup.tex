@@ -1,2 +1,10 @@
 \section{Setup}
-\blindtext
+
+\subsection{Dataset}
+The unmodified dataset consists of about 13 million Monte-Carlo simulated \enquote{upgoing} neutrino events,
+% NOTE: Exact number is 13336413 before any preprocessing.
+with energies ranging from \SI{100}{\giga\electronvolt} to almost \SI{1E8}{\giga\electronvolt}.
+See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
+
+To ensure comparability to \cite{dsea_samuel},
+\num{500000} events are used for training.
