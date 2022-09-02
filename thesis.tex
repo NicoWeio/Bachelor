@@ -124,10 +124,11 @@
 \usepackage[shortcuts]{extdash}
 
 %------------------------------------------------------------------------------
-%------------------------------ "Dev dependencies" ----------------------------
+%------------------------------ Custom dependencies ---------------------------
 %------------------------------------------------------------------------------
 
 \usepackage{blindtext}
+\usepackage[outputdir=build]{minted}
 
 %------------------------------------------------------------------------------
 %-------------------------    Angaben zur Arbeit   ----------------------------
@@ -172,5 +173,8 @@
 \input{content/acknowledgements.tex}
 
 \cleardoublepage
-\input{content/eid_versicherung.tex}
+% TODO ↓
+% \begin{foreignlanguage}{german}
+  \input{content/eid_versicherung.tex}
+% \end{foreignlanguage}
 \end{document}

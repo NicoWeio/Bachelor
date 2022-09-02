@@ -1,0 +1,27 @@
+\section{CORN}
+% Conditional Ordinal Regression for Neural Networks
+\emph{CORN} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) \cite{corn}
+is a novel (?) approach to ordinal classification in neural networks.
+It is based on the ideas of separation into binary subtasks and conditional probabilities.
+
+% TODO: Explain CORN
+
+% TODO: Reduce nesting ↓
+\subsection{Getting probabilities from CORN} % OR: Converting threshold to per-class probabilities
+As explained before,
+CORN returns conditional (?) probabilities based on the binary classification subtasks it uses.
+In contrast,
+the DSEA algorithm is strongly coupled to the idea of per-class probabilities (confidences).
+Therefore, a conversion is necessary.
+Under the assumption that all energies belong to one of the bins,
+it can be shown that the conditional probabilities can be converted to per-class probabilities.
+
+\begin{align}
+  % NOTE: P[y>0] = 1 and P[y>4] = 0 :)
+  P[y=1] &= 1 - P[y>1] \\
+  P[y=2] &= P[y>1] - P[y>2] \\
+  P[y=3] &= P[y>2] - P[y>3] \\
+  P[y=4] &= P[y>3]
+\end{align}
+
+A more detailed explanation is given in \autoref{sec:appendix:corn_probas}.

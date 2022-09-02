@@ -3,8 +3,58 @@
 \subsection{Dataset}
 The unmodified dataset consists of about 13 million Monte-Carlo simulated \enquote{upgoing} neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
-with energies ranging from \SI{100}{\giga\electronvolt} to almost \SI{1E8}{\giga\electronvolt}.
+with energies ranging from \SI{100}{\giga\electronvolt} to almost \SI{E8}{\giga\electronvolt}.
+% TODO: Explain “upgoing”.
 See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
+% TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
 
 To ensure comparability to \cite{dsea_samuel},
 \num{500000} events are used for training.
+
+
+\subsection{Feature selection}
+The \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm is employed to select the 12 most relevant features.
+This has already been done in \cite{dsea_jan}.
+A complete list of features is provided in \autoref{tab:features}.
+
+
+\subsection{Transformation}
+In accordance with \cite{dsea_jan},
+the features are transformed using the \emph{Yeo-Johnson} transformation.
+% https://en.wikipedia.org/wiki/Power_transform#Yeo–Johnson_transformation
+% TODO: Verify positive effect on performance
+% TODO: Add citation & formula
+
+Furthermore, all features are scaled by their standard deviation.
+
+
+\subsection{Energy cut}
+% TODO: This will change once Under-/Overflow bins are implemented
+
+\subsection{Discretization}
+The target variable \texttt{MCPrimary.energy} is discretized into \num{10} logarithmically spaced bins
+(in accordance with \cite{dsea_samuel}).
+
+\subsection{Neural network}
+
+\begin{table}
+  \centering
+  \caption{
+    Shape and activation functions of the neural network.
+    The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
+  }
+  \label{tab:nn_shape}
+  \begin{tabular}{S[table-format=4.0] c}
+    \toprule
+    {neurons} & {activation function} \\
+    \midrule
+    0   & ? \\ % TODO
+    120 & leaky ReLU \\
+    240 & leaky ReLU \\
+    120 & leaky ReLU \\
+    12  & leaky ReLU \\
+    10  & ? \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
