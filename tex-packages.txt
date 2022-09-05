@@ -9,11 +9,15 @@ blindtext
 bookmark
 booktabs
 caption
+catchfile
 csquotes
 enumitem
 epstopdf-pkg
+fancyvrb
 filehook
 float
+framed
+fvextra
 grfext
 hyperref
 infwarerr
@@ -22,6 +26,7 @@ kvoptions
 kvsetkeys
 latex-bin
 latexmk
+lineno
 logreq
 ltxcmds
 lualatex-math
@@ -29,6 +34,7 @@ luatex
 luatexbase
 mathtools
 microtype
+minted
 ncctools
 pdftexcmds
 placeins
@@ -37,6 +43,8 @@ siunitx
 stringenc
 tools
 unicode-math
+upquote
 xcolor
+xkeyval
 xpatch
 xstring
