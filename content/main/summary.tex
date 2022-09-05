@@ -1,2 +1,15 @@
 \chapter{Summary and outlook}
-\blindtext
+
+There is still a multitude of ways in which DSEA and the application thereof could be improved.
+\begin{itemize}
+  \item Regularization / smoothing
+  \item Optimization of other hyperparameters, such as the shape of the neural network
+\end{itemize}
+
+A benefit of neural networks is their good performance on \enquote{raw} data.
+However,
+the present work has relied on a preprocessing step % aka feature engineering
+  – the computation of features like angles and cone fits –
+that is not necessarily required.
+Given an adequate neural network architecture and sufficient computing power,
+it might be possible to train a neural network directly on the raw data.

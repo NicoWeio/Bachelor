@@ -13,17 +13,45 @@ To ensure comparability to \cite{dsea_samuel},
 
 
 \subsection{Feature selection}
-The \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm is employed to select the 12 most relevant features.
+The \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm \cite{mrmr} is employed to select the 12 most relevant features.
 This has already been done in \cite{dsea_jan}.
-A complete list of features is provided in \autoref{tab:features}.
+A list of said features is provided in \autoref{tab:features_best}.
+
+\begin{table}
+    \centering
+    \caption{
+      Best features according to the \emph{mRMR} algorithm \cite{dsea_jan},
+      ordered by …. % TODO
+    }
+    \label{tab:features_best}
+    \begin{tabular}{l}
+        \toprule
+        % \midrule
+        % NOTE: MCPrimary.energy is excluded
+        \texttt{SplineMPEDirectHitsICE.n\_dir\_doms} \\
+        \texttt{VariousVariables.Cone\_Angle} \\
+        \texttt{SplineMPECramerRaoParams.variance\_theta} \\
+        \texttt{Borderness.Q\_ratio\_in\_border} \\
+        \texttt{SplineMPETruncatedEnergy\_SPICEMie\_BINS\_MuEres.value} \\
+        \texttt{SplineMPETruncatedEnergy\_SPICEMie\_DOMS\_Neutrino.energy} \\
+        \texttt{SplineMPEDirectHitsICB.n\_late\_doms} \\
+        \texttt{Dustyness.n\_doms\_in\_dust} \\
+        \texttt{LineFitGeoSplit1Params.n\_hits} \\
+        \texttt{SplineMPEDirectHitsICC.dir\_track\_hit\_distribution\_smoothness} \\
+        \texttt{SPEFit2GeoSplit1BayesianFitParams.logl} \\
+        \texttt{SplineMPECharacteristicsIC.avg\_dom\_dist\_q\_tot\_dom} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 
 \subsection{Transformation}
 In accordance with \cite{dsea_jan},
-the features are transformed using the \emph{Yeo-Johnson} transformation.
+the features are transformed using the \emph{Yeo-Johnson} transformation \cite{yeo_johnson},
+a power transformation which reduces skewness.
 % https://en.wikipedia.org/wiki/Power_transform#Yeo–Johnson_transformation
 % TODO: Verify positive effect on performance
-% TODO: Add citation & formula
+% TODO: Add formula
 
 Furthermore, all features are scaled by their standard deviation.
 
@@ -31,11 +59,32 @@ Furthermore, all features are scaled by their standard deviation.
 \subsection{Energy cut}
 % TODO: This will change once Under-/Overflow bins are implemented
 
+
 \subsection{Discretization}
+% As described in …, DSEA requires the energies to be discretized.
 The target variable \texttt{MCPrimary.energy} is discretized into \num{10} logarithmically spaced bins
 (in accordance with \cite{dsea_samuel}).
 
+% TODO: Under-/Overflow bins
+
+
 \subsection{Neural network}
+% The neural network consists of \num{3} fully connected layers.
+The first layer has … neurons,
+  corresponding to the number of features,
+while the last layer has … neurons,
+  corresponding to the number of binary classification subtasks,
+    i.e. the number of bins minus one.
+
+The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
+\begin{itemize}
+  \item Leaky ReLU activation function
+  \item Fully connected layers
+  \item Adam optimizer
+\end{itemize}
+
+PyTorch \cite{pytorch} is used to implement the neural network.
+Additionally, PyTorch Lightning \cite{pytorch_lightning} and TorchMetrics \cite{torch_metrics} are used.
 
 \begin{table}
   \centering
@@ -58,3 +107,13 @@ The target variable \texttt{MCPrimary.energy} is discretized into \num{10} logar
   \end{tabular}
 \end{table}
 
+
+In order to interface with the reference implementation of DSEA \cite{dsea_python},
+  which expects a \emph{scikit-learn} \cite{sklearn} classifier,
+a wrapper class is implemented,
+  which exposes the needed methods
+  \texttt{TODO}, \texttt{TODO}, and \texttt{TODO}.
+
+The neural network keeps its weights between DSEA iterations.
+As demonstrated in \cite{dsea_samuel}, % (\texttt{one\_model})
+this has no significant effect on the performance.
