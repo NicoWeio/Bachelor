@@ -28,7 +28,7 @@ jobs:
 
       - name: Build document
         run: |
-          latexmk
+          make
 
       - name: Upload PDF
         uses: actions/upload-artifact@v3
