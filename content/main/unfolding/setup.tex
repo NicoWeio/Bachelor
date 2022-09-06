@@ -56,8 +56,8 @@ a power transformation which reduces skewness.
 Furthermore, all features are scaled by their standard deviation.
 
 
-\subsection{Energy cut}
 % TODO: This will change once Under-/Overflow bins are implemented
+% \subsection{Energy cut}
 
 
 \subsection{Discretization}
@@ -65,7 +65,16 @@ Furthermore, all features are scaled by their standard deviation.
 The target variable \texttt{MCPrimary.energy} is discretized into \num{10} logarithmically spaced bins
 (in accordance with \cite{dsea_samuel}).
 
-% TODO: Under-/Overflow bins
+In order to allow for the application to real data,
+under- and overflow bins are added.
+
+The underflow bin holds events with energies below \SI{E2.1}{\giga\electronvolt},
+because the dataset does not contain any events with very low energies below \SI{E2}{\giga\electronvolt}.
+The overflow bin holds events with energies above \SI{E5}{\giga\electronvolt}
+  (consistent with \cite{dsea_samuel}),
+resulting in an event count that is slightly smaller than in the previous bin.
+
+A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:discretized:histogram}.
 
 
 \subsection{Neural network}
