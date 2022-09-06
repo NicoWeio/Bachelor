@@ -16,12 +16,15 @@ Therefore, a conversion is necessary.
 Under the assumption that all energies belong to one of the bins,
 it can be shown that the conditional probabilities can be converted to per-class probabilities.
 
+As an example, given four classes $0, 1, 2, 3$,
+the assuption can be written as $y \in \{0, 1, 2, 3\}$.
+The conditional probabilities are then given by
 \begin{align*}
-  % NOTE: P[y>0] = 1 and P[y>4] = 0 :)
-  P[y=1] &= 1 - P[y>1] \\
+  % NOTE: P[y>(-1)] = 1 and P[y>3] = 0 :)
+  P[y=0] &= 1 - P[y>0] \\
+  P[y=1] &= P[y>1] - P[y>1] \\
   P[y=2] &= P[y>1] - P[y>2] \\
-  P[y=3] &= P[y>2] - P[y>3] \\
-  P[y=4] &= P[y>3]
+  P[y=3] &= P[y>2]
 \end{align*}
 
 A more detailed explanation is given in \autoref{sec:appendix:corn_probas}.

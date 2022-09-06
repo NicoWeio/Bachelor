@@ -46,6 +46,7 @@ A list of said features is provided in \autoref{tab:features_best}.
 
 
 \subsection{Transformation}
+It has been shown that none of the selected features are normally distributed \cite{dsea_jan}.
 In accordance with \cite{dsea_jan},
 the features are transformed using the \emph{Yeo-Johnson} transformation \cite{yeo_johnson},
 a power transformation which reduces skewness.
@@ -64,24 +65,27 @@ Furthermore, all features are scaled by their standard deviation.
 % As described in …, DSEA requires the energies to be discretized.
 The target variable \texttt{MCPrimary.energy} is discretized into \num{10} logarithmically spaced bins
 (in accordance with \cite{dsea_samuel}).
-
+%
 In order to allow for the application to real data,
 under- and overflow bins are added.
-
-The underflow bin holds events with energies below \SI{E2.1}{\giga\electronvolt},
+%
+The overflow bin is chosen so that it contains a similar number of events as the previous bin,
+ensuring sufficient statistics.
+An lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
+%
+The underflow bin is assigned the energy range \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$,
+% \qtyrange{E2}{E2.1}{\giga\electronvolt}.
 because the dataset does not contain any events with very low energies below \SI{E2}{\giga\electronvolt}.
-The overflow bin holds events with energies above \SI{E5}{\giga\electronvolt}
-  (consistent with \cite{dsea_samuel}),
-resulting in an event count that is slightly smaller than in the previous bin.
+Again, the event count in the underflow bin is chosen to be similar to the neighboring bin.
 
 A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:discretized:histogram}.
 
 
 \subsection{Neural network}
 % The neural network consists of \num{3} fully connected layers.
-The first layer has … neurons,
+The first layer has \num{12} neurons,
   corresponding to the number of features,
-while the last layer has … neurons,
+while the last layer has \num{9} neurons,
   corresponding to the number of binary classification subtasks,
     i.e. the number of bins minus one.
 
@@ -102,26 +106,44 @@ Additionally, PyTorch Lightning \cite{pytorch_lightning} and TorchMetrics \cite{
     The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
   }
   \label{tab:nn_shape}
-  \begin{tabular}{S[table-format=4.0] c}
+  \begin{tabular}{S[table-format=3.0] c}
     \toprule
     {neurons} & {activation function} \\
     \midrule
-    0   & ? \\ % TODO
+    12  & – \\
     120 & leaky ReLU \\
     240 & leaky ReLU \\
     120 & leaky ReLU \\
     12  & leaky ReLU \\
-    10  & ? \\
+    9   & leaky ReLU \\
     \bottomrule
   \end{tabular}
 \end{table}
 
+The loss function is provided by CORN.
+Its definition is shown in \autoref{eqn:corn:loss}.
+\begin{equation}
+  \label{eqn:corn:loss}
+  L(\mathbf{X}, \mathbf{y}) =
+  - \frac{1}{\sum_{j=1}^{K-1} |S_j|}
+  \sum_{j=1}^{K-1}
+  \sum_{i=1}^{|S_j|}
+  \left[
+    \log(f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} > r_j\right\}
+    +
+    \log(1 - f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} \leq r_j\right\}
+  \right]
+\end{equation}
 
-In order to interface with the reference implementation of DSEA \cite{dsea_python},
+\emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
+% It combines the benefits of both AdaGrad and RMSProp.
+
+In order to interface with the reference implementation of DSEA \cite{dsea_code},
   which expects a \emph{scikit-learn} \cite{sklearn} classifier,
 a wrapper class is implemented,
-  which exposes the needed methods
-  \texttt{TODO}, \texttt{TODO}, and \texttt{TODO}.
+  which exposes a constructor as well as the needed methods
+  \mintinline{python}{fit(X, y, sample_weight)} and
+  \mintinline{python}{predict_proba(X)}.
 
 The neural network keeps its weights between DSEA iterations.
 As demonstrated in \cite{dsea_samuel}, % (\texttt{one\_model})

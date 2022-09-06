@@ -3,7 +3,7 @@ In order to find the optimal hyperparameters,
 multiple experiments are run,
 exploring different hyperparameters.
 
-The hyperparameters which are expected to be mostly independent of others are checked first.
+The hyperparameters which are expected to be mostly independent from others are checked first.
 Then, the remaining hyperparameters are checked in a grid search. %TODO: not yet
 
 In each case, 10-fold cross-validation was utilized to reduce the variance of single data points.
@@ -13,8 +13,8 @@ In each case, 10-fold cross-validation was utilized to reduce the variance of si
 The \emph{batch size} determines the number of events used for each training step.
 While larger batch sizes increase the speed of training
 on optimized hardware,
-the quality of the local minima can be negatively affected.
-% TODO: citation needed
+the performance of the model can be negatively affected \cite{batchsize_kandel}.
+% NOTE: not-so-relevant citation
 
 % TODO: RUN THIS EXPERIMENT
 
