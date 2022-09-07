@@ -8,8 +8,10 @@ with energies ranging from \SI{100}{\giga\electronvolt} to almost \SI{E8}{\giga\
 See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
 
-To ensure comparability to \cite{dsea_samuel},
+To ensure comparability to the works of \citeauthor{dsea_samuel} as well as \citeauthor{dsea_jan},
 \num{500000} events are used for training.
+% This also allows for more thorough hyperparameter optimization,
+% which would otherwise be limited by the computational resources available as well as the timeframe of this thesis.
 
 
 \subsection{Feature selection}
@@ -48,17 +50,13 @@ A list of said features is provided in \autoref{tab:features_best}.
 \subsection{Transformation}
 It has been shown that none of the selected features are normally distributed \cite{dsea_jan}.
 In accordance with \cite{dsea_jan},
-the features are transformed using the \emph{Yeo-Johnson} transformation \cite{yeo_johnson},
+the features are therefore transformed using the \emph{Yeo-Johnson} transformation \cite{yeo_johnson},
 a power transformation which reduces skewness.
 % https://en.wikipedia.org/wiki/Power_transform#Yeo–Johnson_transformation
 % TODO: Verify positive effect on performance
 % TODO: Add formula
 
 Furthermore, all features are scaled by their standard deviation.
-
-
-% TODO: This will change once Under-/Overflow bins are implemented
-% \subsection{Energy cut}
 
 
 \subsection{Discretization}
@@ -71,7 +69,7 @@ under- and overflow bins are added.
 %
 The overflow bin is chosen so that it contains a similar number of events as the previous bin,
 ensuring sufficient statistics.
-An lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
+A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
 The underflow bin is assigned the energy range \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$,
 % \qtyrange{E2}{E2.1}{\giga\electronvolt}.
@@ -89,12 +87,22 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 
 \subsection{Neural network}
-% The neural network consists of \num{3} fully connected layers.
-The first layer has \num{12} neurons,
+\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their CORN algorithm
+as well as several examples demonstrating its application on different datasets.
+% TODO: Reference their tabular data / cement example?
+
+This work makes use of said implementation of CORN
+and hence the PyTorch framework.
+Additionally, PyTorch Lightning \cite{pytorch_lightning} and TorchMetrics \cite{torch_metrics} are used.
+
+The neural network consists of \num{4} fully connected hidden layers.
+The input layer has \num{12} neurons,
   corresponding to the number of features,
-while the last layer has \num{9} neurons,
+while the output layer has \num{9} neurons,
   corresponding to the number of binary classification subtasks,
     i.e. the number of bins minus one.
+% CORN in the output layer…
+% In total, the neural network has \num{TODO} neurons.
 
 The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
 \begin{itemize}
@@ -102,9 +110,6 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
   \item Fully connected layers
   \item Adam optimizer
 \end{itemize}
-
-PyTorch \cite{pytorch} is used to implement the neural network.
-Additionally, PyTorch Lightning \cite{pytorch_lightning} and TorchMetrics \cite{torch_metrics} are used.
 
 \begin{table}
   \centering
@@ -145,13 +150,16 @@ Its definition is shown in \autoref{eqn:corn:loss}.
 \emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
 
+The neural network keeps its weights between DSEA iterations.
+As demonstrated in \cite{dsea_samuel}, % (\texttt{one\_model})
+this has no significant effect on the performance.
+
+
+\subsection{DSEA}
+For this work, the Python implementation of DSEA \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
+It expects a \emph{scikit-learn} \cite{sklearn} classifier,
 In order to interface with the reference implementation of DSEA \cite{dsea_code},
-  which expects a \emph{scikit-learn} \cite{sklearn} classifier,
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods
   \mintinline{python}{fit(X, y, sample_weight)} and
   \mintinline{python}{predict_proba(X)}.
-
-The neural network keeps its weights between DSEA iterations.
-As demonstrated in \cite{dsea_samuel}, % (\texttt{one\_model})
-this has no significant effect on the performance.
