@@ -20,6 +20,13 @@ jobs:
           # $CONDA is an environment variable pointing to the root of the miniconda directory
           echo $CONDA/bin >> $GITHUB_PATH
 
+      - name: Cache texlive installation
+        id: texlive-cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/texlive # $HOME/texlive
+          key: ${{ hashFiles('tex-packages.txt') }}
+
       - name: Install texlive
         run: |
           pip install https://github.com/maxnoe/texlive-batch-installation/archive/refs/tags/v0.3.0.tar.gz
