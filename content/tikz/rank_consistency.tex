@@ -1,0 +1,11 @@
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+\begin{document}
+\begin{tikzpicture}
+  \foreach \i in {1,...,4}
+  {
+    \draw[green, line width=5] (0,-\i) -- ({(4-\i+2)/2},-\i);
+    \node at (-1,-\i) {$P(y > \i)$};
+  }
+\end{tikzpicture}
+\end{document}
