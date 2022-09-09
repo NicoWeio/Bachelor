@@ -1,4 +1,8 @@
 build/
 # *.pdf
 
+*.aux
+*.log
+content/tikz/*.pdf
+
 TODO.md

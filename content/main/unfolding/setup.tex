@@ -1,17 +1,23 @@
 \section{Setup}
 
 \subsection{Dataset}
-The unmodified dataset consists of about 13 million Monte-Carlo simulated \enquote{upgoing} neutrino events,
+The unmodified dataset \cite{icecube_mc} consists of about 13 million Monte-Carlo simulated \enquote{upgoing} neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
-with energies ranging from \SI{100}{\giga\electronvolt} to almost \SI{E8}{\giga\electronvolt}.
+with energies ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electronvolt}.
 % TODO: Explain “upgoing”.
+The energies are stored under the key \texttt{MCPrimary.energy}. % TODO: Denglisch?
 See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
 
 To ensure comparability to the works of \citeauthor{dsea_samuel} as well as \citeauthor{dsea_jan},
-\num{500000} events are used for training.
-% This also allows for more thorough hyperparameter optimization,
-% which would otherwise be limited by the computational resources available as well as the timeframe of this thesis.
+only the first \num{500000} events of the dataset are considered.
+This also allows for more thorough hyperparameter optimization,
+which would otherwise be limited by the computational resources available as well as the timeframe of this thesis.
+
+Unless otherwise stated,
+\SI{90}{\percent} of the data is used for training,
+while the remaining \SI{10}{\percent} is used for evaluation.
+% No separate validation set is used.
 
 
 \subsection{Feature selection}
@@ -22,8 +28,7 @@ A list of said features is provided in \autoref{tab:features_best}.
 \begin{table}
     \centering
     \caption{
-      Best features according to the \emph{mRMR} algorithm \cite{dsea_jan},
-      ordered by …. % TODO
+      Names of the 12 best features according to the \emph{mRMR} algorithm \cite{dsea_jan}.
     }
     \label{tab:features_best}
     \begin{tabular}{l}
@@ -56,7 +61,7 @@ a power transformation which reduces skewness.
 % TODO: Verify positive effect on performance
 % TODO: Add formula
 
-Furthermore, all features are scaled by their standard deviation.
+Additionally, zero-mean, unit-variance normalization is applied to all features.
 
 
 \subsection{Discretization}
@@ -151,13 +156,12 @@ Its definition is shown in \autoref{eqn:corn:loss}.
 % It combines the benefits of both AdaGrad and RMSProp.
 
 The neural network keeps its weights between DSEA iterations.
-As demonstrated in \cite{dsea_samuel}, % (\texttt{one\_model})
-this has no significant effect on the performance.
+This was found to have no significant effect on the performance \cite{dsea_samuel}. % (\texttt{one\_model})
 
 
 \subsection{DSEA}
 For this work, the Python implementation of DSEA \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
-It expects a \emph{scikit-learn} \cite{sklearn} classifier,
+It expects a \emph{scikit-learn} \cite{sklearn} classifier.
 In order to interface with the reference implementation of DSEA \cite{dsea_code},
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods

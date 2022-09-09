@@ -1,12 +1,65 @@
 \section{CORN}
 % Conditional Ordinal Regression for Neural Networks
 \emph{CORN} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) \cite{corn}
-is a novel (?) framework for ordinal classification in neural networks.
-It is based on the ideas of separation into binary subtasks and conditional probabilities.
+is a framework for ordinal classification in neural networks.
+It is based on the ideas of binary subtasks and conditional probabilities
+and improves upon its predecessor \emph{CORAL} \cite{coral}.
 
-% TODO: Explain CORN
+% ORIG: Instead, CORN uses a new training procedure with conditional training subsets that ensures rank consistency through applying the chain rule of probability.
 
-% TODO: Reduce nesting ↓
+% TODO: This section heavily borrows from the CORN paper. Is that okay?
+
+Let $D = \left\{ \mathbf{x}^{[i]}, y^{[i]} \right\}_{i=1}^N$ denote a dataset of $N$ training examples,
+where $\mathbf{x}^{[i]}$ is the $i$-th example and $y^{[i]}$ is its class label.
+Since the class labels are ordinal, they are referred to as \emph{rank} labels.
+Each rank label is an element of the set of all ranks $\{r_1, r_2, \ldots, r_K\}$,
+  where
+  $K$ is the number of ranks
+  and $r_1 < r_2 < \ldots < r_K$.
+
+% TODO: re-use quotation on the "extended binary classification framework" from CORN paper
+The rank labels $y^{[i]}$ are used to create a set of binary subtasks,
+so that for every rank label $y^{[i]}$,
+$K$ subtasks are created.
+  % which are denoted by $y^{[i]}_k$.
+Each subtask $y^{[i]}_k \in \{0, 1\}$ is a binary classification task,
+  where
+    $y^{[i]}_k = 1$ if $y^{[i]} > r_k$ (in words: {$y^{[i]}$ exceeds rank $r_k$})
+    and $y^{[i]}_k = 0$ otherwise.
+
+Given a test example $\mathbf{x}^{[i]}$
+and probability predictions $f_k(\mathbf{x}^{[i]}) \in [0,1]$ for each subtask $k$,
+the \emph{rank index} $q \in \{1, 2, \ldots, K\}$ is computed as
+\begin{equation}
+  q = \sum_{k=1}^{K-1} \mathbb{1}\left\{f_k(\mathbf{x}^{[i]}) > 0.5\right\} \ .
+\end{equation}
+The predicted rank label is then obtained via
+$h(\mathbf{x}^{[i]}) = r_q$,
+where $h: \mathcal{X} \to \mathcal{Y}$ is the mapping from input space $\mathcal{X}$ to output space $\mathcal{Y}$,
+which minimizes the CORN loss function.
+
+
+\emph{Rank monotony} describes a desirable property of the rank labels,
+whereby the probability of exceeding a rank $r_k$ is always higher than or equal to the probability of exceeding a rank $r_{k+1}$.
+% a rank label being exceeded by a higher rank label is always higher than the probability of being exceeded by a lower rank label.
+%
+While not strictly necessary for the computation of rank indices $q$ (or ranks $r_q$),
+it is intuitively clear that imposing such a restriction could improve the quality of the predictions.
+
+Rank monotony
+  $f_1(\mathbf{x}^{[i]}) \leq f_2(\mathbf{x}^{[i]}) \leq \ldots \leq f_{K-1}(\mathbf{x}^{[i]})$
+is ensured by
+applying the chain rule of probability
+to the conditional probabilities
+\begin{equation}
+  f_k(\mathbf{x}^{[i]}) = \hat{P}\left( y^{[i]} > r_k \mid y^{[i]} > r_{k-1} \right) \ .
+\end{equation}
+
+
+
+% TODO: Add a TikZ visualization similar to Fig. 1 in the CORN paper | see content/tikz/rank_consistency.tex
+
+
 \subsection{Getting probabilities from CORN} % OR: Converting threshold to per-class probabilities
 As explained before,
 CORN returns conditional (?) probabilities based on the binary classification subtasks it uses.
@@ -16,8 +69,8 @@ Therefore, a conversion is necessary.
 Under the assumption that all energies belong to one of the bins,
 it can be shown that the conditional probabilities can be converted to per-class probabilities.
 
-As an example, given four classes $0, 1, 2, 3$,
-the assuption can be written as $y \in \{0, 1, 2, 3\}$.
+As an example, given four ranks $0, 1, 2, 3$,
+the assumption can be written as $y \in \{0, 1, 2, 3\}$.
 The conditional probabilities are then given by
 \begin{align*}
   % NOTE: P[y>(-1)] = 1 and P[y>3] = 0 :)
