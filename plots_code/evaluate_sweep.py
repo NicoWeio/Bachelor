@@ -1,11 +1,17 @@
+import sys
+from pathlib import Path
+
 import matplotlib.pyplot as plt
+from matplotlib import rc_context
 import pandas as pd
 import seaborn as sns
-
 import wandb
 
-api = wandb.Api()
+PLOTS_DIR = Path(__file__).parent / "../content/plots/hyperparam/"
+# if len(sys.argv) > 1:
+#     PLOTS_DIR /= sys.argv[1]
 
+api = wandb.Api()
 sweep_id = 'zftou44c'
 sweep = api.sweep(f"nicoweio/dsea-corn/{sweep_id}")
 
@@ -14,11 +20,6 @@ runs = list(filter(lambda run: run.state == 'finished', sweep.runs))
 
 print(f"{len(sweep.runs)} total runs, {len(runs)} finished")
 
-# █ v1
-# df = pd.DataFrame([dict(run.summary) | dict(run.config) for run in runs])
-# █ END v1
-
-# █ v2
 # Each run has multiple values for metrics like wd_all
 # Create a new dataframe with one row per *metric*
 # The columns shall get the suffix '_single', e.g. wd_all_single
@@ -38,46 +39,58 @@ for run in runs:
         )
 
 df_single = pd.DataFrame(data_list)
-# █ END v2
 
 
-CONFIG = {
-    'batch_size': ['boxplot', ],
-    'epsilon': ['scatterplot', ],
-    'learning_rate': ['scatterplot', ],
-    'num_epochs': ['boxplot', ],
-    'J_factor': ['boxplot', ],
+PLOTS = [
+    {
+        'configvar': 'batch_size',
+        'metricvar': 'wd',
+        'kind': 'boxplot',
+        'style': 'full',
+    },
+    {
+        'configvar': 'J_factor',
+        'metricvar': 'wd',
+        'kind': 'boxplot',
+        'style': 'full',
+    },
+    {
+        'configvar': 'epsilon',
+        'metricvar': 'wd',
+        'kind': 'scatterplot',
+        'style': 'full',
+    },
+]
+
+STYLES = {
+    'full': {
+        'figure.figsize': (5.45, 3.64),  # (ratio 3:2)
+        'legend.fontsize': 'medium',
+    },
+    'half': {
+        'figure.figsize': (5.45/2, 3.84),
+        'legend.fontsize': 'small',
+    },
+    'small': {
+        'figure.figsize': (5.45/2, 3.64/2),
+        'legend.fontsize': 'small',
+    },
 }
-METRICVAR = 'wd'
 
-for configvar in CONFIG:
-    for plot_kind in CONFIG[configvar]:
-        # metrics = []
-        # hyperparams = []
-        # for run in runs:
-        #     for val in run.summary[f"test/{METRICVAR}_all"]:
-        #         metrics.append(val)
-        #         hyperparams.append(run.config[configvar])
-
-        # # sort by hyperparam
-        # hyperparams, metrics = zip(*sorted(zip(hyperparams, metrics)))
-        # hyperparams = list(hyperparams)
-        # metrics = list(metrics)
-
-        # sort by hyperparam and convert back to list
-        # metrics, hyperparams = list(zip(*sorted(zip(metrics, hyperparams))))
-
-        if plot_kind == 'boxplot':
-            sns.boxplot(data=df_single, y=f'test/{METRICVAR}_single', x=configvar)
-            # sns.boxplot(x=hyperparams, y=metrics)
-        elif plot_kind == 'scatterplot':
-            sns.scatterplot(data=df_single, y=f'test/{METRICVAR}_single', x=configvar, s=100, marker='s')
+for plot in PLOTS:
+    with rc_context(STYLES[plot['style']]):
+        plt.figure()  # Important! Otherwise, the style is not updated.
+        if plot['kind'] == 'boxplot':
+            sns.boxplot(data=df_single, y=f"test/{plot['metricvar']}_single", x=plot['configvar'])
+        elif plot['kind'] == 'scatterplot':
+            sns.scatterplot(data=df_single, y=f"test/{plot['metricvar']}_single", x=plot['configvar'], s=100, marker='s')
 
         sns.despine()
-        # plt.title(f"{configvar} vs {METRICVAR}")
-        plt.xlabel(configvar)
-        plt.ylabel(METRICVAR)
-        plt.grid()
+        # plt.title(f"{plot['configvar']} vs {plot['metricvar']}")
+        plt.xlabel(plot['configvar'])
+        plt.ylabel(plot['metricvar'])
+        plt.grid(zorder=0, axis=('y' if plot['kind'] == 'boxplot' else 'both'))
         plt.tight_layout()
-        plt.savefig(f"../content/plots/hyperparam/{configvar}_vs_{METRICVAR}_{plot_kind}.pdf")
+        filename = f"{plot['configvar']}_vs_{plot['metricvar']}_{plot['kind']}_{plot['style']}.pdf"
+        plt.savefig(PLOTS_DIR / filename)
         plt.clf()
