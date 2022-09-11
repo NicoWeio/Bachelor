@@ -12,7 +12,7 @@ See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 To ensure comparability to the works of \citeauthor{dsea_samuel} as well as \citeauthor{dsea_jan},
 only the first \num{500000} events of the dataset are considered.
 This also allows for more thorough hyperparameter optimization,
-which would otherwise be limited by the computational resources available as well as the timeframe of this thesis.
+which would otherwise be limited by the available computational resources as well as the timeframe of this thesis.
 
 Unless otherwise stated,
 \SI{90}{\percent} of the data is used for training,
@@ -92,13 +92,17 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 
 \subsection{Neural network}
-\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their CORN algorithm
+\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their CORN method
 as well as several examples demonstrating its application on different datasets.
 % TODO: Reference their tabular data / cement example?
 
 This work makes use of said implementation of CORN
 and hence the PyTorch framework.
-Additionally, PyTorch Lightning \cite{pytorch_lightning} and TorchMetrics \cite{torch_metrics} are used.
+Additionally,
+  PyTorch Lightning \cite{pytorch_lightning},
+  TorchMetrics \cite{torch_metrics}, % Oxford comma
+  and scikit-learn \cite{sklearn}
+  are used.
 
 The neural network consists of \num{4} fully connected hidden layers.
 The input layer has \num{12} neurons,

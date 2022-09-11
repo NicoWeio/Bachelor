@@ -11,6 +11,17 @@ Then, the remaining hyperparameters are checked in a grid search. %TODO: not yet
 
 In each case, 10-fold cross-validation is utilized to reduce the variance of single data points.
 
+% ↓ see pp. 46-48 of dsea_mirko
+The adaptive step size method of \dseaplus is used,
+because it performs well with all reasonable convergence thresholds.
+It eliminates the need to optimize for step size related hyperparameters,
+  such as
+    exponential vs. multiplicative decay
+    or the initial step size,
+  apart from the $J$-factor,
+    which only has a minor effect on the results,
+and provides accurate results after a few iterations \cite{dsea_mirko}.
+
 
 \subsection{Cross validation}
 Cross validation is a method to evaluate the performance of a model on unseen data

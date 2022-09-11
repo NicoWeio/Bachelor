@@ -9,7 +9,7 @@ The model is then evaluated on the unmodified dataset.
 % TODO: Make clear that train/test data don't overlap
 % TODO: This is the opposite of what I did earlier. But it matches what Samuel does. Both should be fine.
 
-The results are shown in \autoref{fig:TODO}.
+The results are shown in \autoref{fig:bias_comparison}.
 As can be seen,
 only a small bias remains:
 The model adapts to the unseen distribution of the test data.
@@ -18,3 +18,13 @@ The model adapts to the unseen distribution of the test data.
 In the work by \citeauthor{dsea_samuel},
 relative deviations of more than \SI{1500}{\percent} are observed.
 % Aber er schiebt's auf die geringe Accuracy…
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{content/plots/halftime/fixweighting_spectra_comparison.jpg}
+    \caption{TODO.}
+    \label{fig:bias_comparison}
+\end{figure}
+
+% TODO: Plot example of a biased reconstruction?

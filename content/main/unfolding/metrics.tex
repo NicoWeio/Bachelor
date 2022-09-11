@@ -1,0 +1,69 @@
+\section{Performance metrics}
+\label{sec:metrics} %TODO: check where this is used
+\todo{This section is completely AI-generated. Just a fancy placeholder.}
+
+In order to evaluate the performance of the models
+and to compare them to prior works,
+several metrics are used.
+
+
+\subsection{Accuracy}
+% TODO: Do we even use this?
+The \emph{accuracy} is the fraction of correctly classified events to the total number of events.
+It is a common metric for classification tasks,
+but it is not ideal for ordinal classification,
+  since it does not take the ordering of the classes into account.
+For example,
+the metric is the same for
+a classification that is wrong by one rank
+and a classification that is wrong by two ranks.
+%
+Nonetheless,
+it gives an indication of the overall performance of the model.
+
+
+\subsection{Mean absolute error}
+The \emph{mean absolute error} (\textsc{Mae}) is a metric that is commonly used for regression tasks. % TODO
+It is defined as
+\begin{equation}
+  \text{\textsc{Mae}} = \frac{1}{N} \sum_{i=1}^N \left| y^{[i]} - \hat{y}^{[i]} \right|
+\end{equation}
+where $N$ is the number of events,
+$y^{[i]}$ is the true value of the $i$th event,
+and $\hat{y}^{[i]}$ is the predicted value of the $i$th event. % Oxford comma
+
+% Because of its simple definition,
+% it can be easily understood and interpreted.
+
+Since the absolute error is used,
+overestimation and underestimation are treated equally
+and do not cancel each other out.
+In contrast to RMSE… % TODO
+
+
+\subsection{Wasserstein distance}
+The two previous metrics were based on single predictions for each event.
+They disregard both
+  the confidences of the predictions,
+    considering only the prediction with the highest confidence,
+  and the spectrum,
+    which results from summing of the confidences over all events.
+
+In contrast,
+the \emph{Wasserstein distance}
+compares the unfolded spectrum to the true spectrum.
+%
+It is also known as \emph{earth mover's distance} (\textsc{Emd}),
+  hinting at the analogy of moving earth to transform one distribution into another,
+    where the cost is given as the product of the distance and the amount of earth moved.
+      % essentially the physical work.
+
+Mathematically, the \textsc{Wd} (of first kind) can be defined as
+\begin{equation}
+  \text{\textsc{Wd}}(\mathbf{p}, \mathbf{q}) = \inf_{\pi \in \Pi(\mathbf{p}, \mathbf{q})} \int_{\mathbb{R}^2} |x - y| \, d\pi(x, y)
+\end{equation}
+where
+  $\mathbf{p}$ and $\mathbf{q}$ are the probability distributions subject to comparison,
+  $\Pi(\mathbf{p}, \mathbf{q})$ is the set of all probability distributions on $\mathbb{R}^2$,
+  and $\pi$ is a probability distribution on $\mathbb{R}^2$.
+% The Wasserstein distance is zero if and only if $\mathbf{p} = \mathbf{q}$.

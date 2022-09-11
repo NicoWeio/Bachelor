@@ -7,7 +7,7 @@ and improves upon its predecessor \emph{CORAL} \cite{coral}.
 
 % ORIG: Instead, CORN uses a new training procedure with conditional training subsets that ensures rank consistency through applying the chain rule of probability.
 
-% TODO: This section heavily borrows from the CORN paper. Is that okay?
+\todo{This section heavily borrows from the CORN paper. Is that okay?}
 
 Let $D = \left\{ \mathbf{x}^{[i]}, y^{[i]} \right\}_{i=1}^N$ denote a dataset of $N$ training examples,
 where $\mathbf{x}^{[i]}$ is the $i$-th example and $y^{[i]}$ is its class label.
@@ -81,3 +81,9 @@ The conditional probabilities are then given by
 \end{align*}
 
 A more detailed explanation is given in \autoref{sec:appendix:corn_probas}.
+
+% TODO: This does not belong to the subsection "Getting probabilities from CORN"
+In order to support the weighting of individual samples,
+the CORN loss function is modified
+to include the weight as a factor.
+The updated code is shown in \autoref{sec:appendix:corn_weighting}.
