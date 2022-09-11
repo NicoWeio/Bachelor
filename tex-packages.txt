@@ -49,3 +49,4 @@ xkeyval
 xpatch
 xstring
 mwe
+todonotes

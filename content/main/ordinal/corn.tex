@@ -59,6 +59,22 @@ to the conditional probabilities
 
 % TODO: Add a TikZ visualization similar to Fig. 1 in the CORN paper | see content/tikz/rank_consistency.tex
 
+% TODO: ↓
+The loss function is provided by CORN.
+Its definition is shown in \autoref{eqn:corn:loss}.
+\begin{equation}
+  \label{eqn:corn:loss}
+  L(\mathbf{X}, \mathbf{y}) =
+  - \frac{1}{\sum_{j=1}^{K-1} |S_j|}
+  \sum_{j=1}^{K-1}
+  \sum_{i=1}^{|S_j|}
+  \left[
+    \log(f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} > r_j\right\}
+    +
+    \log(1 - f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} \leq r_j\right\}
+  \right]
+\end{equation}
+
 
 \subsection{Getting probabilities from CORN} % OR: Converting threshold to per-class probabilities
 As explained before,

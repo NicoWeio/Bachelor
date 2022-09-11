@@ -85,8 +85,8 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{example-image-a}
-  \caption{Energy spectrum of the full, untouched Monte-Carlo dataset using the discretized energy ranges as bins.}
+  \includegraphics[width=0.5\textwidth]{content/plots/dataset:discretized:histogram.pdf}
+  \caption{Energy spectrum of the 500k Monte-Carlo dataset using the discretized energy ranges as bins. TODO.}
   \label{fig:dataset:discretized:histogram}
 \end{figure}
 
@@ -141,32 +141,19 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
   \end{tabular}
 \end{table}
 
-The loss function is provided by CORN.
-Its definition is shown in \autoref{eqn:corn:loss}.
-\begin{equation}
-  \label{eqn:corn:loss}
-  L(\mathbf{X}, \mathbf{y}) =
-  - \frac{1}{\sum_{j=1}^{K-1} |S_j|}
-  \sum_{j=1}^{K-1}
-  \sum_{i=1}^{|S_j|}
-  \left[
-    \log(f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} > r_j\right\}
-    +
-    \log(1 - f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} \leq r_j\right\}
-  \right]
-\end{equation}
+% TODO: Reference CORN loss function?
 
 \emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
 
-The neural network keeps its weights between DSEA iterations.
+The neural network keeps its weights between \textsc{Dsea} iterations.
 This was found to have no significant effect on the performance \cite{dsea_samuel}. % (\texttt{one\_model})
 
 
 \subsection{DSEA}
-For this work, the Python implementation of DSEA \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
+For this work, the Python implementation of \textsc{Dsea} \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
 It expects a \emph{scikit-learn} \cite{sklearn} classifier.
-In order to interface with the reference implementation of DSEA \cite{dsea_code},
+In order to interface with this library,
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods
   \mintinline{python}{fit(X, y, sample_weight)} and

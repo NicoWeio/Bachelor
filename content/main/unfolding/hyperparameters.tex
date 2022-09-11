@@ -22,6 +22,9 @@ It eliminates the need to optimize for step size related hyperparameters,
     which only has a minor effect on the results,
 and provides accurate results after a few iterations \cite{dsea_mirko}.
 
+% Since ADAM maintains separate learning rates for each parameter,
+% it is not as essential to optimize for the learning rate.
+
 
 \subsection{Cross validation}
 Cross validation is a method to evaluate the performance of a model on unseen data
@@ -47,14 +50,14 @@ since individual runs have a high variance.
 \subsection{Initial Bayesian search}
 Since a grid search is computationally expensive,
   especially for a large number of hyperparameters,
-a Bayesian optimization search is used to find a good starting point for the grid search.
-% TODO: Cite wandb
+a Bayesian optimization search \cite{wandb_bayesian} is used to find a good starting point for the grid search.
+% TODO: Explain a little…
 
 \begin{figure}
   % TODO: Move to appendix / exlcude?
   \centering
-  \includegraphics[width=\textwidth]{content/plots/halftime/sweep2.png}
-  \caption{Visualization of the Bayesian hyperparameter search.}
+  \includegraphics[scale=1]{content/plots/hyperparam/combined_pcplot_full.pdf}
+  \caption{Parallel coordinates plot of the initial Bayesian hyperparameter search.}
   \label{fig:hyperparameter:bayesian}
 \end{figure}
 
@@ -69,10 +72,10 @@ a Bayesian optimization search is used to find a good starting point for the gri
         Hyperparameter & {Value} \\
         \midrule
         %TODO: Placeholder values
-        batch size & 2048 \\
-        learning rate & 0.0001 \\
-        \texttt{J\_factor} & 10 \\
-        $\epsilon$ & 0.1 \\
+        batch size & 512 \\
+        learning rate & 0.0009 \\
+        $J$-factor & 10 \\
+        convergence threshold $\epsilon$ & 0.1 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -91,9 +94,9 @@ As expected, the performance is worse for larger batch sizes.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\textwidth]{content/plots/hyperparam/batch_size_vs_wd_boxplot.pdf}
+  \includegraphics[scale=1]{content/plots/hyperparam/batch_size_vs_wd_boxplot_full.pdf}
   \caption{Boxplot of the performance of the model for different batch sizes.
-    The performance is measured using the \emph{Wasserstein distance} (see \autoref{sec:metrics}).
+    The performance is measured using the \emph{Wasserstein distance}.
     % TODO: Copilot | fact-check!
     % The whiskers extend to the 1st and 3rd quartile,
     % and outliers are shown as crosses.
@@ -102,33 +105,7 @@ As expected, the performance is worse for larger batch sizes.
 \end{figure}
 
 
-\subsection{Adaptive step size: $J$-factor}
-% TODO: Plot and explain J instead of J-factor?
-The adaptive step size function,
-  which has been explained in \autoref{sec:dsea:dsea:stepsize},
-internally relies on clustering the data into $J$ clusters.
-The number of clusters $J$ is therefore a hyperparameter of the algorithm.
-Because of the dependence of …,
-$J$ is not used directly.
-Instead, the \emph{J-factor} is used,
-which is defined as $J$ divided by the number of bins.
-
-\begin{figure}
-  \centering
-  % TODO: correct dimensions
-  \includegraphics[width=0.75\textwidth]{content/plots/halftime/wd_per_J_factor.pdf}
-  \caption{Violin plot of the Wasserstein distance for different $J$-factors.}
-  \label{fig:hyperparameter:J_factor}
-\end{figure}
-
-\subsection{Number of epochs}
-\blindtext[4]
-
-
-\subsection{$\epsilon$}
-While a higher number of epochs typically increases the model's performance on the training data,
-it also increases the risk of overfitting.
-
+\subsection{Convergence threshold}
 % TODO: duplicate explanation?
 When using adaptive step sizes,
 instead of setting a fixed number of DSEA iterations,
@@ -139,7 +116,37 @@ convergence is assumed and the training is stopped.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\textwidth]{content/plots/hyperparam/epsilon_vs_wd_scatterplot.pdf}
+  \includegraphics[width=0.75\textwidth]{content/plots/hyperparam/epsilon_vs_wd_boxplot_full.pdf}
   \caption{TODO.}
   \label{fig:hyperparameter:epsilon}
 \end{figure}
+
+
+\subsection{Adaptive step size: $J$-factor}
+% TODO: Plot and explain J instead of J-factor?
+The adaptive step size function,
+  which has been explained in \autoref{sec:dsea:dsea:stepsize},
+internally relies on clustering the data into $J$ clusters.
+The number of clusters $J$ is therefore a hyperparameter of the algorithm.
+
+Large values of $J$ have previously been shown to lead to slightly better results \cite{dsea_mirko}.
+
+Because of the dependence of …,
+$J$ is not used directly.
+Instead, the \emph{J-factor} is used,
+which is defined as $J$ divided by the number of bins.
+
+\begin{figure}
+  \centering
+  % TODO: correct dimensions
+  \includegraphics[scale=1]{content/plots/hyperparam/J_factor_vs_wd_boxplot_full.pdf}
+  \caption{Boxplot of the Wasserstein distance for different $J$-factors.}
+  \label{fig:hyperparameter:J_factor}
+\end{figure}
+
+\subsection{Number of epochs}
+While a higher number of epochs typically increases the model's performance on the training data,
+it also increases the risk of overfitting.
+
+
+
