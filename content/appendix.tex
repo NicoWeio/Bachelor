@@ -1,8 +1,13 @@
 \chapter{Appendix}
 \blindtext
 
+\section{\dseaplus: Complete algorithm} \label{sec:alg:dseaplus}
+\input{content/main/dsea/algorithm.tex}
+
+
 \section{From threshold to per-class probabilities}
 \label{sec:appendix:corn_probas}
+% NOTE: Keep the $q$-notation from the CORN paper/section!
 \blindtext
 
 
@@ -23,6 +28,7 @@
   \centering
   \includegraphics[scale=1]{content/plots/dataset:raw:histogram.pdf}
   \caption{Energy spectrum of the full, untouched Monte-Carlo dataset using 30 bins.}
+  % TODO: Actually the full? Maybe I used only 1 million, which would mess up the y axis.
   \label{fig:dataset:raw:histogram}
 \end{figure}
 

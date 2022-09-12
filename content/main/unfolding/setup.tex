@@ -8,22 +8,38 @@ with energies ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electron
 The energies are stored under the key \texttt{MCPrimary.energy}. % TODO: Denglisch?
 See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
+% TODO: The smallest bin contains about XY events.
 
 To ensure comparability to the works of \citeauthor{dsea_samuel} as well as \citeauthor{dsea_jan},
 only the first \num{500000} events of the dataset are considered.
 This also allows for more thorough hyperparameter optimization,
 which would otherwise be limited by the available computational resources as well as the timeframe of this thesis.
 
-Unless otherwise stated,
+Unless otherwise stated, % TODO: Do I ever do this?
 \SI{90}{\percent} of the data is used for training,
 while the remaining \SI{10}{\percent} is used for evaluation.
 % No separate validation set is used.
 
 
 \subsection{Feature selection}
-The \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm \cite{mrmr} is employed to select the 12 most relevant features.
-This has already been done in \cite{dsea_jan}.
+Since
+  unfolding is highly dependent on the selection of features \citationneeded
+  and computational resources are limited,
+not all available features are used.
+
+\citeauthor{dsea_jan} has employed the \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm \cite{mrmr}
+to select the 12 most relevant features \cite{dsea_jan}.
+The algorithm takes into account both
+  the relevance of a feature to the target variable,
+    measured by their correlation,
+  and the redundancy of a feature to other features.
+This way,
+the \emph{minimal-optimal} set of features is selected,
+  in contrast to the \emph{all-relevant} set of features,
+    which would also contain redundant features.
+    % which would be selected by a simple relevance-based feature selection algorithm. % Copilot blah blah
 A list of said features is provided in \autoref{tab:features_best}.
+They are re-used in this thesis.
 
 \begin{table}
     \centering
@@ -65,14 +81,16 @@ Additionally, zero-mean, unit-variance normalization is applied to all features.
 
 
 \subsection{Discretization}
-% As described in …, DSEA requires the energies to be discretized.
-The target variable \texttt{MCPrimary.energy} is discretized into \num{10} logarithmically spaced bins
+As described in \autoref{sec:TODO}, DSEA requires discrete energy classes.
+The target variable \texttt{MCPrimary.energy} is therefore discretized into \num{10} bins
 (in accordance with \cite{dsea_samuel}).
 %
-In order to allow for the application to real data,
-under- and overflow bins are added.
+The \enquote{inner} \num{8} bins are spaced logarithmically,
+  while the under- and overflow bins,
+    which are added in order to allow for the application to real data,
+  are chosen in a way that the entire energy range is covered.
 %
-The overflow bin is chosen so that it contains a similar number of events as the previous bin,
+The lower border of the overflow bin is chosen so that it contains a similar number of events as the previous bin,
 ensuring sufficient statistics.
 A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
@@ -92,11 +110,11 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 
 \subsection{Neural network}
-\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their CORN method
+\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their \textsc{CORN} method
 as well as several examples demonstrating its application on different datasets.
 % TODO: Reference their tabular data / cement example?
 
-This work makes use of said implementation of CORN
+This work makes use of said implementation of \textsc{CORN}
 and hence the PyTorch framework.
 Additionally,
   PyTorch Lightning \cite{pytorch_lightning},
@@ -110,7 +128,7 @@ The input layer has \num{12} neurons,
 while the output layer has \num{9} neurons,
   corresponding to the number of binary classification subtasks,
     i.e. the number of bins minus one.
-% CORN in the output layer…
+% \textsc{CORN} in the output layer…
 % In total, the neural network has \num{TODO} neurons.
 
 The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
@@ -141,7 +159,7 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
   \end{tabular}
 \end{table}
 
-% TODO: Reference CORN loss function?
+% TODO: Reference \textsc{CORN} loss function?
 
 \emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
@@ -152,7 +170,7 @@ This was found to have no significant effect on the performance \cite{dsea_samue
 
 \subsection{DSEA}
 For this work, the Python implementation of \textsc{Dsea} \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
-It expects a \emph{scikit-learn} \cite{sklearn} classifier.
+It expects a \emph{scikit-learn} classifier.
 In order to interface with this library,
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods

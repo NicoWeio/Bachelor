@@ -1,9 +1,10 @@
 \section{Bias}
-DSEA is intended to eliminate the bias introduced by the Monte-Carlo-simulated energy spectrum.
+\textsc{Dsea} is intended to eliminate the bias introduced by the Monte-Carlo-simulated energy spectrum.
 
 In order to test
 whether the bias is indeed eliminated,
 the model is trained on a \emph{stratified} dataset,
+% TODO: explain that dataset: number of events etc.
 where each bin contains an equal number of events.
 The model is then evaluated on the unmodified dataset.
 % TODO: Make clear that train/test data don't overlap
@@ -16,7 +17,7 @@ The model adapts to the unseen distribution of the test data.
 … in comparison to \autoref{fig:bootstrap:spectrum}.
 
 In the work by \citeauthor{dsea_samuel},
-relative deviations of more than \SI{1500}{\percent} are observed.
+relative deviations of more than \SI{1500}{\percent} are observed \cite{dsea_samuel}.
 % Aber er schiebt's auf die geringe Accuracy…
 
 

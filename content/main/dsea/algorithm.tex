@@ -1,0 +1,29 @@
+\begin{algorithm}
+  \caption{Schematic of the DSEA+ algorithm with the reweighting of the training examples and adjustable stepsize. \cite{dsea_mirko}}
+  \label{alg:dseaplus}
+  \begin{algorithmic}
+    \newcommand{\f}{\mathbf{f}}
+    \newcommand{\hatf}{\hat{\mathbf{f}}}
+    \newcommand{\x}{\mathbf{x}}
+
+    \Require{
+      \\
+      Observed data set $\mathcal{D}_\text{obs} = \{ \x_n \in \mathcal{X} : 1 \leq n \leq N \}$ \\
+      Training data set $\mathcal{D}_\text{test} = \{ (\x_n, y_n) \in \mathcal{X} \times \{1,\ldots,I\} : 1 \leq n \leq N' \}$ \\
+      $\tau \geq 0$, regularization strength employed in the stepsize adaptation (default: \num{0}) \\
+      $\epsilon > 0$, the minimal $\chi_\text{Sym}^2$ distance between subsequent iterations (default: \num{E-6}) \\
+      Prior density $\hatf^{(0)}$ (default: $\hatf_i^{(0)} = \frac{1}{I} \forall 1 \leq j \leq J$)
+    }
+    \Ensure Estimated target density $\hatf \in \mathbb{R}^I$
+    \State $k \gets 0$
+    \Repeat
+      \State $k \gets k-1$\;
+      \State $\forall 1 \leq n \leq N': w_n^{(k)} \gets \hatf_{i (n)}^{(k-1)} / \f_{i (n)}^t$\;
+      \State Infer $\mathcal{M}$ from $\mathcal{D}_\text{train}$ weighted by $w_n^{(k)+}$\;
+      \State $\forall 1 \leq i \leq I: p_i^{(k)} \gets \frac{1}{N} \sum_{n=1}^N c_{\mathcal{M}}(i|\x_n) - \hatf^{(k-1)}$\;
+      \State $\alpha_{\textsc{Run}}^{(k)} \gets \operatorname{argmin}_{\alpha \geq 0} \mathcal{l}_r(\hatf^{(k-1)} + \alpha p^{(k)})$\; % TODO: fix \mathcal{l}?
+      \State $\hatf_i^{(k)+} \gets \hatf^{(k-1)} + \alpha_{\textsc{Run}}^{(k)} \cdot p^{(k)}$\;
+    \Until $\chi_\text{Sym}^2(\hatf^{(k)}, \hatf^{(k-1)}) \leq \epsilon$\; \\
+    \Return $\hatf \gets \hatf^{(k)}$
+  \end{algorithmic}
+\end{algorithm}

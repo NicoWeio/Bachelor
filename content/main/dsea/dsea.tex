@@ -2,12 +2,22 @@
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm,
   short \textsc{Dsea},
 is a method for solving the previously stated deconvolution problem.
+It was introduced by \citeauthor{dsea_tim} in \citeyear{dsea_tim}
+and improved by \citeauthor{dsea_mirko} in \citeyear{dsea_mirko}.
+The improved version
+  – which this thesis is based on –
+is also referred to as \dseaplus.
+
+A formal definition of the \dseaplus algorithm is given in \autoref{sec:alg:dseaplus}.
+
 
 \subsection{Deconvolution as a classification task} % identical to Jan's paper
 \blindtext[2]
 
+
 \subsection{Iterative reproduction of the target density and reweighting of training samples} % identical to Jan's paper
 \blindtext[5]
+
 
 \subsection{Step size functions} \label{sec:dsea:dsea:stepsize}
 \dseaplus introduces the concept of a step size $\alpha$,
@@ -22,7 +32,7 @@ multiplicative decay
   $\alpha^{(k)} = k^{\eta - 1}$
 and exponential decay
   $\alpha^{(k)} = \eta^{(k - 1)}$,
-each with $0 < \eta < 1$.
+each with a \emph{decay rate} $0 < \eta < 1$.
 
 These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,

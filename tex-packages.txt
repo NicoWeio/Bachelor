@@ -50,3 +50,5 @@ xpatch
 xstring
 mwe
 todonotes
+algorithm
+algpseudocode

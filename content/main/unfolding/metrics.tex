@@ -2,6 +2,9 @@
 In order to evaluate the performance of the models
 and to compare them to prior works,
 several metrics are used.
+%
+For the calculation of all metrics that are mentioned here are,
+scikit-learn \cite{sklearn} is used.
 
 
 \subsection{Accuracy}
@@ -26,8 +29,8 @@ It is defined as
   \text{\textsc{Mae}} = \frac{1}{N} \sum_{i=1}^N \left| y^{[i]} - \hat{y}^{[i]} \right|
 \end{equation}
 where $N$ is the number of events,
-$y^{[i]}$ is the true value of the $i$th event,
-and $\hat{y}^{[i]}$ is the predicted value of the $i$th event. % Oxford comma
+$y^{[i]}$ is the true value of the $i$-th event,
+and $\hat{y}^{[i]}$ is the predicted value of the $i$-th event. % Oxford comma
 
 % Because of its simple definition,
 % it can be easily understood and interpreted.
@@ -55,7 +58,7 @@ It is also known as \emph{earth mover's distance} (\textsc{Emd}),
     where the cost is given as the product of the distance and the amount of earth moved.
       % essentially the physical work.
 
-Mathematically, the \textsc{Wd} (of first kind) can be defined as
+Mathematically, the Wasserstein distance (of first kind) can be defined as
 \begin{equation}
   \text{\textsc{Wd}}(\mathbf{p}, \mathbf{q}) = \inf_{\pi \in \Pi(\mathbf{p}, \mathbf{q})} \int_{\mathbb{R}^2} |x - y| \, d\pi(x, y)
 \end{equation}

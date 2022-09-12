@@ -131,12 +131,22 @@
 \usepackage{todonotes}
 \usepackage[outputdir=build]{minted}
 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
 %------------------------------------------------------------------------------
 %------------------------------ Custom commands -------------------------------
 %------------------------------------------------------------------------------
 
 % TODO: messes up spacing
 \newcommand{\dseaplus}{{$\text{\textsc{Dsea}}^+$}}
+
+% Wikipedia-style "citation needed" macro
+% https://gist.github.com/martinarroyo/b9e0a963ad27169a6eee?permalink_comment_id=2355734#gistcomment-2355734
+% \newcommand{\citationneeded}[1][]{\textsuperscript{\color{blue} [citation needed: #1]}}
+\newcommand{\citationneeded}{\textsuperscript{\color{blue} [citation needed]}}
 
 %------------------------------------------------------------------------------
 %-------------------------    Angaben zur Arbeit   ----------------------------
