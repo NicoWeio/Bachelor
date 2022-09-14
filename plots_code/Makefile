@@ -1,6 +1,6 @@
 all: hyperparams
 
-hyperparams: evaluate_sweep.py | matplotlibrc_base
-	MATPLOTLIBRC=./matplotlibrc_base TEXINPUTS=$$(pwd): python evaluate_sweep.py
+hyperparams: plot_sweep_eval.py | matplotlibrc_base
+	MATPLOTLIBRC=./matplotlibrc_base TEXINPUTS=$$(pwd): python plot_sweep_eval.py
 
 .PHONY: hyperparams
