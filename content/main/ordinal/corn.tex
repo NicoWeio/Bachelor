@@ -13,7 +13,7 @@ and improves upon its predecessor \emph{CORAL} \cite{coral}.
 % ORIG: Instead, CORN uses a new training procedure with conditional training subsets that ensures rank consistency through applying the chain rule of probability.
 
 
-\subsection{Method}
+\subsection{Method} \label{sec:corn:method}
 \todo{This subsection heavily borrows from the CORN paper. Is that okay?}
 
 Let $D = \left\{ \mathbf{x}^{[i]}, y^{[i]} \right\}_{i=1}^N$ denote a dataset of $N$ training examples,
@@ -87,7 +87,7 @@ Its definition is shown in \autoref{eqn:corn:loss}.
 \end{equation}
 
 
-\subsection{Getting probabilities from CORN} % OR: Converting threshold to per-class probabilities
+\subsection{Obtaining probabilities from CORN} % OR: Converting threshold to per-class probabilities
 As explained before,
 % CORN returns conditional (?) probabilities based on the binary classification subtasks it uses.
 \textsc{Corn} only returns a single predicted rank $r_q$ for a given input $\mathbf{x}$.

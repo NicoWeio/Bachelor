@@ -1,2 +1,14 @@
 \section{The deconvolution problem} % / Inverse problems
+% - Inverse problem
+% - Fredholm integral equation
+%   - Ill-conditioned
+%     - Oscillations → regularization
+
+The Fredholm integral equation of the first kind is given by
+\begin{equation}
+  \label{eq:deconvolution_problem:fredholm}
+  % \int_{\mathbb{R}^d} \phi(x) \, \varphi(x - y) \, \mathrm{d}x = \varphi(y) \, .
+  \int_\Omega A(x, y) f(x) \, \mathrm{d}x = g(y) \, .
+\end{equation}
+
 \blindtext[3]

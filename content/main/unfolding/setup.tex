@@ -30,9 +30,9 @@ not all available features are used.
 \citeauthor{dsea_jan} has employed the \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm \cite{mrmr}
 to select the 12 most relevant features \cite{dsea_jan}.
 The algorithm takes into account both
-  the relevance of a feature to the target variable,
+  the \emph{relevance} of a feature to the target variable,
     measured by their correlation,
-  and the redundancy of a feature to other features.
+  and the \emph{redundancy} of a feature to other features.
 This way,
 the \emph{minimal-optimal} set of features is selected,
   in contrast to the \emph{all-relevant} set of features,
@@ -44,7 +44,7 @@ They are re-used in this thesis.
 \begin{table}
     \centering
     \caption{
-      Names of the 12 best features according to the \emph{mRMR} algorithm \cite{dsea_jan}.
+      Names of the 12 best features according to the \emph{mRMR} algorithm (from \cite{dsea_jan}).
     }
     \label{tab:features_best}
     \begin{tabular}{l}
@@ -85,10 +85,9 @@ As described in \autoref{sec:TODO}, DSEA requires discrete energy classes.
 The target variable \texttt{MCPrimary.energy} is therefore discretized into \num{10} bins
 (in accordance with \cite{dsea_samuel}).
 %
-The \enquote{inner} \num{8} bins are spaced logarithmically,
-  while the under- and overflow bins,
-    which are added in order to allow for the application to real data,
-  are chosen in a way that the entire energy range is covered.
+Contrary to \cite{dsea_jan} and \cite{dsea_samuel},
+under- and overflow bins are added
+  in order to allow for the application to real data.
 %
 The lower border of the overflow bin is chosen so that it contains a similar number of events as the previous bin,
 ensuring sufficient statistics.
@@ -96,8 +95,11 @@ A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{ds
 %
 The underflow bin is assigned the energy range \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$,
 % \qtyrange{E2}{E2.1}{\giga\electronvolt}.
-because the dataset does not contain any events with very low energies below \SI{E2}{\giga\electronvolt}.
+  because the dataset does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
 Again, the event count in the underflow bin is chosen to be similar to the neighboring bin.
+%
+The remaining \num{8} bins are spaced logarithmically between the under- and overflow bins,
+  so that the entire energy range of the Monte-Carlo dataset is covered.
 
 A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:discretized:histogram}.
 

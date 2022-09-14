@@ -1,5 +1,62 @@
 \section{IceCube}
-\blindtext[5]
+% TODO: All \cite{icecube_facts}
+The \emph{IceCube} observatory is a neutrino telescope located at the South Pole
+in close proximity to the Amundsen-Scott South Pole Station.
+% - Why the South Pole?
+It utilizes the optically clear Antarctic ice as detector material,
+  with a total detector volume of \SI{1}{\cubic\meter} \cite{icecube_facts}.
+The detector is composed of \num{86} strings,
+  each consisting of \num{60} digital optical modules (\textsc{Dom}s),
+    which are positioned
+      \SI{17}{\meter} apart along the string
+      at depths ranging from \SI{1450}{\meter} to \SI{2450}{\meter} below the surface.
+Each of the \num{5160} \textsc{Dom}s is equipped with a sensitive photomultiplier tube (\textsc{Pmt}),
+  which is used to detect the Cherenkov light emitted by charged particles
+  that interact with the ice.
+
+% - IceCube detects 275 atmospheric neutrinos daily and about 100,000 per year.
+
+
+% - How does it work?
+%   - Interaction with ice
+When a neutrino interacts with a nucleus in the ice,
+it produces a charged lepton and a neutrino.
+%     - Cherenkov light
+The charged lepton then produces Cherenkov light
+  as it travels through the ice.
+The light is detected by the \textsc{Pmt}s
+  and the direction of the neutrino can be reconstructed
+  from the position of the \textsc{Dom}s that detected the light.
+The intensity of the light and the number of \textsc{Pmt}s that detected it
+  can be used to determine the energy of the neutrino.
+%     - Flavor-dependent shapes
+%       - e: cascade
+%       - µ: track
+%       - ν: double bang / lollipop
+Depending on the flavor of the leptons,
+  different types of interactions occur,
+  which can be used to determine the flavor of the neutrino.
+% ↓ Copilot!
+Electron neutrinos ($\nu_e$) and muon neutrinos ($\nu_\mu$) are produced by the weak interaction,
+  while tau neutrinos ($\nu_\tau$) are produced by the weak interaction
+  and the tau lepton decay.
+Examples of interactions are shown in \autoref{fig:img:icecube:interactions}.
+
+%   - DOMs
+%   - Triggering / reconstruction / feature extraction
+% - Numbers and facts
+% - Achievements
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{content/img/flavors1.png}
+  \caption{
+    Shapes of the Cherenkov light produced by neutrinos of different flavors.
+    \citationneeded
+  }
+  \label{fig:img:icecube:interactions}
+\end{figure}
 
 \begin{figure}
   \centering
