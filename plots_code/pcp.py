@@ -12,31 +12,6 @@ from matplotlib.patches import PathPatch
 from copy import deepcopy
 
 
-def load_csv(filename):
-    with open(filename, "r") as f:
-        reader = csv.reader(f)
-        data_list = list(reader)
-
-    results = []
-    for i in range(1, len(data_list)):
-        result = []
-        for j in data_list[i]:
-            if "." in j or "e" in j:
-                try:
-                    result.append(float(j))
-                except ValueError:
-                    result.append(j)
-            else:
-                try:
-                    result.append(int(j))
-                except ValueError:
-                    result.append(j)
-
-        results.append(result)
-
-    return results, data_list[0]
-
-
 def check_data(data, labels):
     for i in range(len(data)):
         assert len(data[i]) is len(labels), "data dimension (%d) does not " \
@@ -138,7 +113,7 @@ def pcp(data,
         ytype=None,
         ylim=None,
         ylabels=None,
-        figsize=(10, 5),
+        # figsize=(10, 5),
         rect=[0.125, 0.1, 0.75, 0.8],
         curves=True,
         alpha=1.0,
@@ -166,8 +141,8 @@ def pcp(data,
         Only use this option if you want to print more categories than you have
         in your dataset for categorial axes. You also have to set the right
         ylim for this option to work correct.
-    figsize: (float, float), optional
-        Width, height in inches.
+    # figsize: (float, float), optional
+    #     Width, height in inches.
     rect: array, optional
         [left, bottom, width, height], defines the position of the figure on
         the canvas.
@@ -205,7 +180,7 @@ def pcp(data,
     data = rescale_data(data, ytype, ylim)
 
     # Create figure
-    fig = plt.figure(figsize=figsize)
+    fig = plt.figure()  # figsize=figsize
     ax0 = fig.add_axes([left, bottom, width, height])
     axes = [ax0] + [ax0.twinx() for i in range(data.shape[0] - 1)]
 
@@ -218,7 +193,7 @@ def pcp(data,
 
         if curves:
             path = get_path(data, i)
-            patch = PathPatch(path, facecolor="None", lw=1.5, alpha=alpha,
+            patch = PathPatch(path, facecolor="None", lw=0.5, alpha=alpha,
                               edgecolor=color, clip_on=False)
             ax0.add_patch(patch)
         else:

@@ -1,20 +1,10 @@
-import sys
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from matplotlib import rc_context
 
 import sweep
-from common import console, STYLES
-
-
-PLOTS_DIR = Path(__file__).parent / "../content/plots/hyperparam/"
-# if len(sys.argv) > 1:
-#     PLOTS_DIR /= sys.argv[1]
-# CACHE_DIR = Path(__file__).parent / "cache"
-
+from common import PLOTS_DIR, STYLES, console
 
 PLOTS = [
     {
@@ -85,5 +75,5 @@ for i, plot in enumerate(PLOTS):
         plt.grid(axis=('y' if plot['kind'] == 'boxplot' else 'both'))
         plt.tight_layout()
         filename = f"{plot['configvar']}_vs_{plot['metricvar']}_{plot['kind']}_{plot['style']}.pdf"
-        plt.savefig(PLOTS_DIR / filename)
+        plt.savefig(PLOTS_DIR / "hyperparam" / filename)
         plt.clf()
