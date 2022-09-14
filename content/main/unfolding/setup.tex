@@ -81,7 +81,7 @@ Additionally, zero-mean, unit-variance normalization is applied to all features.
 
 
 \subsection{Discretization}
-As described in \autoref{sec:TODO}, DSEA requires discrete energy classes.
+As described in \autoref{sec:TODO}, \dsea requires discrete energy classes.
 The target variable \texttt{MCPrimary.energy} is therefore discretized into \num{10} bins
 (in accordance with \cite{dsea_samuel}).
 %
@@ -112,11 +112,11 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 
 \subsection{Neural network}
-\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their \textsc{CORN} method
+\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their \corn method
 as well as several examples demonstrating its application on different datasets.
 % TODO: Reference their tabular data / cement example?
 
-This work makes use of said implementation of \textsc{CORN}
+This work makes use of said implementation of \corn
 and hence the PyTorch framework.
 Additionally,
   PyTorch Lightning \cite{pytorch_lightning},
@@ -130,7 +130,7 @@ The input layer has \num{12} neurons,
 while the output layer has \num{9} neurons,
   corresponding to the number of binary classification subtasks,
     i.e. the number of bins minus one.
-% \textsc{CORN} in the output layer…
+% \corn in the output layer…
 % In total, the neural network has \num{TODO} neurons.
 
 The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
@@ -161,17 +161,17 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
   \end{tabular}
 \end{table}
 
-% TODO: Reference \textsc{CORN} loss function?
+% TODO: Reference \corn loss function?
 
 \emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
 
-The neural network keeps its weights between \textsc{Dsea} iterations.
+The neural network keeps its weights between \dsea iterations.
 This was found to have no significant effect on the performance \cite{dsea_samuel}. % (\texttt{one\_model})
 
 
 \subsection{DSEA}
-For this work, the Python implementation of \textsc{Dsea} \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
+For this work, the Python implementation of \dsea \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
 It expects a \emph{scikit-learn} classifier.
 In order to interface with this library,
 a wrapper class is implemented,

@@ -1,6 +1,6 @@
 \section{DSEA} % TODO: Avoid duplicate section names
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm,
-  short \textsc{Dsea},
+  short \dsea,
 is a method for solving the previously stated deconvolution problem.
 It was introduced by \citeauthor{dsea_tim} in \citeyear{dsea_tim}
 and improved by \citeauthor{dsea_mirko} in \citeyear{dsea_mirko}.
@@ -24,7 +24,7 @@ A formal definition of the \dseaplus algorithm is given in \autoref{sec:alg:dsea
 which allows the user to control the speed of convergence,
 which in turn has a significant impact on the quality of the result.
 
-While the original \textsc{Dsea} algorithm uses a fixed step size of $\alpha = 1$,
+While the original \dsea algorithm uses a fixed step size of $\alpha = 1$,
 \dseaplus allows arbitrary constants $\alpha > 0$
 or functions of the iteration number $k$.
 Commonly used step size functions include
@@ -38,7 +38,7 @@ These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
 while enabling the use of a $\chi^2$ stopping criterion,
   expressed by a minimum $\chi^2$ distance $\epsilon$ between iterations,
-  which had already been suggested in the original \textsc{Dsea} paper \cite{dsea_tim}.
+  which had already been suggested in the original \dsea paper \cite{dsea_tim}.
 
 
 % TODO: adaptive step size function; see Mirko's chapter 3.3
