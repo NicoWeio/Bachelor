@@ -1,4 +1,25 @@
-\section{Bootstrapping and results}
+\section{Uncertainty and results}
+Using the results of the hyperparameter search,
+the final model is evaluated in more detail.
+Specifically,
+  the uncertainty of the predictions is analyzed, % Oxford comma
+  and the physical plausibility of the predictions is checked.
+
+
+\subsection{Bootstrapping}
+Bootstrapping \cite{bootstrap} is a method to estimate the uncertainty of a model.
+It is based on the idea that the data is not a single sample,
+but a random sample from a larger population.
+The uncertainty of the model can therefore be estimated by sampling from the data multiple times,
+and training a model on each sample.
+The uncertainty of the model is then estimated by the variance of the results of the different models.
+%
+For the present work, \num{50} bootstrap samples are used. % TODO
+Since using a bootstrap sample of the same size as the original data set
+might produce an inconsistent bootstrap estimator \cite{bootstrap_samplesize},
+\num{1000000} events are used as the original data set,
+while the bootstrap samples contain \num{500000} events as before.
+
 
 \subsection{Energy spectrum}
 \autoref{fig:bootstrap:distributions}.
