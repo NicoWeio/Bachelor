@@ -51,3 +51,4 @@ xstring
 mwe
 todonotes
 algorithms
+algorithmicx
