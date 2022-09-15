@@ -81,7 +81,7 @@ Additionally, zero-mean, unit-variance normalization is applied to all features.
 
 
 \subsection{Discretization}
-As described in \autoref{sec:TODO}, \dsea requires discrete energy classes.
+As described in \autoref{sec:TODO}, \dsea{} requires discrete energy classes.
 The target variable \texttt{MCPrimary.energy} is therefore discretized into \num{10} bins
 (in accordance with \cite{dsea_samuel}).
 %
@@ -124,7 +124,7 @@ Additionally,
   and scikit-learn \cite{sklearn}
   are used.
 
-The neural network consists of \num{4} fully connected hidden layers.
+The neural network consists of \num{4} fully connected hidden layers.\corn{}
 The input layer has \num{12} neurons,
   corresponding to the number of features,
 while the output layer has \num{9} neurons,
@@ -142,7 +142,7 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
 
 \begin{table}
   \centering
-  \caption{
+  \corn{} on{
     Shape and activation functions of the neural network.
     The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
   }
@@ -166,14 +166,14 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
 \emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
 
-The neural network keeps its weights between \dsea iterations.
+The neural network keeps its weights between \dsea{} iterations.
 This was found to have no significant effect on the performance \cite{dsea_samuel}. % (\texttt{one\_model})
 
 
 \subsection{DSEA}
-For this work, the Python implementation of \dsea \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
+For this work, the Python implementation of \dsea{} \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
 It expects a \emph{scikit-learn} classifier.
-In order to interface with this library,
+In order to interf\corn{} th this library,
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods
   \mintinline{python}{fit(X, y, sample_weight)} and

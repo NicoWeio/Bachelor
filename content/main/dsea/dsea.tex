@@ -6,9 +6,9 @@ It was introduced by \citeauthor{dsea_tim} in \citeyear{dsea_tim}
 and improved by \citeauthor{dsea_mirko} in \citeyear{dsea_mirko}.
 The improved version
   – which this thesis is based on –
-is also referred to as \dseaplus.
+is also referred to as \dseaplus{}.
 
-A formal definition of the \dseaplus algorithm is given in \autoref{sec:alg:dseaplus}.
+A formal definition of the \dseaplus{} algorithm is given in \autoref{sec:alg:dseaplus}.
 
 
 \subsection{Deconvolution as a classification task} % identical to Jan's paper
@@ -20,12 +20,12 @@ A formal definition of the \dseaplus algorithm is given in \autoref{sec:alg:dsea
 
 
 \subsection{Step size functions} \label{sec:dsea:dsea:stepsize}
-\dseaplus introduces the concept of a step size $\alpha$,
+\dseaplus{} introduces the concept of a step size $\alpha$,
 which allows the user to control the speed of convergence,
 which in turn has a significant impact on the quality of the result.
 
-While the original \dsea algorithm uses a fixed step size of $\alpha = 1$,
-\dseaplus allows arbitrary constants $\alpha > 0$
+While the original \dsea{} algorithm uses a fixed step size of $\alpha = 1$,
+\dseaplus{} allows arbitrary constants $\alpha > 0$
 or functions of the iteration number $k$.
 Commonly used step size functions include
 multiplicative decay
@@ -38,7 +38,7 @@ These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
 while enabling the use of a $\chi^2$ stopping criterion,
   expressed by a minimum $\chi^2$ distance $\epsilon$ between iterations,
-  which had already been suggested in the original \dsea paper \cite{dsea_tim}.
+  which had already been suggested in the original \dsea{} paper \cite{dsea_tim}.
 
 
 % TODO: adaptive step size function; see Mirko's chapter 3.3
