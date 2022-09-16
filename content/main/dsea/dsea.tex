@@ -1,22 +1,105 @@
-\section{DSEA} % TODO: Avoid duplicate section names
+\section{DSEA} \label{sec:dsea:dsea}
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm,
-  short \dsea,
+  \dsea{} in short, % TODO: language
 is a method for solving the previously stated deconvolution problem.
-It was introduced by \citeauthor{dsea_tim} in \citeyear{dsea_tim}
-and improved by \citeauthor{dsea_mirko} in \citeyear{dsea_mirko}.
+It was introduced by \citeauthor{dsea_tim} in \citeyear{dsea_tim} \cite{dsea_tim}
+and improved by \citeauthor{dsea_mirko} in \citeyear{dsea_mirko} \cite{dsea_mirko}.
 The improved version
   – which this thesis is based on –
 is also referred to as \dseaplus{}.
-
+%
 A formal definition of the \dseaplus{} algorithm is given in \autoref{sec:alg:dseaplus}.
 
 
 \subsection{Deconvolution as a classification task} % identical to Jan's paper
-\blindtext[2]
+\dsea{} makes use of arbitrary classifiers to solve the deconvolution problem.
+This is an advantage,
+  as the choice of a classifier can be tailored to the specific problem at hand.
+% ORIG: The novel algorithmic framework Dsea is unique among these algorithms,
+% because it translates the deconvolution problem into a multinomial classification task,
+% thus opening deconvolution to the field of machine learning and the rapid advances being made in that field.
+Contrary to other algorithms like
+  \textsc{Truee} / \textsc{Run} \cite{milke2013},
+  \textsc{Ibu} \cite{dagostini1995, dagostini2010},
+no restrictions on the input data are imposed.
+
+Furthermore,
+\dsea{} transparently provides the contributions of individual observations to the deconvolved spectrum.
+This not only gives deeper insight into the performance of the algorithm,
+but also allows for time-dependent deconvolution,
+  for example \cite{dsea_mirko}. % Should I really cite this?
+In order to use a classifier,
+  the deconvolution problem is reformulated as a multinomial classification task.
+The spectrum is discretized.
 
 
-\subsection{Iterative reproduction of the target density and reweighting of training samples} % identical to Jan's paper
-\blindtext[4]
+% \subsection{Iterative reproduction of the target density and reweighting of training samples} % identical to Jan's paper
+\subsection{Iterative procedure}
+\subsubsection{Initialization}
+Since no prior knowledge about the true spectrum is available,
+  the initial spectrum is chosen to be uniform:
+\begin{equation}
+  \hat f_j^{(0)} = \frac{1}{N} \quad \forall j \, .
+\end{equation}
+% TODO: Explain variables here, not below?
+The initial weights are then determined as in \autoref{eqn:dsea:weighting}.
+
+% - The resulting bins are used as classes.
+
+\subsubsection{Iteration}
+First,
+% on the training data,
+the classifier is trained to predict the class of a single sample,
+where each sample is weighted according to its true class.
+
+Second,
+% on the test/real data,
+the classifier is used to predict the class of each sample.
+
+Third,
+the predicted classes are used to
+  % reweight the training samples
+  get an updated estimate of the spectrum
+  and,
+    consequently,
+  updated weights for the next iteration.
+%
+The updated spectrum is determined by the sum of the confidences of all events.
+% TODO: j → q for consistency with CORN?
+For each energy bin with index $j$,
+this can be written as
+\begin{equation}
+  \hat f_j = \frac{1}{N} \sum_{i=1}^N \hat c_{i,j} \, ,
+\end{equation}
+where $N$ is the number of events
+and $\hat c_{i,j}$ is the confidence of event $i$ for class $j$.
+The factor $\sfrac{1}{N}$ is introduced to normalize the spectrum
+to a true probability density distribution.
+
+- The resulting spectrum is the preliminary deconvolution result.
+
+- The weights of the training samples are updated according to the preliminary deconvolution result.
+In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum. % → fixweighting
+This is needed to mitigate the impact of the training spectrum on the deconvolution result.
+A more detailed reasoning is given in \cite{dsea_mirko}.
+
+\begin{equation}
+  \label{eqn:dsea:weighting}
+  w_j^{(k+1)} = \frac{\hat f_j^{(k)}}{f_j^\text{train}} \, ,
+\end{equation}
+where $w_j^{(k+1)}$ is the weight applied to training samples with true bin $j$ in iteration~$k+1$,
+$\hat f_j^{(k)}$ is
+  the value of the $j$-th bin in
+  the current deconvolution result, % Oxford comma
+and $f_j^\text{train}$ is
+  the value of the $j$-th bin in
+  the training spectrum.
+
+- The classifier is retrained with the updated weights.
+
+\subsubsection{Result}
+The final deconvolution result is the spectrum obtained after the last iteration.
+…?
 
 
 \subsection{Step size functions} \label{sec:dsea:dsea:stepsize}

@@ -22,12 +22,14 @@ while the bootstrap samples contain \num{500000} events as before.
 
 
 \subsection{Energy spectrum}
-\autoref{fig:bootstrap:distributions}.
-
 \todo{
   This is (probably) the most important plot. Discuss it in more detail!
   Also: Explain percentiles etc.
 }
+\autoref{fig:bootstrap:distributions} shows the unfolded energy spectrum of the optimized model,
+as well as the \SI{68}{\percent} confidence intervals,
+  ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
+
 \blindtext[2]
 
 \begin{figure}
@@ -36,7 +38,9 @@ while the bootstrap samples contain \num{500000} events as before.
   \caption{
     Energy spectrum and relative deviations of the bootstrap.
     TODO: Placeholder data.
-    % TODO: Add axspan to legend or explain it here.
+    % TODO:
+    % - Add axspan to legend or explain it here.
+    % - Switch to 68% confidence intervals (@Karolin)
   }
   \label{fig:bootstrap:spectrum}
 \end{figure}
@@ -45,6 +49,7 @@ while the bootstrap samples contain \num{500000} events as before.
 \subsection{Individual events}
 Ordinal classification methods promise physically plausible results… % TODO
 In contrast to \emph{LogisticAT},
+    which \citeauthor{dsea_jan} used \cite{dsea_jan},
   the unimodality of the probability distribution is not enforced directly.
 Instead,
   only the threshold probabilities ($f_k(\mathbf{x}^{[i]})$) are constrained to be monotonically increasing

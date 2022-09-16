@@ -1,4 +1,5 @@
 \section{Setup}
+% TODO: Write a short introduction to the setup
 
 \subsection{Dataset}
 The unmodified dataset \cite{icecube_mc} consists of about 13 million Monte-Carlo simulated \enquote{upgoing} neutrino events,
@@ -23,7 +24,7 @@ while the remaining \SI{10}{\percent} is used for evaluation.
 
 \subsection{Feature selection}
 Since
-  unfolding is highly dependent on the selection of features \citationneeded
+  unfolding is highly dependent on the selection of features \citationneeded{}
   and computational resources are limited,
 not all available features are used.
 
@@ -81,7 +82,7 @@ Additionally, zero-mean, unit-variance normalization is applied to all features.
 
 
 \subsection{Discretization}
-As described in \autoref{sec:TODO}, \dsea{} requires discrete energy classes.
+As described in \autoref{sec:dsea:dsea}, \dsea{} requires discrete energy classes.
 The target variable \texttt{MCPrimary.energy} is therefore discretized into \num{10} bins
 (in accordance with \cite{dsea_samuel}).
 %
@@ -134,6 +135,7 @@ while the output layer has \num{9} neurons,
 % In total, the neural network has \num{TODO} neurons.
 
 The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
+\todo{Write a few sentences about these bullet points.}
 \begin{itemize}
   \item Leaky ReLU activation function
   \item Fully connected layers
@@ -163,7 +165,7 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
 
 % TODO: Reference \corn loss function?
 
-\emph{ADAM} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
+\textsc{Adam} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
 
 The neural network keeps its weights between \dsea{} iterations.

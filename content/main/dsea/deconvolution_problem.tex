@@ -9,12 +9,13 @@ the intensity of light can measured by a photodetector,
     thus measuring the intensity \emph{indirectly}.
 However,
 this conversion is not perfect:
-The detector has limited acceptance and accuracy.
+The detector has limited acceptance and resolution,
+and the signal is subject to noise.
 % forward / inverse problem
 For neutrino astronomy,
   energy measurements are even more indirect,
     going from neutrinos to leptons to Cherenkov light to electrical signals.
-
+%
 The deconvolution problem is to reconstruct the physical quantity of interest
   from the indirect measurements.
 
@@ -22,6 +23,9 @@ The deconvolution problem is to reconstruct the physical quantity of interest
 Mathematically,
 the deconvolution problem can be formulated as an integral equation.
 %
+The notation is based on \citeauthor{blobel_deconvolution} \cite{blobel_deconvolution}.
+% In particular,
+%   the meaning of $x$ and $y$ is swapped in the other chapters.
 A set of single physical quantities $x$
   with $a \leq x \leq b$ % TODO: Style
   (such as the energy of a neutrino)
