@@ -142,7 +142,7 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
 
 \begin{table}
   \centering
-  \corn{} on{
+  \caption{
     Shape and activation functions of the neural network.
     The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
   }
@@ -173,7 +173,7 @@ This was found to have no significant effect on the performance \cite{dsea_samue
 \subsection{DSEA}
 For this work, the Python implementation of \dsea{} \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
 It expects a \emph{scikit-learn} classifier.
-In order to interf\corn{} th this library,
+In order to interface with this library,
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods
   \mintinline{python}{fit(X, y, sample_weight)} and
