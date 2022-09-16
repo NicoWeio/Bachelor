@@ -23,7 +23,9 @@
 \usepackage[aux]{rerunfilecheck}
 
 % just list chapters and sections in the toc, not subsections or smaller
-\setcounter{tocdepth}{1}
+% \setcounter{tocdepth}{1}
+% MODIFIED: We apply this only to the rendered TOC,
+% so that the TOC embedded in the PDF still contains subsections.
 
 %------------------------------------------------------------------------------
 %------------------------------ Fonts, Unicode, Language ----------------------
@@ -177,7 +179,9 @@
 
 % hier beginnt der Vorspann, nummeriert in römischen Zahlen
 \input{content/abstract.tex}
+\setcounter{tocdepth}{1}
 \tableofcontents
+\setcounter{tocdepth}{2}
 
 \mainmatter
 % Hier beginnt der Inhalt mit Seite 1 in arabischen Ziffern
