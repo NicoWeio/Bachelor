@@ -1,14 +1,98 @@
 \section{The deconvolution problem} % / Inverse problems
-% - Inverse problem
-% - Fredholm integral equation
-%   - Ill-conditioned
-%     - Oscillations → regularization
+% \subsection{Inverse problems}
+% TODO: Make clear the difference between inverse problems and deconvolution
+Inverse problems are omnipresent in modern physics.
+They occur whenever a physical quantity is measured indirectly.
+For example,
+the intensity of light can measured by a photodetector,
+  which converts the light into an electrical signal,
+    thus measuring the intensity \emph{indirectly}.
+However,
+this conversion is not perfect:
+The detector has limited acceptance and accuracy.
+% forward / inverse problem
+For neutrino astronomy,
+  energy measurements are even more indirect,
+    going from neutrinos to leptons to Cherenkov light to electrical signals.
 
-The Fredholm integral equation of the first kind is given by
+The deconvolution problem is to reconstruct the physical quantity of interest
+  from the indirect measurements.
+
+% - Fredholm integral equation
+Mathematically,
+the deconvolution problem can be formulated as an integral equation.
+%
+A set of single physical quantities $x$
+  with $a \leq x \leq b$ % TODO: Style
+  (such as the energy of a neutrino)
+can be interpreted as a sample from a probability density $f(x)$.
+%
+Given
+  the true distribution of a physical quantity $f(x)$,
+  the measured distribution $g(x)$,
+  and a \emph{response function} $A(x, y)$,
+  % TODO: mention \Omega
+% the deconvolution problem is
+%   to find $f(x)$
+%     such that $g(x) = A(x, y) f(y)$.
+the deconvolution problem is given by
+the Fredholm integral equation of the first kind: \cite{blobel_deconvolution}
 \begin{equation}
   \label{eq:deconvolution_problem:fredholm}
   % \int_{\mathbb{R}^d} \phi(x) \, \varphi(x - y) \, \mathrm{d}x = \varphi(y) \, .
-  \int_\Omega A(x, y) f(x) \, \mathrm{d}x = g(y) \, .
+  \int_a^b A(x, y) f(x) \, \mathrm{d}x = g(y) \, .
 \end{equation}
 
-\blindtext[3]
+
+\subsection{Discretization}
+In the context of \dsea{} and most other numerical methods,
+the integral equation is discretized:
+  the continuous distribution functions $f(x)$ and $g(x)$ are replaced by vectors $\vec{f}$ and $\vec{g}$,
+  and the kernel (response function) $A(x, y)$ is replaced by a \emph{transfer matrix} $\symbf{A}$.
+%
+% Disregarding the bias term, % TODO: if there was one in the first place…
+The discretized deconvolution problem is then given by
+\begin{equation}
+  \label{eq:deconvolution_problem:discretized}
+  \symbf{A} \vec{f} = \vec{g} \, .
+\end{equation}
+
+In practice,
+the transfer matrix $A(x, y)$ can be approximated
+by Monte-Carlo simulations of the detector,
+  where both the true and the measured quantities are known.
+Given an actual set of measurements $\vec{g}$,
+the deconvolution problem can then be solved
+by inverting the transfer matrix $\symbf{A}$:
+\begin{equation}
+  \label{eq:deconvolution_problem:discretized:inverse}
+  \vec{f} = \symbf{A}^{-1} \vec{g} \, .
+\end{equation}
+
+However,
+% as is common with inverse problems,
+the matrix inversion operation is usually \emph{ill-conditioned},
+  leading to numerical instabilities
+  and oscillations in the solution.
+
+% It is \emph{ill-conditioned}:
+%   the solution can change drastically
+%     when the measurements are slightly perturbed.
+% % COPILOT: This is because the solution is not unique:
+% %   there are many different physical quantities
+% %     that can produce the same measurements.
+
+One approach to overcome this problem
+is \emph{regularization}.
+% Regularization is a technique
+% to make the deconvolution problem well-posed
+% by adding a penalty term to the objective function.
+Regularization allows for better results
+  at the cost of introducing additional assumptions and parameters
+    (\emph{Bias-variance trade-off}).
+A common regularization technique
+  is to penalize the second derivative of the solution.
+    % which is known as \emph{Tikhonov regularization}. % TODO: Is it really?
+It incentivizes the solution to be smooth,
+  which is often a reasonable assumption for distributions of physical quantities.
+
