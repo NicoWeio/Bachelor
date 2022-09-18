@@ -14,7 +14,7 @@ STYLES = {
         'figure.figsize': (5.45, 3.64),  # (ratio 3:2)
         'legend.fontsize': 'medium',
     },
-    'half': {
+    'halfwidth': {
         'figure.figsize': (5.45/2, 3.84),
         'legend.fontsize': 'small',
     },

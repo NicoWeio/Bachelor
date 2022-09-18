@@ -30,7 +30,7 @@ for i, plot in enumerate(PLOTS):
         )
         plt.xscale('log')
         plt.yscale('log')
-        plt.xlabel(r'\texttt{MCPrimary.energy} [\si{\giga\electronvolt}]')
+        plt.xlabel(r'\texttt{MCPrimary.energy} \mathbin{/} \si{\giga\electronvolt}')
         plt.ylabel(r'Count')
         plt.grid()
         plt.gca().set_axisbelow(True)
