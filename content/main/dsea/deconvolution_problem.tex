@@ -49,10 +49,11 @@ the Fredholm integral equation of the first kind: \cite{blobel_deconvolution}
 
 
 \subsection{Discretization}
-In the context of \dsea{} and most other numerical methods,
-the integral equation is discretized:
-  the continuous distribution functions $f(x)$ and $g(x)$ are replaced by vectors $\vec{f}$ and $\vec{g}$,
-  and the kernel (response function) $A(x, y)$ is replaced by a \emph{transfer matrix} $\symbf{A}$.
+In the context of physical measurements,
+the integral equation is discretized
+  to account for the finite number of samples.
+The continuous distribution functions $f(x)$ and $g(x)$ are replaced by vectors $\vec{f}$ and $\vec{g}$,
+and the kernel (response function) $A(x, y)$ by a \emph{transfer matrix} $\symbf{A}$.
 %
 % Disregarding the bias term, % TODO: if there was one in the first place…
 The discretized deconvolution problem is then given by
@@ -63,7 +64,7 @@ The discretized deconvolution problem is then given by
 
 In practice,
 the transfer matrix $A(x, y)$ can be approximated
-by Monte-Carlo simulations of the detector,
+by Monte Carlo simulations of the detector,
   where both the true and the measured quantities are known.
 Given an actual set of measurements $\vec{g}$,
 the deconvolution problem can then be solved

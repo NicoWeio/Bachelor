@@ -1,6 +1,6 @@
 \section{Hyperparameters}
 Hyperparameters are parameters that are not learned from the data,
-but are set by the user.
+but adjusted by the user.
 %
 In order to find the optimal hyperparameters,
 multiple experiments are run,
@@ -17,7 +17,7 @@ In each case, 10-fold cross-validation is utilized to reduce the variance of sin
   (see \autoref{sec:hyperparameters:cross_validation}).
 
 % ↓ see pp. 46-48 of dsea_mirko
-The adaptive step size method of \dseaplus{} is used,
+The adaptive step size method of \dseaplus{} is used
 because it performs well with all reasonable convergence thresholds.
 It eliminates the need to optimize for step size related hyperparameters,
   such as
@@ -33,8 +33,8 @@ This is verified by the initial Bayesian optimization (\autoref{sec:hyperparamet
   where the results have no correlation with the learning rate.
 
 
-\subsection{Cross validation} \label{sec:hyperparameters:cross_validation}
-Cross validation is a method to evaluate the performance of a model on unseen data
+\subsection{Cross-validation} \label{sec:hyperparameters:cross_validation}
+Cross-validation is a method to evaluate the performance of a model on unseen data
 without having to reserve a part of the data for testing.
 
 The data is split into $k = 10$ \emph{folds} of equal size. % not to be confused with DSEA's iteration index k
@@ -45,7 +45,7 @@ each time using a different fold for evaluation.
 The average of the results is then used as the performance metric.
 
 In this work,
-cross validation is used primarily to get more meaningful performance metrics
+cross-validation is used primarily to get more meaningful performance metrics
 for each hyperparameter setting,
 % which would otherwise [be noisy / good by chance / …].
 since individual runs have a high variance.
@@ -68,9 +68,8 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
 \begin{figure}
   % TODO: Move to appendix / exlcude?
   % TODO: Log colorscale?
-  % TODO: correct scaling
   \centering
-  \includegraphics[scale=0.75]{content/plots/hyperparam/combined_pcplot_full.pdf}
+  \includegraphics[scale=1]{content/plots/hyperparam/combined_pcplot_full.pdf}
   \caption{
     Parallel coordinates plot of the initial Bayesian hyperparameter search.
     For clarity, only the mean of the 10-fold cross-validation results is shown.
@@ -85,15 +84,15 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
       Optimal hyperparameters as determined by a Bayesian optimization search.
     }
     \label{tab:hyperparameters:initial}
-    \begin{tabular}{l S}
+    \begin{tabular}{l r}
         \toprule
         Hyperparameter & {Value} \\
         \midrule
         %TODO: Placeholder values
-        batch size & 512 \\
-        convergence threshold $\epsilon$ & E-4 \\
-        $J$ & 100 \\
-        learning rate & 0.0009 \\
+        batch size & \num{512} \\
+        convergence threshold $\epsilon$ & \num{E-4} \\
+        $J$ & \num{100} \\
+        learning rate & \num{0.0009} \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -119,7 +118,7 @@ but also because it allows for a faster training time.
   \caption{Boxplot of the performance of the model for different batch sizes.
     The performance is measured using the \emph{Wasserstein distance}.
     The box shows the 25th to 75th percentile,
-    the line in the middle is the median,
+    the center line denotes the median,
     % TODO: Imprecise. The whiskers extend from the box by 1.5x the inter-quartile range (IQR)
     and the whiskers show the minimum and maximum,
       apart from outliers,

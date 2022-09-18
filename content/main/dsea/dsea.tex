@@ -1,4 +1,4 @@
-\section{DSEA} \label{sec:dsea:dsea}
+\section{Dortmund Spectrum Estimation Algorithm} \label{sec:dsea:dsea}
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm,
   \dsea{} in short, % TODO: language
 is a method for solving the previously stated deconvolution problem.
@@ -120,8 +120,8 @@ each with a \emph{decay rate} $0 < \eta < 1$.
 These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
 while enabling the use of a $\chi^2$ stopping criterion,
-  expressed by a minimum $\chi^2$ distance $\epsilon$ between iterations,
-  which had already been suggested in the original \dsea{} paper \cite{dsea_tim}.
+  expressed by a minimum $\chi^2$ distance $\epsilon$ between iterations.
+% NOTE: This had already been suggested in the original DSEA paper (→ dsea_tim).
 
 
 % TODO: adaptive step size function; see Mirko's chapter 3.3

@@ -1,8 +1,8 @@
 \section{Setup}
 % TODO: Write a short introduction to the setup
 
-\subsection{Dataset}
-The unmodified dataset \cite{icecube_mc} consists of about 13 million Monte-Carlo simulated \enquote{upgoing} neutrino events,
+\subsection{Monte Carlo Dataset}
+The unmodified dataset \cite{icecube_mc} consists of about 13 million Monte Carlo simulated \emph{upgoing} neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
 with energies ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electronvolt}.
 % TODO: Explain “upgoing”.
@@ -45,7 +45,7 @@ They are re-used in this thesis.
 \begin{table}
     \centering
     \caption{
-      Names of the 12 best features according to the \emph{mRMR} algorithm (from \cite{dsea_jan}).
+      12 best features according to the \emph{mRMR} algorithm \cite{dsea_jan}.
     }
     \label{tab:features_best}
     \begin{tabular}{l}
@@ -90,34 +90,35 @@ Contrary to \cite{dsea_jan} and \cite{dsea_samuel},
 under- and overflow bins are added
   in order to allow for the application to real data.
 %
-The lower border of the overflow bin is chosen so that it contains a similar number of events as the previous bin,
+The lower limit of the overflow bin is chosen so that it contains a similar number of events as the previous bin,
 ensuring sufficient statistics.
 A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
-The underflow bin is assigned the energy range \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$,
+The underflow bin is assigned the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$
 % \qtyrange{E2}{E2.1}{\giga\electronvolt}.
   because the dataset does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
 Again, the event count in the underflow bin is chosen to be similar to the neighboring bin.
 %
-The remaining \num{8} bins are spaced logarithmically between the under- and overflow bins,
-  so that the entire energy range of the Monte-Carlo dataset is covered.
+The remaining \num{8} bins are spaced logarithmically between the under- and overflow bins
+  so that the entire energy range of the Monte Carlo dataset is covered.
 
 A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:discretized:histogram}.
 
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/dataset_500k:discretized:histogram_full.pdf}
-  \caption{Energy spectrum of the 500k Monte-Carlo dataset using the discretized energy ranges as bins.}
+  \caption{Energy spectrum of the 500k Monte Carlo dataset using the discretized energy ranges as bins.}
   \label{fig:dataset:discretized:histogram}
 \end{figure}
 
 
 \subsection{Neural network}
-\citeauthor{corn} provide a PyTorch \cite{pytorch} implementation of their \corn method
-as well as several examples demonstrating its application on different datasets.
+A PyTorch \cite{pytorch} implementation of the \corn{} method
+as well as several examples demonstrating its application on different datasets
+is provided by \cite{corn}.
 % TODO: Reference their tabular data / cement example?
 
-This work makes use of said implementation of \corn
+This work makes use of said implementation of \corn{}
 and hence the PyTorch framework.
 Additionally,
   PyTorch Lightning \cite{pytorch_lightning},
@@ -125,7 +126,7 @@ Additionally,
   and scikit-learn \cite{sklearn}
   are used.
 
-The neural network consists of \num{4} fully connected hidden layers.\corn{}
+The neural network consists of \num{4} fully connected hidden layers.
 The input layer has \num{12} neurons,
   corresponding to the number of features,
 while the output layer has \num{9} neurons,
@@ -144,11 +145,6 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
 
 \begin{table}
   \centering
-  \caption{
-    Shape and activation functions of the neural network.
-    The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
-  }
-  \label{tab:nn_shape}
   \begin{tabular}{S[table-format=3.0] c}
     \toprule
     {neurons} & {activation function} \\
@@ -161,6 +157,12 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
     9   & leaky ReLU \\
     \bottomrule
   \end{tabular}
+  % TODO: Ich habe immer gelernt: „Abbildungen haben eine Unterschrift, Tabellen eine Überschrift.“ @Karolin widerspricht dem scheinbar.
+  \caption{
+    Shape and activation functions of the neural network.
+    The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
+  }
+  \label{tab:nn_shape}
 \end{table}
 
 % TODO: Reference \corn loss function?

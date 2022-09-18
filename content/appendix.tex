@@ -23,23 +23,11 @@
 \blindtext
 
 
-\section{Adding support for weighting}
-\label{sec:appendix:corn_weighting}
-% TODO: Reference this section in the main text
-\begin{minted}{python}
-  loss = -torch.sum(
-    (F.logsigmoid(pred)*train_labels
-      + (F.logsigmoid(pred) - pred)*(1-train_labels))
-    * train_weights # ← new
-  )
-\end{minted}
-
-
-\section{Dataset}
+\section{Monte Carlo Dataset}
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/dataset:raw:histogram_full.pdf}
-  \caption{Energy spectrum of the full, untouched Monte-Carlo dataset using 30 bins.}
+  \caption{Energy spectrum of the full, untouched Monte Carlo dataset using 30 bins.}
   % TODO: Actually the full? Maybe I used only 1 million, which would mess up the y axis.
   \label{fig:dataset:raw:histogram}
 \end{figure}

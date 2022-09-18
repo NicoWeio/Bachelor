@@ -24,10 +24,8 @@ Each rank label is an element of the set of all ranks $\{r_1, r_2, \ldots, r_K\}
   $K$ is the number of ranks
   and $r_1 < r_2 < \ldots < r_K$.
 
-The rank labels $y^{[i]}$ are used to create a set of binary subtasks,
-so that for every rank label $y^{[i]}$,
+For every rank label $y^{[i]}$,
 $K$ subtasks are created. % TODO: Not K-1 ?
-  % which are denoted by $y^{[i]}_k$.
 Each subtask $y^{[i]}_k \in \{0, 1\}$ is a binary classification task,
   where
     $y^{[i]}_k = 1$ if $y^{[i]} > r_k$ (in words: {$y^{[i]}$ exceeds rank $r_k$})
@@ -88,7 +86,7 @@ Its definition is shown in \autoref{eqn:corn:loss}.
 
 
 \subsection{Obtaining probabilities from CORN} % OR: Converting threshold to per-class probabilities
-As explained before,
+As explained in \autoref{sec:corn:method},
 % CORN returns conditional (?) probabilities based on the binary classification subtasks it uses.
 \corn{} only returns a single predicted rank $r_q$ for a given input $\mathbf{x}$.
 % … and internally has no notion of “absolute” per-class probabilities.
@@ -100,7 +98,7 @@ In contrast,
 the \dsea{} algorithm is strongly coupled to the idea of per-class probabilities (confidences).
 Therefore, a conversion is necessary.
 Under the assumption that all energies belong to one of the ranks (bins),
-such a conversion is possible.
+such a conversion is realizable.
 
 As an example, given four rank indices $q \in \{0, 1, 2, 3\}$,
 the conditional probabilities are
@@ -115,9 +113,9 @@ the conditional probabilities are
 A more detailed explanation is given in \autoref{sec:appendix:corn_probas}.
 
 
-\subsection{…}
-\todo{This does not belong to the subsection "Getting probabilities from CORN", but isn't really a subsection on its own either.}
-In order to support the weighting of individual samples,
-the CORN loss function is modified
-to include the weight as a factor.
-The updated code is shown in \autoref{sec:appendix:corn_weighting}.
+% \subsection{…}
+% \todo{This does not belong to the subsection "Getting probabilities from CORN", but isn't really a subsection on its own either.}
+% In order to support the weighting of individual samples,
+% the CORN loss function is modified
+% to include the weight as a factor.
+% The updated code is shown in \autoref{sec:appendix:corn_weighting}.
