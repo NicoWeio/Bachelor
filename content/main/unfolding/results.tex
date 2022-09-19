@@ -3,16 +3,16 @@ Using the results of the hyperparameter search,
 the final model is evaluated in more detail.
 Specifically,
   the uncertainty of the predictions is analyzed, % Oxford comma
-  and the physical plausibility of the predictions is checked.
+  and the physical plausibility of the predictions is investigated.
 
 
 \subsection{Bootstrapping}
 Bootstrapping \cite{bootstrap} is a method to estimate the uncertainty of a model.
-It is based on the idea that the data is not a single sample,
-but a random sample from a larger population.
-The uncertainty of the model can therefore be estimated by sampling from the data multiple times,
-and training a model on each sample.
-The uncertainty of the model is then estimated by the variance of the results of the different models.
+It considers the given data as a random sample from a larger population.
+Therefore,
+by repeatedly sampling from the data and training a model on each sample,
+the model's uncertainty can be determined
+as the variance of the results of the different models.
 %
 For the present work, \num{50} bootstrap samples are used. % TODO
 Since using a bootstrap sample of the same size as the original data set

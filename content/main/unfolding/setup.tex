@@ -11,7 +11,7 @@ See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
 % TODO: The smallest bin contains about XY events.
 
-To ensure comparability to the works of \citeauthor{dsea_samuel} as well as \citeauthor{dsea_jan},
+To ensure comparability to \cite{dsea_samuel} and \cite{dsea_jan},
 only the first \num{500000} events of the dataset are considered.
 This also allows for more thorough hyperparameter optimization,
 which would otherwise be limited by the available computational resources as well as the timeframe of this thesis.
@@ -94,7 +94,7 @@ The lower limit of the overflow bin is chosen so that it contains a similar numb
 ensuring sufficient statistics.
 A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
-The underflow bin is assigned the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$
+The underflow bin is assigned to the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$ % TODO: language
 % \qtyrange{E2}{E2.1}{\giga\electronvolt}.
   because the dataset does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
 Again, the event count in the underflow bin is chosen to be similar to the neighboring bin.
@@ -117,7 +117,7 @@ A PyTorch \cite{pytorch} implementation of the \corn{} method
 as well as several examples demonstrating its application on different datasets
 is provided by \cite{corn}.
 % TODO: Reference their tabular data / cement example?
-
+%
 This work makes use of said implementation of \corn{}
 and hence the PyTorch framework.
 Additionally,

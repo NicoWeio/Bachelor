@@ -16,7 +16,7 @@ scikit-learn \cite{sklearn} is used.
 
 \subsection{Accuracy}
 % TODO: Do we even use this?
-The \emph{accuracy} is the fraction of correctly classified events to the total number of events.
+The \emph{accuracy} \cite{accuracy} is the fraction of correctly classified events to the total number of events.
 It is a common metric for classification tasks,
 but it is not ideal for ordinal classification
   since it does not take the ordering of the classes into account.
@@ -30,7 +30,7 @@ it gives an indication of the overall performance of the model.
 
 
 \subsection{Mean absolute error}
-The \emph{mean absolute error} (\textsc{Mae}) is a metric that is commonly used for regression tasks. % TODO
+The \emph{mean absolute error} (\textsc{Mae}) \cite{mae} is a metric that is commonly used for regression tasks. % TODO
 It is defined as
 \begin{equation}
   \text{\textsc{Mae}} = \frac{1}{N} \sum_{i=1}^N \left| y^{[i]} - \hat{y}^{[i]} \right|
@@ -42,10 +42,13 @@ and $\hat{y}^{[i]}$ is the predicted value of the $i$-th event. % Oxford comma
 % Because of its simple definition,
 % it can be easily understood and interpreted.
 
-Since the absolute error is used,
+Since the absolute value of the error is considered,
 overestimation and underestimation are treated equally
 and do not cancel each other out.
-In contrast to RMSE… % TODO
+% NOTE: The referenced paper gives some good arguments for using MAE over RMSE.
+In contrast to the \emph{root mean squared error} (\textsc{Rmse}),
+the \textsc{Mae} is not especially sensitive to outliers
+and has a more natural interpretation \cite{mae}.
 
 
 \subsection{Wasserstein distance}
@@ -57,7 +60,8 @@ They disregard both
     which results from summing of the confidences over all events.
 
 In contrast,
-the \emph{Wasserstein distance}
+% TODO: The cited paper calls it "Earth Mover's Distance", but I want the citation here.
+the \emph{Wasserstein distance} \cite{wd}
 compares the unfolded spectrum to the true spectrum.
 %
 It is also known as \emph{earth mover's distance} (\textsc{Emd}),

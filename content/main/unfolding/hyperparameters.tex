@@ -3,8 +3,7 @@ Hyperparameters are parameters that are not learned from the data,
 but adjusted by the user.
 %
 In order to find the optimal hyperparameters,
-multiple experiments are run,
-exploring different options.
+the unfolding procedure is repeated for different values of the hyperparameters.
 
 % The hyperparameters which are expected to be mostly independent of others are checked first (see \autoref{sec:hyperparameters:initial_bayesian}).
 % Then, the remaining hyperparameters are checked in separate grid searches.
@@ -30,14 +29,15 @@ and provides accurate results after a few iterations \cite{dsea_mirko}.
 Since \textsc{Adam} maintains separate learning rates for each parameter,
 optimization for the learning rate is not essential.
 This is verified by the initial Bayesian optimization (\autoref{sec:hyperparameters:initial_bayesian}),
-  where the results have no correlation with the learning rate.
+  where the results have no significant correlation with the learning rate.
 
 
 \subsection{Cross-validation} \label{sec:hyperparameters:cross_validation}
+% TODO: citation?
 Cross-validation is a method to evaluate the performance of a model on unseen data
 without having to reserve a part of the data for testing.
 
-The data is split into $k = 10$ \emph{folds} of equal size. % not to be confused with DSEA's iteration index k
+The data is split into $k$ \emph{folds} of equal size. % not to be confused with DSEA's iteration index k
 The model is then trained on $k-1$ folds,
 and evaluated on the remaining fold.
 This is repeated $k$ times,
@@ -47,10 +47,15 @@ The average of the results is then used as the performance metric.
 In this work,
 cross-validation is used primarily to get more meaningful performance metrics
 for each hyperparameter setting,
-% which would otherwise [be noisy / good by chance / …].
-since individual runs have a high variance.
+  % which would otherwise [be noisy / good by chance / …].
+  since individual runs have a high variance.
+The number of folds is set to $k = 10$,
+  striking a balance between
+    the size of the dataset,
+    the statistical uncertainty,
+    and the computational cost.
 
-% TODO: Show initial Bayesian search results?
+
 % “These are the baseline hyperparameters as determined by a Bayesian optimization search.
 % Grid searches for individual hyperparameters will show that these are actually optimal.”
 % (I hope.)
@@ -86,7 +91,7 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
     \label{tab:hyperparameters:initial}
     \begin{tabular}{l r}
         \toprule
-        Hyperparameter & {Value} \\
+        hyperparameter & {value} \\
         \midrule
         %TODO: Placeholder values
         batch size & \num{512} \\
