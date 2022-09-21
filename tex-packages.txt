@@ -52,3 +52,4 @@ mwe
 todonotes
 algorithms
 algorithmicx
+pdfpages

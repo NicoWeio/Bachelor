@@ -133,6 +133,7 @@
 \usepackage{todonotes}
 \usepackage[outputdir=build]{minted}
 \usepackage[nameinlink]{cleveref}
+\usepackage{pdfpages}
 
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -199,7 +200,8 @@
 
 \input{content/acknowledgements.tex}
 
-% \cleardoublepage
+\cleardoublepage
+\includepdf[pages=-]{content/affidavit.pdf}
 % TODO ↓
 % \begin{foreignlanguage}{german}
   % \input{content/eid_versicherung.tex}
