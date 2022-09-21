@@ -52,4 +52,6 @@ mwe
 todonotes
 algorithms
 algorithmicx
+cleveref
 pdfpages
+pdflscape
