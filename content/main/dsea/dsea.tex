@@ -1,60 +1,78 @@
 \section{Dortmund Spectrum Estimation Algorithm} \label{sec:dsea:dsea}
-The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm,
-  \dsea{} in short, % TODO: language
+% TODO: Eigentlich müssten f,p,… fett sein oder einen Vektorpfeil bekommen…
+
+The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm
+  (\dsea{})
+  \cite{dsea_unification}
 is a method for solving the previously stated deconvolution problem.
-It was introduced by \citeauthor{dsea_tim} in \citeyear{dsea_tim} \cite{dsea_tim}
-and improved by \citeauthor{dsea_mirko} in \citeyear{dsea_mirko} \cite{dsea_mirko}.
-The improved version
-  – which this thesis is based on –
+The extended version \cite{dsea_mirko}
+  that
+    % corrects the re-weighting of training examples and
+    gives more control over the speed of convergence
 is also referred to as \dseaplus{}.
 %
 A formal definition of the \dseaplus{} algorithm is given in \autoref{sec:alg:dseaplus}.
 
 
 \subsection{Deconvolution as a classification task} % identical to Jan's paper
-\dsea{} makes use of arbitrary classifiers to solve the deconvolution problem.
+\dsea{} makes use of classifiers to solve the deconvolution problem.
+% In order to use a classifier, …
+This requires the deconvolution problem to be
+  discretized (see \autoref{sec:dsea:deconvolution_problem:discretization})
+  and reformulated as a multinomial classification task.
+
+Any classifier that outputs probabilities for each class
+  can be used with \dsea{}.
 This is an advantage,
   as the choice of a classifier can be tailored to the specific problem at hand.
 % ORIG: The novel algorithmic framework Dsea is unique among these algorithms,
 % because it translates the deconvolution problem into a multinomial classification task,
 % thus opening deconvolution to the field of machine learning and the rapid advances being made in that field.
 Contrary to other algorithms like
-  \textsc{Truee} / \textsc{Run} \cite{milke2013},
+  \textsc{Truee} / \textsc{Run} \cite{milke2013} or
   \textsc{Ibu} \cite{dagostini1995, dagostini2010},
 no restrictions on the input data are imposed.
 
 Furthermore,
 \dsea{} transparently provides the contributions of individual observations to the deconvolved spectrum.
 This not only gives deeper insight into the performance of the algorithm,
-but also allows for time-dependent deconvolution,
-  for example \cite{dsea_mirko}. % Should I really cite this?
-In order to use a classifier,
-  the deconvolution problem is reformulated as a multinomial classification task.
-The spectrum is discretized.
+but also allows for time-dependent deconvolution \cite{dsea_mirko}. % NOTE: … for example
 
 
-% \subsection{Iterative reproduction of the target density and reweighting of training samples} % identical to Jan's paper
-\subsection{Iterative procedure}
+\subsection{Procedure}
+% TODO: This fits on one page (@Karolin), but the previous section is too long.
+
+% The \dsea{} algorithm is an iterative procedure.
+% $N$ is the number of bins or classes in the spectrum.
+% % $\hat f_j^{(0)}$ is the initial guess for the $j$-th bin of the deconvolved spectrum.
+% $\hat f_j^{(k)}$ is the $j$-th bin of the deconvolved spectrum after $k$ iterations.
+
+
 \subsubsection{Initialization}
 Since no prior knowledge about the true spectrum is available,
-  the initial spectrum is chosen to be uniform:
+  the initial spectrum is chosen to be uniform.
+Given $I$ bins,
+  each bin is initialized to
 \begin{equation}
-  \hat f_j^{(0)} = \frac{1}{N} \quad \forall j \, .
+  \hat f_i^{(0)} = \frac{1}{I} \quad \forall i \, .
 \end{equation}
+
 % TODO: Explain variables here, not below?
 The initial weights are then determined as in \autoref{eqn:dsea:weighting}.
 
 % - The resulting bins are used as classes.
 
+
 \subsubsection{Iteration}
 First,
-% on the training data,
-the classifier is trained to predict the class of a single sample,
+the classifier is trained
+  on the training data
+to predict the class of one sample at a time,
 where each sample is weighted according to its true class.
 
 Second,
-% on the test/real data,
-the classifier is used to predict the class of each sample.
+the classifier is used to predict the class of each sample
+in the observed~(/test) data.
 
 Third,
 the predicted classes are used to
@@ -64,48 +82,72 @@ the predicted classes are used to
     consequently,
   updated weights for the next iteration.
 %
-The updated spectrum is determined by the sum of the confidences of all events.
-% TODO: j → q for consistency with CORN?
-For each energy bin with index $j$,
+The new spectrum is determined by the sum of the confidences of all events.
+% TODO: i → q for consistency with CORN?
+For each energy bin with index~$i$,
 this can be written as
 \begin{equation}
-  \hat f_j = \frac{1}{N} \sum_{i=1}^N \hat c_{i,j} \, ,
+  \hat f_i = \frac{1}{N} \sum_{n=1}^N \hat c_{i,n} \, ,
 \end{equation}
-where $N$ is the number of events
-and $\hat c_{i,j}$ is the confidence of event $i$ for class $j$.
+where $N$ is the number of events in the observation dataset,
+$k$ is the current iteration number, % Oxford comma
+and $\hat c_{i,n}$ is the confidence
+  that event $n$ belongs to class $i$.
 The factor $\sfrac{1}{N}$ is introduced to normalize the spectrum
 to a true probability density distribution.
-
-- The resulting spectrum is the preliminary deconvolution result.
-
-- The weights of the training samples are updated according to the preliminary deconvolution result.
-In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum. % → fixweighting
+%
+% - The resulting spectrum is the preliminary deconvolution result.
+The weights of the training samples are then updated according to the new spectrum~$\hat f_i^{(k)}$. % …preliminary deconvolution result.
+In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum. % NOTE: → fixweighting
 This is needed to mitigate the impact of the training spectrum on the deconvolution result.
 A more detailed reasoning is given in \cite{dsea_mirko}.
-
+The updated weights are given by
 \begin{equation}
   \label{eqn:dsea:weighting}
-  w_j^{(k+1)} = \frac{\hat f_j^{(k)}}{f_j^\text{train}} \, ,
+  w_i^{(k+1)} = \frac{\hat f_i^{(k)}}{f_i^\text{train}} \, ,
 \end{equation}
-where $w_j^{(k+1)}$ is the weight applied to training samples with true bin $j$ in iteration~$k+1$,
-$\hat f_j^{(k)}$ is
-  the value of the $j$-th bin in
-  the current deconvolution result, % Oxford comma
-and $f_j^\text{train}$ is
-  the value of the $j$-th bin in
+where $w_i^{(k+1)}$ is the weight applied to training samples with true~bin~$i$ in iteration~$k+1$, % (Oxford comma)
+% $\hat f_i^{(k)}$ is
+%   the value of the $i$-th bin in
+%   the current deconvolution result, % Oxford comma
+and $f_i^\text{train}$ is
+  the value of the $i$-th bin in
   the training spectrum.
 
-- The classifier is retrained with the updated weights.
 
-\subsubsection{Result}
-The final deconvolution result is the spectrum obtained after the last iteration.
-…?
+The iterative procedure is repeated
+  with the updated weights
+until
+  convergence
+    % (determined by the $\chi^2$ distance between the current and previous deconvolution result)
+  or,
+    in case of fixed step sizes,
+  a maximum number of iterations
+is reached.
+%
+%
+% \subsubsection{Result}
+% TODO: Explain convergence…
+The final deconvolution result is the spectrum obtained in the last iteration.
+
 
 
 \subsection{Step size functions} \label{sec:dsea:dsea:stepsize}
 \dseaplus{} introduces the concept of a step size $\alpha$,
 which allows the user to control the speed of convergence,
 which in turn has a significant impact on the quality of the result.
+
+A \emph{step} $p_i^{(k)}$ is the difference between the current and previous deconvolution result:
+\begin{equation}
+  p_i^{(k)} = \hat f_i^{(k)} - \hat f_i^{(k-1)} \, .
+\end{equation}
+Instead of updating the spectrum with the current deconvolution result $f_i^{(k)}$ directly,
+the step is multiplied with the step size
+and added to the previous deconvolution result:
+\begin{equation}
+  \hat f_i^{(k)+} = \hat f_i^{(k-1)} + \alpha \cdot p_i^{(k)} \, .
+\end{equation}
+This improved estimate $\hat f_i^{(k)+}$ is then considered instead of $\hat f_i^{(k)}$.
 
 While the original \dsea{} algorithm uses a fixed step size of $\alpha = 1$,
 \dseaplus{} allows arbitrary constants $\alpha > 0$
@@ -120,8 +162,18 @@ each with a \emph{decay rate} $0 < \eta < 1$.
 These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
 while enabling the use of a $\chi^2$ stopping criterion,
-  expressed by a minimum $\chi^2$ distance $\epsilon$ between iterations.
+  expressed by a minimum $\chi^2$~distance $\epsilon$ between iterations.
 % NOTE: This had already been suggested in the original DSEA paper (→ dsea_tim).
 
 
-% TODO: adaptive step size function; see Mirko's chapter 3.3
+The utilization of \emph{adaptive step sizes} \cite{dsea_mirko} can further improve the convergence of the algorithm
+by choosing an optimal step size $\alpha$ for each iteration.
+This is achieved by searching
+  along the direction of the step % aka. search direction
+  for the optimal step size $\alpha$.
+    % which minimizes an objective function…
+% TODO ↓
+% The method provided by \cite{dsea_mirko} discretizes the training data u
+%   sing a decision tree,
+%   thus adding a hyperparameter $J$
+%     that controls the number of leaves in the tree.

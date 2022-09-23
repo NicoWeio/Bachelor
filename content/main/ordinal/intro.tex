@@ -1,12 +1,13 @@
-The \dsea{} algorithm provides everything needed to solve the deconvolution problem.
+\dsea{} can solve the deconvolution problem
+given any capable classifier.
 However,
-it uses an arbitrary \emph{classifier}.
-Usually,
-  classifiers have no concept of \emph{ordinality},
+  classifiers usually do not take into account \emph{ordinality},
 which contradicts the physical meaning of the unfolded spectrum.
 %
 This chapter
   clarifies the concept of ordinality
   and
   introduces the \corn{} algorithm,
-    which applies the concept of ordinality to neural networks.
+    which applies it to neural networks.
+    % which makes neural networks ordinal
+    %   with small modifications.

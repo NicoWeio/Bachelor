@@ -1,5 +1,7 @@
 deconvolution
+deconvolved
 DSEA
+Fredholm
 Haefs
 IceCube
 LogisticAT
