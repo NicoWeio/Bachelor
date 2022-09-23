@@ -9,19 +9,19 @@ the intensity of light can measured by a photodetector,
     thus measuring the intensity \emph{indirectly}.
 However,
 this conversion is not perfect:
-The detector has limited acceptance and resolution,
+The detector has limited acceptance and resolution
 and the signal is subject to noise.
 % forward / inverse problem
-For neutrino astronomy,
-  energy measurements are even more indirect,
-    going from neutrinos to leptons to Cherenkov light to electrical signals.
+% For neutrino astronomy,
+%   energy measurements are even [more indirect],
+%     going from neutrinos to leptons to Cherenkov light to electrical signals.
 %
 The deconvolution problem is to reconstruct the physical quantity of interest
   from the indirect measurements.
 
-% - Fredholm integral equation
+% █ Fredholm integral equation
 Mathematically,
-the deconvolution problem can be formulated as an integral equation.
+the deconvolution problem is described by the Fredholm integral equation of the first kind.
 %
 The notation is based on \citeauthor{deconvolution_blobel} \cite{deconvolution_blobel}.
 % In particular,
@@ -48,7 +48,7 @@ the Fredholm integral equation of the first kind: \cite{deconvolution_blobel}
 \end{equation}
 
 
-\subsection{Discretization}
+\subsection{Discretization} \label{sec:dsea:deconvolution_problem:discretization}
 In the context of physical measurements,
 the integral equation is discretized
   to account for the finite number of samples.

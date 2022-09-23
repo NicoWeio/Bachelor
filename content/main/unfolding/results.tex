@@ -26,21 +26,23 @@ while the bootstrap samples contain \num{500000} events as before.
   This is (probably) the most important plot. Discuss it in more detail!
   Also: Explain percentiles etc.
 }
-\autoref{fig:bootstrap:distributions} shows the unfolded energy spectrum of the optimized model,
+\autoref{fig:bootstrap:spectrum} shows the unfolded energy spectrum of the optimized model,
 as well as the \SI{68}{\percent} confidence intervals,
   ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
+In \autoref{fig:bootstrap:distributions},
+the histograms of the estimations for individual bootstrap runs are shown.
 
 \blindtext[2]
 
 \begin{figure}
   \centering
-  \includegraphics[scale=1]{content/plots/bootstrap:spectrum.pdf}
+  \includegraphics[scale=1]{content/plots/bootstrap:spectrum_full.pdf}
   \caption{
     Energy spectrum and relative deviations of the bootstrap.
-    TODO: Placeholder data.
+    The error bars show the \SI{68}{\percent} confidence intervals,
+    ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
     % TODO:
     % - Add axspan to legend or explain it here.
-    % - Switch to 68% confidence intervals (@Karolin)
   }
   \label{fig:bootstrap:spectrum}
 \end{figure}

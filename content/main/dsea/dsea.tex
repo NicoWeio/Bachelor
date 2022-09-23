@@ -60,7 +60,7 @@ Given $I$ bins,
 % TODO: Explain variables here, not below?
 The initial weights are then determined as in \autoref{eqn:dsea:weighting}.
 
-% - The resulting bins are used as classes.
+% █ The resulting bins are used as classes.
 
 
 \subsubsection{Iteration}
@@ -96,7 +96,7 @@ and $\hat c_{i,n}$ is the confidence
 The factor $\sfrac{1}{N}$ is introduced to normalize the spectrum
 to a true probability density distribution.
 %
-% - The resulting spectrum is the preliminary deconvolution result.
+% █ The resulting spectrum is the preliminary deconvolution result.
 The weights of the training samples are then updated according to the new spectrum~$\hat f_i^{(k)}$. % …preliminary deconvolution result.
 In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum. % NOTE: → fixweighting
 This is needed to mitigate the impact of the training spectrum on the deconvolution result.

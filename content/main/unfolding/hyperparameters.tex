@@ -1,3 +1,4 @@
+\clearpage % guidance only
 \section{Hyperparameters}
 Hyperparameters are parameters that are not learned from the data,
 but adjusted by the user.
@@ -71,14 +72,11 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
 
 
 \begin{figure}
-  % TODO: Move to appendix / exlcude?
-  % TODO: Log colorscale?
   \centering
   \includegraphics[scale=1]{content/plots/hyperparam/combined_pcplot_full.pdf}
   \caption{
     Parallel coordinates plot of the initial Bayesian hyperparameter search.
-    For clarity, only the mean of the 10-fold cross-validation results is shown.
-    TODO: Preliminary data.
+    For clarity, only the mean of each 10-fold cross-validation run is shown.
     }
   \label{fig:hyperparameter:bayesian}
 \end{figure}
@@ -96,7 +94,7 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
         %TODO: Placeholder values
         batch size & \num{512} \\
         convergence threshold $\epsilon$ & \num{E-4} \\
-        $J$ & \num{100} \\
+        $J$ & \num{100} \\ % TODO: name?
         learning rate & \num{0.0009} \\
         \bottomrule
     \end{tabular}

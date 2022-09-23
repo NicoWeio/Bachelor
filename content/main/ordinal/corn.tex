@@ -1,13 +1,13 @@
-\section{CORN}
+\section{CORN} \label{sec:ordinal:corn}
 % Conditional Ordinal Regression for Neural Networks
-\emph{CORN} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) \cite{corn}
+\corn{} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) \cite{corn}
 is a framework for ordinal classification in neural networks.
 It is based on the ideas of binary subtasks and conditional probabilities
-and improves upon its predecessor \emph{CORAL} \cite{coral}.
+and improves upon its predecessor \textsc{Coral} \cite{coral}.
 \todo{
   Go on…
   - Niu et al.'s approach has rank inconsistency (also quoted below)
-  - CORAL's weight sharing limited the expressiveness of the network
+  - \textsc{Coral}'s weight sharing limited the expressiveness of the network
 }
 
 % ORIG: Instead, CORN uses a new training procedure with conditional training subsets that ensures rank consistency through applying the chain rule of probability.
@@ -69,7 +69,7 @@ to the conditional probabilities
   Put more emphasis on the conditional training subsets.
   Maybe move to appendix.
 }
-The loss function is provided by CORN.
+The loss function is provided by \corn{}.
 Its definition is shown in \autoref{eqn:corn:loss}.
 \begin{equation}
   \label{eqn:corn:loss}

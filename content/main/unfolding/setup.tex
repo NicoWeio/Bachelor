@@ -136,12 +136,6 @@ while the output layer has \num{9} neurons,
 % In total, the neural network has \num{TODO} neurons.
 
 The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
-\todo{Write a few sentences about these bullet points.}
-\begin{itemize}
-  \item Leaky ReLU activation function
-  \item Fully connected layers
-  \item Adam optimizer
-\end{itemize}
 
 \begin{table}
   \centering
@@ -165,10 +159,10 @@ The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
   \label{tab:nn_shape}
 \end{table}
 
-% TODO: Reference \corn loss function?
-
 \textsc{Adam} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
+It minimizes the loss function provided by \corn{} (see \autoref{eqn:corn:loss}).
+% TODO: Leaky ReLU activation function…
 
 The neural network keeps its weights between \dsea{} iterations.
 This was found to have no significant effect on the performance \cite{dsea_samuel}. % (\texttt{one\_model})
