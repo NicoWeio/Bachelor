@@ -1,22 +1,46 @@
 \chapter{Appendix}
 \blindtext
 
-\section{…} % TODO
+\section{Detector signatures of different neutrino flavors}
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{content/img/flavors1.png}
+  \begin{subfigure}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{content/img/signatures/track.png}
+    \caption{
+        Track. TODO.
+    }
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{content/img/signatures/cascade.png}
+    \caption{
+        Cascade. TODO.
+    }
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{content/img/signatures/double_bang.png}
+    \caption{
+        Double bang. TODO.
+    }
+  \end{subfigure}
   \caption{
     Shapes of the Cherenkov light produced by neutrinos of different flavors.
-    \citationneeded{}
+    The coloring of the \textsc{Dom}s indicates the time of the interaction,
+    with red being the earliest and blue being the latest.
+    \cite{kowalski2017} % CC-BY 3.0
   }
   \label{fig:img:icecube:interactions}
 \end{figure}
 
 
-\section{\dseaplus{}: Complete algorithm} \label{sec:alg:dseaplus}
+\clearpage
+\section{$\text{\textsc{DSEA}}^+$: Complete algorithm} \label{sec:alg:dseaplus}
 \input{content/main/dsea/algorithm.tex}
 
 
+\clearpage
 \section{From threshold to per-class probabilities}
 \label{sec:appendix:corn_probas}
 % TODO: Bullet points → sentences
@@ -40,6 +64,7 @@ Suppose we have 3 ranks with indices $q \in \{1, 2, 3\}$.
 \end{align*}
 
 
+\clearpage
 \section{Monte Carlo Dataset}
 \begin{figure}
   \centering
@@ -50,6 +75,7 @@ Suppose we have 3 ranks with indices $q \in \{1, 2, 3\}$.
 
 % TODO: Add a table of all features?
 
+\clearpage
 \section{Bootstrap distributions}
 \begin{figure}
   \centering
@@ -60,6 +86,7 @@ Suppose we have 3 ranks with indices $q \in \{1, 2, 3\}$.
 \end{figure}
 
 
+\clearpage
 \section{Links etc.}
 \begin{description}
   \item[Dataset in the chair's \texttt{POOL} file system] \texttt{/net/big-tank/POOL/users/lkardum/new\_mc\_binning.csv} (\SI{14.6}{\giga\byte})

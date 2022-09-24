@@ -77,7 +77,7 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
   \caption{
     Parallel coordinates plot of the initial Bayesian hyperparameter search.
     For clarity, only the mean of each 10-fold cross-validation run is shown.
-    }
+  }
   \label{fig:hyperparameter:bayesian}
 \end{figure}
 
@@ -143,8 +143,15 @@ convergence is assumed and the training is stopped.
 The boxplot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold.
 For small values of $\epsilon$
   (\numrange{E-10}{E-4}),
-the performance is rougly the same.
-For larger values, …
+the performance is roughly the same.
+
+For larger values, better performance is achieved. % TODO: Up to a point. See the plot.
+This is because a high convergence threshold can be thought of as
+  a form of \emph{implicit regularization} \citationneeded{},
+    analogous to early stopping,
+  contrary to explicit regularization,
+    as described in \autoref{sec:dsea:deconvolution_problem:regularization}.
+
 
 \begin{figure}
   \centering

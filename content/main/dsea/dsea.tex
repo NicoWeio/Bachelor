@@ -4,7 +4,7 @@
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm
   (\dsea{})
   \cite{dsea_unification}
-is a method for solving the previously stated deconvolution problem.
+is an iterative method for solving the previously stated deconvolution problem.
 The extended version \cite{dsea_mirko}
   that
     % corrects the re-weighting of training examples and
@@ -16,7 +16,6 @@ A formal definition of the \dseaplus{} algorithm is given in \autoref{sec:alg:ds
 
 \subsection{Deconvolution as a classification task} % identical to Jan's paper
 \dsea{} makes use of classifiers to solve the deconvolution problem.
-% In order to use a classifier, …
 This requires the deconvolution problem to be
   discretized (see \autoref{sec:dsea:deconvolution_problem:discretization})
   and reformulated as a multinomial classification task.
@@ -39,6 +38,7 @@ This not only gives deeper insight into the performance of the algorithm,
 but also allows for time-dependent deconvolution \cite{dsea_mirko}. % NOTE: … for example
 
 
+\clearpage % guidance only
 \subsection{Procedure}
 % TODO: This fits on one page (@Karolin), but the previous section is too long.
 
@@ -98,8 +98,8 @@ to a true probability density distribution.
 %
 % █ The resulting spectrum is the preliminary deconvolution result.
 The weights of the training samples are then updated according to the new spectrum~$\hat f_i^{(k)}$. % …preliminary deconvolution result.
-In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum. % NOTE: → fixweighting
-This is needed to mitigate the impact of the training spectrum on the deconvolution result.
+In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum % NOTE: → fixweighting
+  in order to mitigate the impact of the training spectrum on the deconvolution result.
 A more detailed reasoning is given in \cite{dsea_mirko}.
 The updated weights are given by
 \begin{equation}
@@ -131,7 +131,6 @@ is reached.
 The final deconvolution result is the spectrum obtained in the last iteration.
 
 
-
 \subsection{Step size functions} \label{sec:dsea:dsea:stepsize}
 \dseaplus{} introduces the concept of a step size $\alpha$,
 which allows the user to control the speed of convergence,
@@ -161,7 +160,7 @@ each with a \emph{decay rate} $0 < \eta < 1$.
 
 These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
-while enabling the use of a $\chi^2$ stopping criterion,
+while enabling the use of a stopping criterion,
   expressed by a minimum $\chi^2$~distance $\epsilon$ between iterations.
 % NOTE: This had already been suggested in the original DSEA paper (→ dsea_tim).
 

@@ -4,46 +4,44 @@
 Inverse problems are omnipresent in modern physics.
 They occur whenever a physical quantity is measured indirectly.
 For example,
-the intensity of light can measured by a photodetector,
-  which converts the light into an electrical signal,
-    thus measuring the intensity \emph{indirectly}.
+the intensity of light can be measured by a photodetector,
+  which converts the light into an electrical signal.
 However,
 this conversion is not perfect:
-The detector has limited acceptance and resolution
+A real detector has limited acceptance and resolution
 and the signal is subject to noise.
 % forward / inverse problem
 % For neutrino astronomy,
 %   energy measurements are even [more indirect],
 %     going from neutrinos to leptons to Cherenkov light to electrical signals.
 %
-The deconvolution problem is to reconstruct the physical quantity of interest
-  from the indirect measurements.
+The deconvolution problem
+  – as a special case of inverse problems –
+  is to reconstruct
+    the distribution of the physical quantity of interest
+    from the indirect measurements.
 
 % █ Fredholm integral equation
-Mathematically,
-the deconvolution problem is described by the Fredholm integral equation of the first kind.
-%
-The notation is based on \citeauthor{deconvolution_blobel} \cite{deconvolution_blobel}.
+% NOTE: The notation is based on \citeauthor{deconvolution_blobel} \cite{deconvolution_blobel}.
 % In particular,
 %   the meaning of $x$ and $y$ is swapped in the other chapters.
-A set of single physical quantities $x$
-  with $a \leq x \leq b$ % TODO: Style
-  (such as the energy of a neutrino)
-can be interpreted as a sample from a probability density $f(x)$.
+Mathematically,
+a set of single physical quantities $x$
+  limited to an arbitrary range $a \leq x \leq b$
+    (such as the energy of a neutrino)
+can be interpreted as samples from a probability density $f(x)$.
 %
 Given
-  the true distribution of a physical quantity $f(x)$,
-  the measured distribution $g(x)$,
+  % this true probability density,
+  the measured distribution $g(x)$
   and a \emph{response function} $A(x, y)$,
-  % TODO: mention \Omega
-% the deconvolution problem is
-%   to find $f(x)$
-%     such that $g(x) = A(x, y) f(y)$.
-the deconvolution problem is given by
-the Fredholm integral equation of the first kind: \cite{deconvolution_blobel}
+    which describes the detector,
+the deconvolution problem is
+  to find a distribution $f(x)$ that satisfies
+  the Fredholm integral equation of the first kind \cite{deconvolution_blobel}:
+  % TODO: „Blobel und die Gleichung können nicht die selbe Quelle sein“ → !?
 \begin{equation}
   \label{eq:deconvolution_problem:fredholm}
-  % \int_{\mathbb{R}^d} \phi(x) \, \varphi(x - y) \, \mathrm{d}x = \varphi(y) \, .
   \int_a^b A(x, y) f(x) \, \mathrm{d}x = g(y) \, .
 \end{equation}
 
@@ -75,8 +73,9 @@ by inverting the transfer matrix $\symbf{A}$:
 \end{equation}
 
 However,
-% as is common with inverse problems,
+as is common with inverse problems,
 the matrix inversion operation is usually \emph{ill-conditioned},
+    % since the underlying inverse problem is ill-posed,
   leading to numerical instabilities
   and oscillations in the solution.
 
@@ -87,17 +86,18 @@ the matrix inversion operation is usually \emph{ill-conditioned},
 % %   there are many different physical quantities
 % %     that can produce the same measurements.
 
+\phantomsection \label{sec:dsea:deconvolution_problem:regularization}
 One approach to overcome this problem
 is \emph{regularization}.
 % Regularization is a technique
 % to make the deconvolution problem well-posed
 % by adding a penalty term to the objective function.
 Regularization allows for better results
-  at the cost of introducing additional assumptions and parameters
-    (\emph{Bias-variance trade-off}).
-A common regularization technique
-  is to penalize the second derivative of the solution.
-    % which is known as \emph{Tikhonov regularization}. % TODO: Is it really?
-It incentivizes the solution to be smooth,
+  at the cost of introducing additional a priori assumptions and parameters
+    (\emph{bias-variance trade-off}) \cite{bias_variance_tradeoff}. % aka smoothing/sharpening trade-off
+A common regularization technique is
+  to penalize the second derivative of the solution \cite{deconvolution_starck},
+    which is known as \emph{Tikhonov regularization} \cite{tikhonov_regularization}.
+This incentivizes the solution to be smooth,
   which is often a reasonable assumption for distributions of physical quantities.
 
