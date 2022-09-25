@@ -5,7 +5,7 @@ from rich.console import Console
 console = Console()
 
 
-api = wandb.Api()
+api = wandb.Api(timeout=30) # :/
 
 
 def get_sweep_rundata(sweep_id: str):

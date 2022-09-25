@@ -19,7 +19,7 @@ XTICKS = np.geomspace(10**2, 10**8, (8-2+1))
 # %%
 api = wandb.Api()
 
-run = api.run("nicoweio/dsea-corn/3s0n2bmo")
+run = api.run("nicoweio/dsea-corn/24sfwi8p")
 BIN_EDGES = np.array(run.summary['bin_edges'])
 STYLE = 'full'
 # %%
@@ -40,12 +40,20 @@ pred_spectrum_error = np.percentile(pred_spectra, [16, 84], axis=0)
 true_spectrum_error = np.percentile(true_spectra, [16, 84], axis=0)
 
 # %%
-rel_error = (pred_spectrum - true_spectrum) / true_spectrum
+rel_errors = (pred_spectra - true_spectra) / true_spectra
+rel_error = np.median(rel_errors, axis=0)
+# rel_error = (pred_spectrum - true_spectrum) / true_spectrum
 
 pred_percentiles_as_err = np.array([
     # matplotlib expects [lower, upper]
     pred_spectrum - pred_spectrum_error[0],
     pred_spectrum_error[1] - pred_spectrum,
+])
+
+rel_error_percentiles_as_err = np.array([
+    # matplotlib expects [lower, upper]
+    rel_error - np.percentile(rel_errors, 16, axis=0),
+    np.percentile(rel_errors, 84, axis=0) - rel_error,
 ])
 # %%
 with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
@@ -61,7 +69,6 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
 
     axs[0].step(BIN_EDGES, pred_spectrum, where='post', drawstyle='steps-mid', color='C0', zorder=10, label='predicted probas')
 
-
     # get the middle points of the bin edges
     # bin_centers = (BIN_EDGES[:-1] + BIN_EDGES[1:]) / 2
     # NOTE: We need to account for the log scale
@@ -73,28 +80,37 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
 
     axs[0].errorbar(bin_centers,
                     pred_spectrum[:-1],
-                    # yerr=pred_spectrum_error,
                     yerr=pred_percentiles_as_err[:, :-1],
+                    zorder=20,
+                    linewidth=0,
+                    elinewidth=1,
+                    ecolor='C0',
+                    )
+
+    axs[0].set_ylabel(r"normalized \# of events")
+    axs[0].set_yscale('log')
+    axs[0].legend()
+
+    axs[1].step(BIN_EDGES, rel_error, where='post', color='C2')
+    axs[1].set_ylabel('relative deviation')
+    axs[1].set_xscale('log')
+    axs[1].set_xlabel(r'$\text{energy} \mathbin{/} \si{\giga\electronvolt}$')
+
+    # for single_rel_error in rel_errors:
+    #     axs[1].step(BIN_EDGES, single_rel_error, where='post', color='C2')
+
+    axs[1].errorbar(bin_centers,
+                    rel_error[:-1],
+                    # yerr=pred_spectrum_error,
+                    yerr=rel_error_percentiles_as_err[:, :-1],
                     drawstyle='steps-post',
                     # color='blue',
                     zorder=20,
                     # label="predicted probas (bootstrap median, TODO%ile)"
                     linewidth=0,
                     elinewidth=1,
-                    ecolor='red',
+                    ecolor='C2',
                     )
-
-
-    axs[0].set_ylabel('probability')  # TODO
-    axs[0].set_yscale('log')
-    axs[0].legend()
-    # axs[0].set_xlim(100, 10_000)
-
-    axs[1].step(BIN_EDGES, rel_error, where='post', color='C2')
-    axs[1].set_ylabel('relative deviation')
-    axs[1].set_xscale('log')
-    axs[1].set_xlabel(r'energy \mathbin{/} \si{\giga\electronvolt}')
-    # axs[1].set_xlim(100, 10_000)
 
     # connect grid lines
     ax3 = fig.add_subplot(111, zorder=-1)
