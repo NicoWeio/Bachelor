@@ -3,10 +3,11 @@
 Astroparticle physics is a relatively new field of physics
   that explores the universe
     with the help of messenger particles.
-Messenger particles are produced in [interesting] cosmic processes
-  and can be detected on Earth.
-  They carry information about the processes that produced them
-  and can be used to study the universe.
+They carry information about
+    the processes that produced them
+    and the environment they were created in,
+  which can be obtained upon their detection.
+% This way, AGN, supernovae, and other astrophysical phenomena can be studied.
 % █ neutrino astronomy
 Neutrinos are especially valuable messenger particles
   because their propagation path is not affected by electromagnetic fields,
@@ -25,8 +26,8 @@ Neutrinos are especially valuable messenger particles
 % ↓ move to icecube.tex?
 It makes use of the Antarctic ice as detector material
   and is sensitive to high-energy neutrinos
-    % in the \si{\tera\electronvolt} range \citationneeded{}.
-    in the approximate range of \SI{E7}{\electronvolt} to \SI{E21}{\electronvolt}.
+    in the approximate range of \si{\tera\electronvolt} to \si{\peta\electronvolt} \cite{icecube_aartsen}.
+      % \SI{E7}{\electronvolt} to \SI{E21}{\electronvolt}. % source?
 %
 One goal of analyses with \icecube{} is
   to obtain a neutrino energy spectrum.
@@ -35,7 +36,7 @@ One goal of analyses with \icecube{} is
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm (\dsea{}) \cite{dsea_unification}
 is a method to reconstruct the neutrino energy spectrum
   from the measured data of \icecube{}.
-While [conventional] classifiers
+While [conventional] classifiers % TODO
   such as random forests
 have been successfully applied to \icecube{} data in \dsea{},
 the possibilities of neural networks and deep learning are still largely unexplored. % Naja…
@@ -51,7 +52,7 @@ This thesis aims to combine the advantages of both approaches:
     due to respecting ordinality.
 % █ CORN
 This is done by adapting the
-\corn{} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) \cite{corn} framework
+\corn{} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) framework \cite{corn}
 to \dsea{}.
 The proposed method is then optimized and evaluated
   on simulated data from \icecube{}.

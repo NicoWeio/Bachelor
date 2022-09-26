@@ -34,8 +34,7 @@ This is verified by the initial Bayesian optimization (\autoref{sec:hyperparamet
 
 
 \subsection{Cross-validation} \label{sec:hyperparameters:cross_validation}
-% TODO: citation?
-Cross-validation is a method to evaluate the performance of a model on unseen data
+Cross-validation \cite{cross_validation} is a method to evaluate the performance of a model on unseen data
 without having to reserve a part of the data for testing.
 
 The data is split into $k$ \emph{folds} of equal size. % not to be confused with DSEA's iteration index k
@@ -113,7 +112,8 @@ The boxplot in \autoref{fig:hyperparameter:batch_size} shows the results of a gr
 % As expected, the performance is worse for larger batch sizes.
 A batch size of \num{4096} is chosen as the optimal value,
 not only because it has the smallest Wasserstein distance,
-but also because it allows for a faster training time.
+but also because it allows for a faster training time
+  compared to smaller values.
 
 \begin{figure}
   \centering
@@ -132,8 +132,8 @@ but also because it allows for a faster training time.
 
 
 \subsection{Convergence threshold}
-\todo{Redundant explanation. See \autoref{sec:dsea:dsea:stepsize}.}
-When using adaptive step sizes,
+As described in \autoref{sec:dsea:dsea:stepsize}, % TODO: redundant
+when using adaptive step sizes,
 instead of setting a fixed number of DSEA iterations,
 a minimum $\chi^2$ distance between iterations $\epsilon$
 can be specified.
@@ -144,7 +144,7 @@ The boxplot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid 
 For small values of $\epsilon$
   (\numrange{E-10}{E-4}),
 the performance is roughly the same.
-
+%
 For larger values, better performance is achieved. % TODO: Up to a point. See the plot.
 This is because a high convergence threshold can be thought of as
   a form of \emph{implicit regularization} \citationneeded{},
@@ -156,13 +156,12 @@ This is because a high convergence threshold can be thought of as
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{content/plots/hyperparam/epsilon_vs_wd_boxplot_lessheight.pdf}
-  \caption{TODO.}
+  \caption{Boxplot of the Wasserstein distance for different convergence thresholds.}
   \label{fig:hyperparameter:epsilon}
 \end{figure}
 
 
 \subsection{Adaptive step size: Number of clusters}
-% TODO [WIP]: Plot and explain J instead of J-factor
 The adaptive step size function,
   which has been explained in \autoref{sec:dsea:dsea:stepsize},
 internally relies on clustering the data into $J$ clusters.
@@ -178,7 +177,10 @@ which has a slightly better performance than \num{500}.
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/hyperparam/J_factor_vs_wd_boxplot_lessheight.pdf}
-  \caption{Boxplot of the Wasserstein distance for different $J$-factors.}
+  \caption{
+    Boxplot of the Wasserstein distance for different $J$-factors.
+    TODO: Plot $J$ instead of $J$-factor.
+    }
   \label{fig:hyperparameter:J}
 \end{figure}
 

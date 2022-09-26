@@ -40,7 +40,6 @@ but also allows for time-dependent deconvolution \cite{dsea_mirko}. % NOTE: … 
 
 \clearpage % guidance only
 \subsection{Procedure}
-% TODO: This fits on one page (@Karolin), but the previous section is too long.
 
 % The \dsea{} algorithm is an iterative procedure.
 % $N$ is the number of bins or classes in the spectrum.
@@ -83,7 +82,7 @@ the predicted classes are used to
   updated weights for the next iteration.
 %
 The new spectrum is determined by the sum of the confidences of all events.
-% TODO: i → q for consistency with CORN?
+% NOTE: i (DSEA) ≙ q (CORN)
 For each energy bin with index~$i$,
 this can be written as
 \begin{equation}
@@ -131,6 +130,7 @@ is reached.
 The final deconvolution result is the spectrum obtained in the last iteration.
 
 
+\clearpage % guidance only
 \subsection{Step size functions} \label{sec:dsea:dsea:stepsize}
 \dseaplus{} introduces the concept of a step size $\alpha$,
 which allows the user to control the speed of convergence,

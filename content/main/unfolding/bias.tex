@@ -5,47 +5,35 @@ As explained in \autoref{sec:dsea:dsea},
 %
 In order to test
 whether the bias is indeed eliminated,
-the model is trained on a \emph{stratified} dataset,
-    where each bin contains an equal number of events.
-The model is then evaluated on the unmodified dataset.
+the model is evaluated on a \emph{stratified} dataset,
+    where each bin contains an equal number of events,
+whereas the training data is the same as before.
 % TODO: explain that dataset(s): number of events etc.
-% TODO: Make clear that train/test data don't overlap
-% TODO: This is [if it were done…] the opposite of what I did earlier. But it matches what Samuel does. Both should be fine.
+\todo{
+  Samuel did the opposite: stratified training data, but not test data.
+  I should consider doing the same. (@Leonora)
+}
 
 The results are shown in \autoref{fig:bias_comparison}.
 As can be seen,
-only a small bias remains:
 The model adapts to the unseen distribution of the test data.
+No bias is observed.
+
 … in comparison to \autoref{fig:bootstrap:spectrum}.
 
-In the work by \citeauthor{dsea_samuel},
+% TODO: Move to summary?
+In comparison,
+in the work by \citeauthor{dsea_samuel},
 relative deviations of more than \SI{1500}{\percent} are observed \cite{dsea_samuel}.
 % Aber er schiebt's auf die geringe Accuracy…
 
 
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{content/plots/bootstrap:spectrum_halfwidth.pdf}
-        \caption{
-            Placeholder for spectrum A.
-            There is bias. Blah.
-        }
-        % \label{fig:TODO}
-    \end{subfigure}
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{content/plots/bootstrap:spectrum_halfwidth.pdf}
-        \caption{
-            Placeholder for spectrum B.
-            There is no bias. Blah.
-        }
-        % \label{fig:TODO}
-    \end{subfigure}
-    \caption{
-        Comparison of…
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    }
-    \label{fig:bias_comparison}
+\begin{figure}
+  \centering
+  \includegraphics[scale=1]{content/plots/bias:spectrum_full.pdf}
+  \caption{
+    Energy spectrum and relative deviations…
+    % TODO gleichverteilte Klassen… bla…
+  }
+  \label{fig:bias_comparison}
 \end{figure}

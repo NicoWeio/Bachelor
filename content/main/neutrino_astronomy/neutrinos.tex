@@ -1,21 +1,20 @@
 \section{Neutrinos}
 
-% - What are neutrinos?
-Neutrinos are elementary particles with no electric charge and very little mass.
+% █ What are neutrinos? What is neutrino astronomy?
+Neutrinos are elementary particles with no electric charge and small mass. % [very] small mass…
 Their low interactivity
   makes them difficult to detect,
   but is also the reason why they are valuable messenger particles for astroparticle physics:
 Since they are not affected by the electromagnetic force,
 % and very little by gravity,
-  cosmic magnetic fields have no effect on their propagation paths. \cite{neutrinos_katz}
+  cosmic magnetic fields have no effect on their propagation paths \cite{neutrinos_katz}.
 Neither does the interstellar medium absorb them in significant amounts.
 Together with the energy of the neutrino,
   the direction of travel % / this information
-  is used to determine the location and properties of the source. \cite{neutrinos_katz}
+  is used to determine the location and properties of the source \cite{neutrinos_katz}.
 
 
-\subsection{Sources}
-% █ What are their sources?
+% █ Sources
 %   - Nuclear reactors
 %   - Solar
 %   - AGNs
@@ -32,15 +31,27 @@ Neutrinos are also produced in
   the Sun
   and in the Earth's atmosphere
   as well as in nuclear reactors.
-They cover a wide range of energies, from a few \si{\mega\electronvolt} to a few \si{\tera\electronvolt}, % TODO
+They cover a vast range of energies, from \si{\micro\electronvolt} up to \si{\peta\electronvolt},
   depending on the source. \citationneeded{}
-%
 \autoref{fig:neutrinos:flux_spectrum} shows the flux spectrum of neutrinos from different sources.
-One can see
-  the abundance of medium-energy neutrinos from the Sun,
-    for example,
-  as well as the scarcity of (hypothesized?) high-energy neutrinos from AGN (active galactic nuclei),
-    which \icecube{} is sensitive to.
+
+\icecube{}
+  (without \emph{DeepCore} and \emph{IceTop})
+is sensitive to
+  the energy range from \si{\tera\electronvolt} to \si{\peta\electronvolt} \cite{icecube_aartsen}
+  and therefore primarily to atmospheric and AGN neutrinos.
+%
+Atmospheric neutrinos are produced by the interaction of cosmic rays with the Earth's atmosphere.
+Cosmic rays are high-energy particles
+  % mostly protons
+  [that originate from supernovae and other sources in the galaxy].
+
+
+% One can see
+%   the abundance of medium-energy neutrinos from the Sun,
+%     for example,
+%   as well as the scarcity of (hypothesized?) high-energy neutrinos from AGN (active galactic nuclei),
+%     which \icecube{} is sensitive to.
 
 \begin{figure}
   \centering
@@ -53,29 +64,15 @@ One can see
 \end{figure}
 
 
-\subsection{Neutrino oscillations}
-While current models of neutrino sources predict a ratio of
-  $\nu_e : \nu_\mu : \nu_\tau = 1 : 2 : 0$,
+% █ Neutrino oscillations
+While current models of astrophysical neutrino sources predict a flavor ratio of
+  $\phi(\nu_e) : \phi(\nu_\mu) : \phi(\nu_\tau) = 1 : 2 : 0$
+    (assuming charged pions decays are the dominant mechanism for neutrino production),
 the observed ratio on Earth is
-  $\nu_e : \nu_\mu : \nu_\tau = 1 : 1 : 1$ \citationneeded{}.
+  $1 : 1 : 1$ \cite{neutrinos_beacom}.
 This discrepancy is explained by neutrino oscillations \cite{neutrinos_beacom},
   which are a consequence of the fact that neutrinos have mass.
-The mass of the neutrinos is very small,
-  but it is large enough to cause oscillations between the different flavors,
+Albeit being very small
+  (the current lowest upper limit on the Majorana mass being \qtyrange{0.06}{0.161}{\electronvolt} \cite{neutrinos_gando}),
+  it allows for oscillations between the different flavors,
     given the large distances that cosmic neutrinos travel.
-
-
-% █ What are their interactions?
-%   - Weak interaction
-\subsection{Interaction with matter}
-  \todo{Move to IceCube?}
-Neutrinos interact with matter via the weak interaction.
-In order to compensate for the low cross-section of the weak interaction,
-  the effective detector volume is maximized by utilizing existing naturally occurring detector materials,
-  such as
-    the Earth's atmosphere,
-    the sea,
-    or the ice in the Antarctic.
-
-% █ How are they detected?
-%   - → IceCube, later

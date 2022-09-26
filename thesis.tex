@@ -178,35 +178,31 @@
 \titlehead{\includegraphics[height=1.5cm]{logos/tu-logo.pdf}}
 
 \begin{document}
-\frontmatter
-\maketitle
+  \frontmatter
+  \maketitle
 
-% Gutachterseite
-\makecorrectorpage
+  % Gutachterseite
+  \makecorrectorpage
 
-% hier beginnt der Vorspann, nummeriert in römischen Zahlen
-\input{content/abstract.tex}
-\setcounter{tocdepth}{1}
-\tableofcontents
-\setcounter{tocdepth}{2}
+  % hier beginnt der Vorspann, nummeriert in römischen Zahlen
+  \input{content/abstract.tex}
+  \setcounter{tocdepth}{1}
+  \tableofcontents
+  \setcounter{tocdepth}{2}
 
-\mainmatter
-% Hier beginnt der Inhalt mit Seite 1 in arabischen Ziffern
-\input{content/main.tex}
+  \mainmatter
+  % Hier beginnt der Inhalt mit Seite 1 in arabischen Ziffern
+  \input{content/main.tex}
 
-\appendix
-% Hier beginnt der Anhang, nummeriert in lateinischen Buchstaben
-\input{content/appendix.tex}
+  \appendix
+  % Hier beginnt der Anhang, nummeriert in lateinischen Buchstaben
+  \input{content/appendix.tex}
 
-\backmatter
-\printbibliography
+  \backmatter
+  \printbibliography
 
-\input{content/acknowledgements.tex}
+  \input{content/acknowledgements.tex}
 
-\cleardoublepage
-\includepdf[pages=-]{content/affidavit.pdf}
-% TODO ↓
-% \begin{foreignlanguage}{german}
-  % \input{content/eid_versicherung.tex}
-% \end{foreignlanguage}
+  \cleardoublepage
+  \includepdf[pages=-]{content/affidavit.pdf}
 \end{document}

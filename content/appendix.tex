@@ -1,5 +1,4 @@
 \chapter{Appendix}
-\blindtext
 
 \section{Detector signatures of different neutrino flavors}
 \begin{figure}
@@ -8,21 +7,21 @@
     \centering
     \includegraphics[width=\textwidth]{content/img/signatures/track.png}
     \caption{
-        Track. TODO.
+        Track / $\nu_\mu$
     }
   \end{subfigure}
   \begin{subfigure}{0.3\textwidth}
     \centering
     \includegraphics[width=\textwidth]{content/img/signatures/cascade.png}
     \caption{
-        Cascade. TODO.
+        Cascade / $\nu_e$
     }
   \end{subfigure}
   \begin{subfigure}{0.3\textwidth}
     \centering
     \includegraphics[width=\textwidth]{content/img/signatures/double_bang.png}
     \caption{
-        Double bang. TODO.
+        Double bang / $\nu_\tau$
     }
   \end{subfigure}
   \caption{
@@ -36,32 +35,43 @@
 
 
 \clearpage
-\section{$\text{\textsc{DSEA}}^+$: Complete algorithm} \label{sec:alg:dseaplus}
+\section{\texorpdfstring{$\text{DSEA}^+$}{DSEA+}: Complete algorithm} \label{sec:alg:dseaplus}
 \input{content/main/dsea/algorithm.tex}
 
 
 \clearpage
 \section{From threshold to per-class probabilities}
 \label{sec:appendix:corn_probas}
-% TODO: Bullet points → sentences
-Suppose we have 3 ranks with indices $q \in \{1, 2, 3\}$.
-- \corn{}'s output layer gives us (after applying sigmoid and a cumulative product) two probabilities:
-	$P[q>1]$ and
-	$P[q>2]$.
-- *How do we get $P[q=1], P[q=2], P[q=3]$ from this?*
-- Assume $q \in \{1,2,3\}$
-- Then,
+Given four ranks with indices $q \in \{1, 2, 3, 4\}$,
+\corn{}'s output layer has three neurons, which
+  – after applying sigmoid and a cumulative product –
+yield three threshold probabilities:
+	$P[q>1]$,
+	$P[q>2]$ and
+	$P[q>3]$.
+The goal is to calculate the probability of each class $q$,
+i.e. $P[q=1]$, $P[q=2]$, $P[q=3]$ and $P[q=4]$.
+
+% The solution explicitly requires the assumption that…
+Using $q \in \{1, 2, 3, 4\}$,
+the following equations hold:
 \begin{align*}
-  P[q=1] &\iff \neg P[q>1] = 1 - P[q>1] \\
+  P[q=1] &= \neg P[q>1] = 1 - P[q>1] \\
   \\
-  P[q=2] &\iff \neg P[q≠2] \\
-  &\iff \neg(P[q<2] \lor P[q>2]) \\
-  &\iff \neg(P[q=1] \lor P[q=3]) \\
-  &= 1 - ((1 - P[q>1]) + P[q=3]) \\
+  P[q=2] &= \neg P[q≠2] \\
+  &= \neg(P[q<2] \lor P[q>2]) \\
+  &= 1 - ((1 - P[q>1]) + P[q>2]) \\
   &= P[q>1] - P[q>2] \\
   \\
-  P[q=3] &\iff P[q>2]
+  P[q=3] &= \neg P[q≠3] \\
+  &= \neg(P[q<3] \lor P[q>3]) \\
+  &= 1 - ((1 - P[q>2]) + P[q>3]) \\
+  &= P[q>2] - P[q>3] \\
+  \\
+  P[q=4] &= P[q>3] \, .
 \end{align*}
+
+The same principle can be applied to any number of classes.
 
 
 \clearpage
@@ -73,15 +83,16 @@ Suppose we have 3 ranks with indices $q \in \{1, 2, 3\}$.
   \label{fig:dataset:raw:histogram}
 \end{figure}
 
-% TODO: Add a table of all features?
 
 \clearpage
 \section{Bootstrap distributions}
 \begin{figure}
   \centering
-  % TODO: correct dimensions
-  \includegraphics[width=\textwidth]{content/plots/halftime/bootstrap_distributions.pdf}
-  \caption{Bootstrap distributions TODO.}
+  \includegraphics[scale=1]{content/plots/bootstrap:distributions_doubleheight.pdf}
+  \caption{
+    Bootstrap distributions of each bin in \autoref{fig:bootstrap:spectrum}.
+    The dashed orange line shows the true value.
+  }
   \label{fig:bootstrap:distributions}
 \end{figure}
 

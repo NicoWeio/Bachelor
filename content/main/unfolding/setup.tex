@@ -1,21 +1,38 @@
 \section{Setup}
-% TODO: Write a short introduction to the setup
+In order to evaluate the performance of \corn{} in \dsea{},
+a dataset has to be prepared
+and hyperparameters need to be chosen.
+%
+The setup is largely based on previous works
+  \cite{dsea_jan, dsea_samuel}
+to ensure comparability of the results
+  as much as possible.
 
-\subsection{Monte Carlo Dataset}
-The unmodified dataset \cite{icecube_mc} consists of about 13 million Monte Carlo simulated \emph{upgoing} neutrino events,
+
+\subsection{Monte Carlo dataset and preprocessing}
+% █ Monte Carlo dataset
+\todo{
+  Full description from the website – what to include here?
+
+  Level2 w/systematics IC86.2012 neutrino-generator NuMu with weighted spectrum of E\^-2, using SpiceLea CLSim.
+  Angular range of 0. deg < theta < 180. deg and energy range of 1e2 GeV < Enu < 1e8 GeV.
+}
+The unmodified dataset \emph{11374} \cite{icecube_mc} consists of about 13 million Monte Carlo simulated
+  \emph{upgoing} ($\SI{0}{\degree} < \theta < \SI{180}{\degree}$)
+  neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
-with energies ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electronvolt}.
-% TODO: Explain “upgoing”.
+with a weighted $E^{-2}$ energy spectrum
+ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electronvolt}.
 The energies are stored under the key \texttt{MCPrimary.energy}. % TODO: Denglisch?
 See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
-% TODO: The smallest bin contains about XY events.
 
-To ensure comparability to \cite{dsea_samuel} and \cite{dsea_jan},
+To ensure comparability to \cite{dsea_jan} and \cite{dsea_samuel}, % TODO: already cited in intro
 only the first \num{500000} events of the dataset are considered.
 This also allows for more thorough hyperparameter optimization,
 which would otherwise be limited by the available computational resources as well as the timeframe of this thesis.
-
+% TODO: The smallest bin contains about XY events.
+%
 Unless otherwise stated, % TODO: Do I ever do this?
 \SI{90}{\percent} of the data is used for training,
 while the remaining \SI{10}{\percent} is used for evaluation.
@@ -37,7 +54,7 @@ The algorithm takes into account both
 This way,
 the \emph{minimal-optimal} set of features is selected,
   in contrast to the \emph{all-relevant} set of features,
-    which would also contain redundant features.
+    which would also contain redundant features \citationneeded{}. % Spoiler alert: I can't find a citation for this.
     % which would be selected by a simple relevance-based feature selection algorithm. % Copilot blah blah
 A list of said features is provided in \autoref{tab:features_best}.
 They are re-used in this thesis.
@@ -69,19 +86,18 @@ They are re-used in this thesis.
 \end{table}
 
 
-\subsection{Transformation}
+% █ Transformation
 It has been shown that none of the selected features are normally distributed \cite{dsea_jan}.
 In accordance with \cite{dsea_jan},
 the features are therefore transformed using the \emph{Yeo-Johnson} transformation \cite{yeo_johnson},
 a power transformation which reduces skewness.
 % https://en.wikipedia.org/wiki/Power_transform#Yeo–Johnson_transformation
-% TODO: Verify positive effect on performance
-% TODO: Add formula
-
+% NOTE: Positive effect on OUR performance is unverified.
+%
 Additionally, zero-mean, unit-variance normalization is applied to all features.
 
 
-\subsection{Discretization}
+% █ Discretization
 As described in \autoref{sec:dsea:dsea}, \dsea{} requires discrete energy classes.
 The target variable \texttt{MCPrimary.energy} is therefore discretized into \num{10} bins
 (in accordance with \cite{dsea_samuel}).
@@ -94,14 +110,13 @@ The lower limit of the overflow bin is chosen so that it contains a similar numb
 ensuring sufficient statistics.
 A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
-The underflow bin is assigned to the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$ % TODO: language
-% \qtyrange{E2}{E2.1}{\giga\electronvolt}.
+The underflow bin is assigned the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$ % TODO: language
   because the dataset does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
-Again, the event count in the underflow bin is chosen to be similar to the neighboring bin.
+This way, the event count in the underflow bin is similar to the neighboring bin. % TODO: Doppelung
 %
 The remaining \num{8} bins are spaced logarithmically between the under- and overflow bins
   so that the entire energy range of the Monte Carlo dataset is covered.
-
+%
 A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:discretized:histogram}.
 
 \begin{figure}
@@ -112,11 +127,12 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 \end{figure}
 
 
-\subsection{Neural network}
+\subsection{Neural network and DSEA}
+% █ Neural network
 A PyTorch \cite{pytorch} implementation of the \corn{} method
 as well as several examples demonstrating its application on different datasets
 is provided by \cite{corn}.
-% TODO: Reference their tabular data / cement example?
+% NOTE: https://raschka-research-group.github.io/coral-pytorch/tutorials/pytorch_lightning/ordinal-corn_cement/
 %
 This work makes use of said implementation of \corn{}
 and hence the PyTorch framework.
@@ -132,23 +148,26 @@ The input layer has \num{12} neurons,
 while the output layer has \num{9} neurons,
   corresponding to the number of binary classification subtasks,
     i.e. the number of bins minus one.
-% \corn in the output layer…
-% In total, the neural network has \num{TODO} neurons.
-
-The number of neurons in the hidden layers is shown in \autoref{tab:nn_shape}.
-
+%
+The number of neurons
+and the activation function
+are shown for each layer
+in \autoref{tab:nn_shape}.
+% TODO \corn{} in the output layer…
+In total,
+the neural network has about \num{6100} trainable parameters.
 \begin{table}
   \centering
   \begin{tabular}{S[table-format=3.0] c}
     \toprule
     {neurons} & {activation function} \\
     \midrule
-    12  & – \\
+     12 & – \\
     120 & leaky ReLU \\
     240 & leaky ReLU \\
     120 & leaky ReLU \\
-    12  & leaky ReLU \\
-    9   & leaky ReLU \\
+     12 & leaky ReLU \\
+      9 & leaky ReLU \\
     \bottomrule
   \end{tabular}
   % TODO: Ich habe immer gelernt: „Abbildungen haben eine Unterschrift, Tabellen eine Überschrift.“ @Karolin widerspricht dem scheinbar.
@@ -165,12 +184,20 @@ It minimizes the loss function provided by \corn{} (see \autoref{eqn:corn:loss})
 % TODO: Leaky ReLU activation function…
 
 The neural network keeps its weights between \dsea{} iterations.
-This was found to have no significant effect on the performance \cite{dsea_samuel}. % (\texttt{one\_model})
+In theory,
+  this could improve its performance,
+    analogous to \emph{fine-tuning} a pre-trained model.
+However,
+\cite{dsea_samuel}
+% demonstrated that the approach has
+found
+no significant effect on the performance.
+% NOTE: → one_model
 
 
-\subsection{DSEA}
-For this work, the Python implementation of \dsea{} \cite{dsea_code} by \citeauthor{dsea_mirko} is used.
-It expects a \emph{scikit-learn} classifier.
+% █ DSEA
+For this work, the Python implementation of \dsea{} \cite{dsea_code} is used,
+  which expects a \emph{scikit-learn} classifier.
 In order to interface with this library,
 a wrapper class is implemented,
   which exposes a constructor as well as the needed methods

@@ -1,5 +1,5 @@
 \section{Uncertainty and results}
-Using the results of the hyperparameter search,
+Using the best-performing hyperparameters from the hyperparameter search, % TODO: language
 the final model is evaluated in more detail.
 Specifically,
   the uncertainty of the predictions is analyzed, % Oxford comma
@@ -24,15 +24,20 @@ while the bootstrap samples contain \num{500000} events as before.
 \subsection{Energy spectrum}
 \todo{
   This is (probably) the most important plot. Discuss it in more detail!
-  Also: Explain percentiles etc.
 }
 \autoref{fig:bootstrap:spectrum} shows the unfolded energy spectrum of the optimized model,
 as well as the \SI{68}{\percent} confidence intervals,
   ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
 In \autoref{fig:bootstrap:distributions},
-the histograms of the estimations for individual bootstrap runs are shown.
+the per-bin histograms of the estimations for individual bootstrap runs are shown.
+While the probability density in the bins from \SI{E2}{\giga\electronvolt} to \SI{E4}{\giga\electronvolt} is estimated with high precision
+  (relative deviation of \SI{6}{\percent} or less apart from the underflow bin),
+both the relative deviation and the quantile range are large for the lower energy bins.
+It can be speculated that this is due to the fact that the number of events in these bins is small,
+which leads to a large uncertainty in the estimation of the spectrum.
+% NOTE: Quadrupling the data set size did not help. :(
 
-\blindtext[2]
+% TODO: more
 
 \begin{figure}
   \centering
@@ -41,8 +46,7 @@ the histograms of the estimations for individual bootstrap runs are shown.
     Energy spectrum and relative deviations of the bootstrap.
     The error bars show the \SI{68}{\percent} confidence intervals,
     ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
-    % TODO:
-    % - Add axspan to legend or explain it here.
+    The greyed out areas show the under- and overflow bins.
   }
   \label{fig:bootstrap:spectrum}
 \end{figure}
@@ -72,6 +76,7 @@ As can be seen in \autoref{fig:bootstrap:single_events},
     For each true class,
     one random event is selected from the test set,
     and the confidence distribution of the model is shown.
+    TODO: Update the plot to show fewer, but larger subplots.
   }
   \label{fig:bootstrap:single_events}
 \end{figure}
