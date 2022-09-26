@@ -1,30 +1,64 @@
 \chapter{Introduction}
 % █ astroparticle physics
-% █ neutrino astronomy / IceCube
+Astroparticle physics is a relatively new field of physics
+  that explores the universe
+    with the help of messenger particles.
+Messenger particles are produced in [interesting] cosmic processes
+  and can be detected on Earth.
+  They carry information about the processes that produced them
+  and can be used to study the universe.
+% █ neutrino astronomy
+Neutrinos are especially valuable messenger particles
+  because their propagation path is not affected by electromagnetic fields,
+  and they can travel long distances without interacting with matter.
+% Therefore,
+%   both their source and their energy can be determined
+%   by measuring the direction and energy of
+%   decay products that they produce in the detector on Earth.
+
+% The most common messenger particles are neutrinos,
+% Many high-energy processes are assumed to produce neutrinos.
+
+% █ IceCube
+\icecube{} is such a detector,
+  which is located at the South Pole.
+% ↓ move to icecube.tex?
+It makes use of the Antarctic ice as detector material
+  and is sensitive to high-energy neutrinos
+    % in the \si{\tera\electronvolt} range \citationneeded{}.
+    in the approximate range of \SI{E7}{\electronvolt} to \SI{E21}{\electronvolt}.
+%
+One goal of analyses with \icecube{} is
+  to obtain a neutrino energy spectrum.
+
 % █ DSEA
-While [conventional] machine learning techniques
-  such as Random Forests
+The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm (\dsea{}) \cite{dsea_unification}
+is a method to reconstruct the neutrino energy spectrum
+  from the measured data of \icecube{}.
+While [conventional] classifiers
+  such as random forests
 have been successfully applied to \icecube{} data in \dsea{},
 the possibilities of neural networks and deep learning are still largely unexplored. % Naja…
 %
-Previous works have either
-  focused on respecting ordinality… \cite{dsea_jan}
+Previous works
+% that perform unfolding…
+have focused either
+  on respecting ordinality \cite{dsea_jan} % TODO: Can I explain ordinality here?
   or on using a neural network as a classifier \cite{dsea_samuel}.
 This thesis aims to combine the advantages of both approaches:
   the flexibility of neural networks
-  % and the ability to handle ordinality.
-  and the physical plausibility of respecting ordinality.
+  and the potential improvements in physical plausibility
+    due to respecting ordinality.
 % █ CORN
 This is done by adapting the
 \corn{} (\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks) \cite{corn} framework
-to \dsea{}
-and applying it to \icecube{} Monte Carlo data.
+to \dsea{}.
+The proposed method is then optimized and evaluated
+  on simulated data from \icecube{}.
 
 % █ structure
 \Cref{sec:neutrino_astronomy} briefly introduces \icecube{} and important concepts of neutrino astronomy.
 \Cref{sec:dsea} describes the deconvolution problem and the \dsea{} approach to solving it.
 \Cref{sec:ordinal} [rationalizes/justifies] the need for ordinal classification and introduces the \corn{} framework.
-\Cref{sec:unfolding} describes the [experimental] setup and the results of the [experiments].
+\Cref{sec:unfolding} describes the setup for hyperparameter searches and evaluates the performance of the resulting model. % TODO
 \Cref{sec:summary} concludes the thesis and discusses future work.
-
-\blindtext[2]

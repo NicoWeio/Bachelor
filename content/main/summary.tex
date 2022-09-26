@@ -2,9 +2,49 @@
 % should be 1 page
 
 % █ What did I achieve?
+It has been shown that
+the combination of neural networks, ordinality and \dsea{}
+  can be successfully applied to
+  the problem of neutrino energy spectrum estimation
+  with \icecube{} data.
+This was enabled by
+  adding support for
+    sample weights
+    and confidences
+  to \corn{}.
 
+% █ comparisons
+In contrast to previous works \cite{dsea_jan, dsea_samuel},
+  adaptive step sizes \cite{dsea_mirko} are used in \dsea{},
+    % This isn't exactly verified in this thesis…
+    drastically reducing the number of iterations required for convergence.
+Furthermore,
+  under- and overflow bins are added
+    to allow for the application to real data.
 
-% █ comparison to Jan/Samuel
+% With regard to the resulting spectra,
+The new method is not unambiguously superior to the previous ones:
+% 1. confidence distributions → Samuel
+  The randomly selected confidence distributions of a common neural network using softmax \cite{dsea_samuel}
+    are of comparable quality to those obtained in this work (see \autoref{fig:bootstrap:single_events}),
+      even though ordinality is disregarded in the former case.
+  % Compared to the confidence distributions of \emph{LogisticAT} \cite{dsea_jan}, …
+%
+% 2. accuracy → Samuel
+The accuracy …
+% 3. Wasserstein distance → Jan
+The Wasserstein distance …
+% The resulting spectra are not unambiguously better
+
+A strict comparison is not possible,
+  as this work introduces under-/overflow bins.
+
+Compared to \cite{dsea_jan},
+  better \hyperref[sec:unfolding:metrics:wd]{Wasserstein distances} are achieved
+    (\num{0.00879} vs. TODO),
+    but using \num{10} instead of \num{12} bins.
+On the other hand,
+the probability distributions of single events are not strictly unimodal.
 
 
 % █ future work
@@ -12,6 +52,8 @@ There is still a multitude of ways in which \dsea{} and the application thereof 
 \begin{itemize}
   \item Regularization / smoothing
   \item Optimization of other hyperparameters, such as the shape of the neural network
+  \item Different network architecture, e.g. with convolutional layers
+  \item More data
 \end{itemize}
 
 A benefit of neural networks is their good performance on \enquote{raw} data.
@@ -21,7 +63,8 @@ the present work has relied on a preprocessing step % aka feature engineering
 that is not necessarily required.
 Given an adequate neural network architecture and sufficient computing power,
 it might be possible to train a neural network directly on the raw data.
-% TODO: Link to the CNN paper that alredy exists (→ Samuel)
 
+TODO: Link to the CNN paper that already exists \cite{minh2021gnn}.
 
-\blindtext[3]
+% \section{(Comparison to conventional Neural Networks)}
+% \section{(Comparison to LogisticAT)}
