@@ -49,6 +49,11 @@ AXIS_LABEL_MAP = {
     'epsilon': r'convergence threshold $\epsilon$',
 }
 
+METRIC_OBJECTIVE_MAP = {
+    'wd': 'min',
+    'accuracy': 'max',
+}
+
 for i, plot in enumerate(PLOTS):
     # If sweep_id is a list, merge the results
     sweep_ids = (plot['sweep_id'] if isinstance(plot['sweep_id'], list) else [plot['sweep_id']])
@@ -69,7 +74,8 @@ for i, plot in enumerate(PLOTS):
 
             # Plot an axhline for the smallest median
             medians = df_single.groupby(plot['configvar']).median()[f"test/{plot['metricvar']}_single"]
-            plt.axhline(medians.min(), color='C1', linestyle='--', zorder=-1)
+            best_val = getattr(medians, METRIC_OBJECTIVE_MAP[plot['metricvar']])()
+            plt.axhline(best_val, color='C1', linestyle='--', zorder=-1)
 
         elif plot['kind'] == 'scatterplot':
             sns.scatterplot(
