@@ -22,12 +22,17 @@ STYLES = {
         'figure.figsize': (BASE_WIDTH/2, 3.84),
         'legend.fontsize': 'small',
     },
+    'lessheight': {
+        'figure.figsize': (BASE_WIDTH, BASE_HEIGHT*0.75),
+        # 'figure.figsize': (5.45, 3.84*(2/3)), # previous value
+        'legend.fontsize': 'small',
+    },
     'small': {
         'figure.figsize': (BASE_WIDTH/2, BASE_HEIGHT/2),
         'legend.fontsize': 'small',
     },
     'doubleheight': {
-        'figure.figsize': (BASE_WIDTH, BASE_HEIGHT*2),
+        'figure.figsize': (BASE_WIDTH, BASE_HEIGHT*1.6),  # ⚠️ 1.8 NO, 1.6 YES, 1.7 NO
         'legend.fontsize': 'medium',
     },
 }
