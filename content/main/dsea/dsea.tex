@@ -1,6 +1,4 @@
 \section{Dortmund Spectrum Estimation Algorithm} \label{sec:dsea:dsea}
-% TODO: Eigentlich müssten f,p,… fett sein oder einen Vektorpfeil bekommen…
-
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm
   (\dsea{})
   \cite{dsea_unification}
@@ -43,8 +41,8 @@ but also allows for time-dependent deconvolution \cite{dsea_mirko}. % NOTE: … 
 
 % The \dsea{} algorithm is an iterative procedure.
 % $N$ is the number of bins or classes in the spectrum.
-% % $\hat f_j^{(0)}$ is the initial guess for the $j$-th bin of the deconvolved spectrum.
-% $\hat f_j^{(k)}$ is the $j$-th bin of the deconvolved spectrum after $k$ iterations.
+% % $\hat \mathbf{f}_j^{(0)}$ is the initial guess for the $j$-th bin of the deconvolved spectrum.
+% $\hat \mathbf{f}_j^{(k)}$ is the $j$-th bin of the deconvolved spectrum after $k$ iterations.
 
 
 \subsubsection{Initialization}
@@ -53,7 +51,9 @@ Since no prior knowledge about the true spectrum is available,
 Given $I$ bins,
   each bin is initialized to
 \begin{equation}
-  \hat f_i^{(0)} = \frac{1}{I} \quad \forall i \, .
+  % NOTE: Mirko made f bold, but not p. Jan and Samuel didn't make anything bold.
+  % I'll follow Mirko's lead, for no particular reason.
+  \hat \mathbf{f}_i^{(0)} = \frac{1}{I} \quad \forall i \, .
 \end{equation}
 
 % TODO: Explain variables here, not below?
@@ -86,7 +86,7 @@ The new spectrum is determined by the sum of the confidences of all events.
 For each energy bin with index~$i$,
 this can be written as
 \begin{equation}
-  \hat f_i = \frac{1}{N} \sum_{n=1}^N \hat c_{i,n} \, ,
+  \hat \mathbf{f}_i = \frac{1}{N} \sum_{n=1}^N \hat c_{i,n} \, ,
 \end{equation}
 where $N$ is the number of events in the observation dataset,
 $k$ is the current iteration number, % Oxford comma
@@ -96,20 +96,20 @@ The factor $\sfrac{1}{N}$ is introduced to normalize the spectrum
 to a true probability density distribution.
 %
 % █ The resulting spectrum is the preliminary deconvolution result.
-The weights of the training samples are then updated according to the new spectrum~$\hat f_i^{(k)}$. % …preliminary deconvolution result.
+The weights of the training samples are then updated according to the new spectrum~$\hat \mathbf{f}_i^{(k)}$. % …preliminary deconvolution result.
 In \dseaplus{}, the reconstructed spectrum is divided by the training spectrum % NOTE: → fixweighting
   in order to mitigate the impact of the training spectrum on the deconvolution result.
 A more detailed reasoning is given in \cite{dsea_mirko}.
 The updated weights are given by
 \begin{equation}
   \label{eqn:dsea:weighting}
-  w_i^{(k+1)} = \frac{\hat f_i^{(k)}}{f_i^\text{train}} \, ,
+  w_i^{(k+1)} = \frac{\hat \mathbf{f}_i^{(k)}}{\mathbf{f}_i^\text{train}} \, ,
 \end{equation}
 where $w_i^{(k+1)}$ is the weight applied to training samples with true~bin~$i$ in iteration~$k+1$, % (Oxford comma)
-% $\hat f_i^{(k)}$ is
+% $\hat \mathbf{f}_i^{(k)}$ is
 %   the value of the $i$-th bin in
 %   the current deconvolution result, % Oxford comma
-and $f_i^\text{train}$ is
+and $\mathbf{f}_i^\text{train}$ is
   the value of the $i$-th bin in
   the training spectrum.
 
@@ -138,15 +138,15 @@ which in turn has a significant impact on the quality of the result.
 
 A \emph{step} $p_i^{(k)}$ is the difference between the current and previous deconvolution result:
 \begin{equation}
-  p_i^{(k)} = \hat f_i^{(k)} - \hat f_i^{(k-1)} \, .
+  p_i^{(k)} = \hat \mathbf{f}_i^{(k)} - \hat \mathbf{f}_i^{(k-1)} \, .
 \end{equation}
-Instead of updating the spectrum with the current deconvolution result $f_i^{(k)}$ directly,
+Instead of updating the spectrum with the current deconvolution result $\mathbf{f}_i^{(k)}$ directly,
 the step is multiplied with the step size
 and added to the previous deconvolution result:
 \begin{equation}
-  \hat f_i^{(k)+} = \hat f_i^{(k-1)} + \alpha \cdot p_i^{(k)} \, .
+  \hat \mathbf{f}_i^{(k)+} = \hat \mathbf{f}_i^{(k-1)} + \alpha \cdot p_i^{(k)} \, .
 \end{equation}
-This improved estimate $\hat f_i^{(k)+}$ is then considered instead of $\hat f_i^{(k)}$.
+This improved estimate $\hat \mathbf{f}_i^{(k)+}$ is then considered instead of $\hat \mathbf{f}_i^{(k)}$.
 
 While the original \dsea{} algorithm uses a fixed step size of $\alpha = 1$,
 \dseaplus{} allows arbitrary constants $\alpha > 0$
