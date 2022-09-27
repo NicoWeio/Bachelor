@@ -18,7 +18,7 @@ to ensure comparability of the results
   Angular range of 0. deg < theta < 180. deg and energy range of 1e2 GeV < Enu < 1e8 GeV.
 }
 The unmodified dataset \emph{11374} \cite{icecube_mc} consists of about 13 million Monte Carlo simulated
-  \emph{upgoing} ($\SI{0}{\degree} < \theta < \SI{180}{\degree}$)
+  \hyperref[sec:neutrino_astronomy:icecube:up_going]{up-going}
   neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
 with a weighted $E^{-2}$ energy spectrum
@@ -31,7 +31,7 @@ To ensure comparability to \cite{dsea_jan} and \cite{dsea_samuel}, % TODO: alrea
 only the first \num{500000} events of the dataset are considered.
 This also allows for more thorough hyperparameter optimization,
 which would otherwise be limited by the available computational resources as well as the timeframe of this thesis.
-% TODO: The smallest bin contains about XY events.
+% TODO: The smallest bin contains approximately XY events.
 %
 Unless otherwise stated, % TODO: Do I ever do this?
 \SI{90}{\percent} of the data is used for training,
@@ -148,14 +148,21 @@ The input layer has \num{12} neurons,
 while the output layer has \num{9} neurons,
   corresponding to the number of binary classification subtasks,
     i.e. the number of bins minus one.
+In total,
+the neural network has about \num{6100} trainable parameters.
 %
 The number of neurons
 and the activation function
-are shown for each layer
-in \autoref{tab:nn_shape}.
-% TODO \corn{} in the output layer…
-In total,
-the neural network has about \num{6100} trainable parameters.
+per layer
+are shown in \autoref{tab:nn_shape}.
+%
+In order to retrieve probabilities from the output neurons,
+  a modified version of the \corn{}-provided function \mintinline{python}{corn_label_from_logits(logits)} is used, % TODO: many "is used"
+    which implements the conversion
+      from threshold- to per-class probabilities
+    outlined in \autoref{sec:ordinal:corn:probas}.
+
+
 \begin{table}
   \centering
   \begin{tabular}{S[table-format=3.0] c}
@@ -181,7 +188,6 @@ the neural network has about \num{6100} trainable parameters.
 \textsc{Adam} (Adaptive Moment Estimation) \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
 It minimizes the loss function provided by \corn{} (see \autoref{eqn:corn:loss}).
-% TODO: Leaky ReLU activation function…
 
 The neural network keeps its weights between \dsea{} iterations.
 In theory,

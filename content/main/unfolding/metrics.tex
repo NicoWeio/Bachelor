@@ -5,17 +5,9 @@ several metrics are used.
 %
 For the calculation of all metrics that are mentioned here are,
 scikit-learn \cite{sklearn} is used.
-%
-\todo{
-  As of now, only the Wasserstein distance is dominantly used.
-  However, the other metrics will help with
-    discussing the results
-    and comparing them to prior works.
-}
 
 
-\subsection{Accuracy}
-% TODO: Do we even use this?
+\subsection{Accuracy} \label{sec:unfolding:metrics:accuracy}
 The \emph{accuracy} \cite{accuracy} is the fraction of correctly classified events to the total number of events.
 It is a common metric for classification tasks,
 but it is not ideal for ordinal classification
@@ -29,7 +21,7 @@ Nonetheless,
 it gives an indication of the overall performance of the model.
 
 
-\subsection{Mean absolute error}
+\subsection{Mean absolute error} \label{sec:unfolding:metrics:mae}
 The \emph{mean absolute error} (\textsc{Mae}) \cite{mae} is a metric that is commonly used for regression tasks. % TODO
 It is defined as
 \begin{equation}
@@ -71,7 +63,7 @@ It is also known as \emph{earth mover's distance} (\textsc{Emd}),
 
 Mathematically, the Wasserstein distance (of first kind) can be defined as
 \begin{equation}
-  \text{\textsc{Wd}}(\mathbf{p}, \mathbf{q}) = \inf_{\pi \in \Pi(\mathbf{p}, \mathbf{q})} \int_{\mathbb{R}^2} |x - y| \, d\pi(x, y)
+  \text{\textsc{Wd}}(\mathbf{p}, \mathbf{q}) = \inf_{\pi \in \Pi(\mathbf{p}, \mathbf{q})} \int_{\mathbb{R}^2} |x - y| \, \mathrm{d}\pi(x, y)
 \end{equation}
 where
   $\mathbf{p}$ and $\mathbf{q}$ are the probability distributions subject to comparison,

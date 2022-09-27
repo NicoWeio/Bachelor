@@ -56,10 +56,7 @@ Given $I$ bins,
   \hat \mathbf{f}_i^{(0)} = \frac{1}{I} \quad \forall i \, .
 \end{equation}
 
-% TODO: Explain variables here, not below?
 The initial weights are then determined as in \autoref{eqn:dsea:weighting}.
-
-% █ The resulting bins are used as classes.
 
 
 \subsubsection{Iteration}
@@ -68,11 +65,11 @@ the classifier is trained
   on the training data
 to predict the class of one sample at a time,
 where each sample is weighted according to its true class.
-
+% NOTE: (break removed so this section fits on one page)
 Second,
 the classifier is used to predict the class of each sample
 in the observed~(/test) data.
-
+% NOTE: (break removed so this section fits on one page)
 Third,
 the predicted classes are used to
   % reweight the training samples
@@ -118,6 +115,7 @@ The iterative procedure is repeated
   with the updated weights
 until
   convergence
+    (see \autoref{sec:dsea:dsea:stepsize})
     % (determined by the $\chi^2$ distance between the current and previous deconvolution result)
   or,
     in case of fixed step sizes,
@@ -166,13 +164,14 @@ while enabling the use of a stopping criterion,
 
 
 The utilization of \emph{adaptive step sizes} \cite{dsea_mirko} can further improve the convergence of the algorithm
-by choosing an optimal step size $\alpha$ for each iteration.
+by choosing an optimal step size for each iteration.
 This is achieved by searching
-  along the direction of the step % aka. search direction
-  for the optimal step size $\alpha$.
-    % which minimizes an objective function…
-% TODO ↓
-% The method provided by \cite{dsea_mirko} discretizes the training data u
-%   sing a decision tree,
-%   thus adding a hyperparameter $J$
-%     that controls the number of leaves in the tree.
+  along the direction of the step $p_i^{(k)}$ % aka. search direction
+  for the step size $\alpha \leq 0$
+    which minimizes the \textsc{Run} \cite{milke2013} loss function.
+    % COULDDO: Add more details about the RUN loss function.
+In the process,
+the method discretizes the training data
+  using a decision tree,
+  thus adding a hyperparameter $J$
+    that controls the number of its leaves.

@@ -44,6 +44,7 @@ the deconvolution problem is
   (@Karolin)
 }
 \begin{equation}
+  % NOTE: Blobel adds a bias term, but it's not part of the Fredholm equation.
   \label{eq:deconvolution_problem:fredholm}
   \int_a^b A(x, y) f(x) \, \mathrm{d}x = g(y) \, .
 \end{equation}
@@ -56,7 +57,6 @@ the integral equation is discretized
 The continuous distribution functions $f(x)$ and $g(x)$ are replaced by vectors $\vec{f}$ and $\vec{g}$,
 and the kernel (response function) $A(x, y)$ by a \emph{transfer matrix} $\symbf{A}$.
 %
-% Disregarding the bias term, % TODO: if there was one in the first place…
 The discretized deconvolution problem is then given by
 \begin{equation}
   \label{eq:deconvolution_problem:discretized}

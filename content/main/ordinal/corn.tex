@@ -14,7 +14,11 @@ and improves upon its predecessor \textsc{Coral} \cite{coral}.
 
 
 \subsection{Method} \label{sec:corn:method}
-\todo{This subsection heavily borrows from the CORN paper. Is that okay?}
+\todo{
+  This subsection heavily borrows from the CORN paper.
+  Although it's cited,
+  it should be rephrased some more.
+}
 
 Let $D = \left\{ \mathbf{x}^{[i]}, y^{[i]} \right\}_{i=1}^N$ denote a dataset of $N$ training examples,
 where $\mathbf{x}^{[i]}$ is the $i$-th example and $y^{[i]}$ is its class label.
@@ -62,7 +66,7 @@ to the conditional probabilities
 
 
 
-% TODO: Add a TikZ visualization similar to Fig. 1 in the CORN paper | see content/tikz/rank_consistency.tex
+% COULDDO: Add a TikZ visualization similar to Fig. 1 in the CORN paper | see content/tikz/rank_consistency.tex
 
 \todo{
   Not integrated with the text yet.
@@ -85,7 +89,8 @@ Its definition is shown in \autoref{eqn:corn:loss}.
 \end{equation}
 
 
-\subsection{Obtaining probabilities from CORN} % OR: Converting threshold to per-class probabilities
+\subsection{Obtaining probabilities from CORN} \label{sec:ordinal:corn:probas}
+% OR: Converting threshold to per-class probabilities
 As explained in \autoref{sec:corn:method},
 % CORN returns conditional (?) probabilities based on the binary classification subtasks it uses.
 \corn{} only returns a single predicted rank $r_q$ for a given input $\mathbf{x}$.

@@ -14,8 +14,8 @@ by repeatedly sampling from the data and training a model on each sample,
 the model's uncertainty can be determined
 as the variance of the results of the different models.
 %
-For the present work, \num{50} bootstrap samples are used. % TODO
-Since using a bootstrap sample of the same size as the original data set
+For the present work, \num{50} bootstrap samples are used.
+Since using a bootstrap sample of the same size as the original (\enquote{bag}) data set
 might produce an inconsistent bootstrap estimator \cite{bootstrap_samplesize},
 \num{1000000} events are used as the original data set,
 while the bootstrap samples contain \num{500000} events as before.
@@ -33,7 +33,7 @@ the per-bin histograms of the estimations for individual bootstrap runs are show
 While the probability density in the bins from \SI{E2}{\giga\electronvolt} to \SI{E4}{\giga\electronvolt} is estimated with high precision
   (relative deviation of \SI{6}{\percent} or less apart from the underflow bin),
 both the relative deviation and the quantile range are large for the lower energy bins.
-It can be speculated that this is due to the fact that the number of events in these bins is small,
+It can be speculated that this is due to the fact that the number of events in these bins is small in comparison,
 which leads to a large uncertainty in the estimation of the spectrum.
 % NOTE: Quadrupling the data set size did not help. :(
 
@@ -61,11 +61,11 @@ Instead,
   only the threshold probabilities ($f_k(\mathbf{x}^{[i]})$) are constrained to be monotonically increasing
   by the chain rule of probability
   (see \autoref{sec:corn:method}).
-% This means that the probability distribution can be multimodal.
 As can be seen in \autoref{fig:bootstrap:single_events},
   slight deviations from unimodality do occur.
-  % TODO: Compare to a Random Forest?
-
+Still,
+  the indirect constraint on the threshold probabilities
+  might be beneficial.
 
 \begin{figure}
   \centering
@@ -77,3 +77,5 @@ As can be seen in \autoref{fig:bootstrap:single_events},
   }
   \label{fig:bootstrap:single_events}
 \end{figure}
+
+% COULDDO: Compare to a Random Forest?

@@ -1,6 +1,4 @@
 \section{\icecube{}}
-% TODO: Explain “upgoing” and why we only consider these in the Monte Carlo dataset.
-
 The \icecubeneutrinoobservatory{} is a neutrino telescope
   located close to the geographic South Pole
   in proximity to the Amundsen-Scott South Pole Station.
@@ -23,7 +21,7 @@ Each of the \num{5160} \textsc{Dom}s is equipped with a sensitive photomultiplie
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\textwidth]{content/img/icecube_detector_schematic.jpg}
+  \includegraphics[width=0.8\textwidth]{content/img/icecube_detector_schematic.jpg}
   \caption{
     % Schematic representation
     % Overview
@@ -77,6 +75,17 @@ Electron neutrinos ($\nu_e$) and muon neutrinos ($\nu_\mu$) are produced by the 
   while tau neutrinos ($\nu_\tau$) are produced by the weak interaction
   and the tau lepton decay.
 Examples of interactions and detector patterns are shown in \autoref{fig:img:icecube:interactions}.
+
+\phantomsection \label{sec:neutrino_astronomy:icecube:up_going}
+Not only neutrinos leave can leave traces in the detector, % interact with the ice,
+  but also atmospheric muons.
+For this reason,
+  the detection is mostly limited to \emph{up-going} events \cite{icecube_aartsen},
+  % ($\SI{0}{\degree} < \theta < \SI{180}{\degree}$)
+  % ORIG: Up-going events for all triggered energies are selected, while only high-energy down-going tracks are selected to avoid the large background of down-going atmospheric muons at lower energies.
+    because muons
+      – in contrast to neutrinos –
+    are mostly blocked by the Earth's mass.
 
 %   - Triggering / reconstruction / feature extraction
 % █ Numbers and facts

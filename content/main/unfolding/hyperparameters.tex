@@ -1,4 +1,4 @@
-\clearpage % guidance only
+\clearpage % NOTE: This one has an impact.
 \section{Hyperparameters}
 Hyperparameters are parameters that are not learned from the data,
 but adjusted by the user.
@@ -36,8 +36,8 @@ This is verified by the initial Bayesian optimization (\autoref{sec:hyperparamet
 \subsection{Cross-validation} \label{sec:hyperparameters:cross_validation}
 Cross-validation \cite{cross_validation} is a method to evaluate the performance of a model on unseen data
 without having to reserve a part of the data for testing.
-
-The data is split into $k$ \emph{folds} of equal size. % not to be confused with DSEA's iteration index k
+%
+The data is split into $k$ \emph{folds} of equal size. % NOTE: not to be confused with DSEA's iteration index k
 The model is then trained on $k-1$ folds,
 and evaluated on the remaining fold.
 This is repeated $k$ times,
@@ -63,7 +63,12 @@ The number of folds is set to $k = 10$,
 Since a grid search is computationally expensive,
   especially for a large number of hyperparameters,
 a Bayesian optimization search \cite{wandb_bayesian} is used to find a good starting point for the grid search.
-% TODO: Explain a little…
+Contrary to a random search,
+the results of previous runs are taken into account
+  by building a probabilistic model of the objective function
+    (in this case, the Wasserstein distance),
+  which allows the search to focus on promising areas of the hyperparameter space.
+
 
 \autoref{fig:hyperparameter:bayesian} shows the results of the Bayesian hyperparameter search.
 Based on these results,
@@ -93,7 +98,7 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
         %TODO: Placeholder values
         batch size & \num{512} \\
         convergence threshold $\epsilon$ & \num{E-4} \\
-        $J$ & \num{100} \\ % TODO: name?
+        clusters $J$ & \num{100} \\
         learning rate & \num{0.0009} \\
         \bottomrule
     \end{tabular}
@@ -101,6 +106,7 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
 
 
 \FloatBarrier
+\clearpage % NOTE: This one has an impact.
 \subsection{Batch size}
 The \emph{batch size} determines the number of events used for each training step.
 While larger batch sizes increase the speed of training
@@ -109,11 +115,13 @@ the performance of the model can be negatively affected \cite{batchsize_kandel}.
 % NOTE: not-so-relevant citation
 
 The boxplot in \autoref{fig:hyperparameter:batch_size} shows the results of a grid search for the batch size.
-% As expected, the performance is worse for larger batch sizes.
+As expected, the performance is worse for larger batch sizes.
 A batch size of \num{4096} is chosen as the optimal value,
-not only because it has the smallest Wasserstein distance,
-but also because it allows for a faster training time
-  compared to smaller values.
+  not only because it has
+    the smallest Wasserstein distance
+    and low variance,
+  but also because it allows for a faster training time
+    compared to smaller values.
 
 \begin{figure}
   \centering
@@ -122,10 +130,12 @@ but also because it allows for a faster training time
     The performance is measured using the \emph{Wasserstein distance}.
     The box shows the 25th to 75th percentile,
     the center line denotes the median,
-    % TODO: Imprecise. The whiskers extend from the box by 1.5x the inter-quartile range (IQR)
+    % NOTE: Imprecise. The whiskers extend from the box by up to 1.5x the inter-quartile range (IQR).
+    % https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.boxplot.html
     and the whiskers show the minimum and maximum,
       apart from outliers,
         which are shown as dots.
+    A dashed orange line indicates the best median value.
   }
   \label{fig:hyperparameter:batch_size}
 \end{figure}
@@ -134,12 +144,13 @@ but also because it allows for a faster training time
 \subsection{Convergence threshold}
 As described in \autoref{sec:dsea:dsea:stepsize}, % TODO: redundant
 when using adaptive step sizes,
-instead of setting a fixed number of DSEA iterations,
+  instead of setting a fixed number of DSEA iterations,
 a minimum $\chi^2$ distance between iterations $\epsilon$
 can be specified.
 When the $\chi^2$ distance becomes smaller than $\epsilon$,
 convergence is assumed and the training is stopped.
 
+% TODO: update with new sweep results (jz5nd4zq)
 The boxplot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold.
 For small values of $\epsilon$
   (\numrange{E-10}{E-4}),
@@ -151,6 +162,7 @@ This is because a high convergence threshold can be thought of as
     analogous to early stopping,
   contrary to explicit regularization,
     as described in \autoref{sec:dsea:deconvolution_problem:regularization}.
+$\epsilon = \num{0.01}$ is chosen as the optimal value.
 
 
 \begin{figure}
@@ -161,7 +173,7 @@ This is because a high convergence threshold can be thought of as
 \end{figure}
 
 
-\subsection{Adaptive step size: Number of clusters}
+\subsection{Number of clusters}
 The adaptive step size function,
   which has been explained in \autoref{sec:dsea:dsea:stepsize},
 internally relies on clustering the data into $J$ clusters.
@@ -172,15 +184,11 @@ Large values of $J$ have previously been shown to lead to slightly better result
 although the median does not decrease monotonically with $J$.
 The optimal value is chosen to be \num{100},
 which has a slightly better performance than \num{500}.
-\todo{The plots still show the $J$-factor ($J / \text{bins}$).}
 
 \begin{figure}
   \centering
-  \includegraphics[scale=1]{content/plots/hyperparam/J_factor_vs_wd_boxplot_lessheight.pdf}
-  \caption{
-    Boxplot of the Wasserstein distance for different $J$-factors.
-    TODO: Plot $J$ instead of $J$-factor.
-    }
+  \includegraphics[scale=1]{content/plots/hyperparam/J_vs_wd_boxplot_lessheight.pdf}
+  \caption{Boxplot of the Wasserstein distance for different numbers of clusters.}
   \label{fig:hyperparameter:J}
 \end{figure}
 
@@ -188,9 +196,14 @@ which has a slightly better performance than \num{500}.
 \subsection{Number of epochs}
 While a higher number of epochs typically increases the model's performance on the training data,
 it also increases the risk of overfitting.
-
+%
 \autoref{fig:hyperparameter:epochs} visualizes a hyperparameter search for the number of epochs per \dsea{} iteration.
-The results show that the model's performance on the training data is …
+The results show that the model's performance on the training data is best for \num{12} epochs.
+Similar performance is achieved for \num{18} epochs,
+  but at the cost of
+    reduced accuracy
+      (see \autoref{fig:hyperparameter:num_epochs_vs_wd_boxplot})
+    and longer training times.
 
 \begin{figure}
   \centering
