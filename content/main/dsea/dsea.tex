@@ -155,16 +155,17 @@ multiplicative decay
 and exponential decay
   $\alpha^{(k)} = \eta^{(k - 1)}$,
 each with a \emph{decay rate} $0 < \eta < 1$.
-
+%
 These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
 while enabling the use of a stopping criterion,
   expressed by a minimum $\chi^2$~distance $\epsilon$ between iterations.
 % NOTE: This had already been suggested in the original DSEA paper (→ dsea_tim).
 
-
-The utilization of \emph{adaptive step sizes} \cite{dsea_mirko} can further improve the convergence of the algorithm
-by choosing an optimal step size for each iteration.
+\phantomsection \label{sec:dsea:dsea:stepsize:adaptive}
+The utilization of \emph{adaptive step sizes} \cite{dsea_mirko}
+can further improve the convergence of the algorithm
+  by choosing an optimal step size for each iteration.
 This is achieved by searching
   along the direction of the step $p_i^{(k)}$ % aka. search direction
   for the step size $\alpha \leq 0$
@@ -175,3 +176,10 @@ the method discretizes the training data
   using a decision tree,
   thus adding a hyperparameter $J$
     that controls the number of its leaves.
+%
+When using adaptive step sizes,
+  instead of setting a fixed number of DSEA iterations,
+a minimum $\chi^2$ distance between iterations $\epsilon$
+can be specified.
+When the $\chi^2$ distance becomes smaller than $\epsilon$,
+convergence is assumed and the training is stopped.

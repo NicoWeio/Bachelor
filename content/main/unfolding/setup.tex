@@ -23,9 +23,10 @@ The unmodified dataset \emph{11374} \cite{icecube_mc} consists of about 13 milli
 % NOTE: Exact number is 13336413 before any preprocessing.
 with a weighted $E^{-2}$ energy spectrum
 ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electronvolt}.
-The energies are stored under the key \texttt{MCPrimary.energy}. % TODO: Denglisch?
+The energies are stored under the key \texttt{MCPrimary.energy}.
 See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
-% TODO: Number of features: 79 (Jan) or 99-1 (my notebook)?
+% NOTE: Jan claims the number of features to be 79,
+% but subtracting the index and 4 MCPrimary keys gives me 99-1-4=94
 
 To ensure comparability to \cite{dsea_jan} and \cite{dsea_samuel}, % TODO: already cited in intro
 only the first \num{500000} events of the dataset are considered.
@@ -110,9 +111,9 @@ The lower limit of the overflow bin is chosen so that it contains a similar numb
 ensuring sufficient statistics.
 A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
-The underflow bin is assigned the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$ % TODO: language
+The underflow bin is assigned the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$
   because the dataset does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
-This way, the event count in the underflow bin is similar to the neighboring bin. % TODO: Doppelung
+This way, the event count in the underflow bin is similar to the neighboring bin.
 %
 The remaining \num{8} bins are spaced logarithmically between the under- and overflow bins
   so that the entire energy range of the Monte Carlo dataset is covered.

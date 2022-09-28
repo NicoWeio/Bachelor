@@ -1,9 +1,41 @@
 \thispagestyle{plain}
 
 \section*{Abstract}
-The abstract is a short summary of the thesis in English, together with the German summary it has to fit on this page.
+% - Neutrinos
+% - IceCube
+% - DSEA
+% - CORN
+% - THIS THESIS
 
-\blindtext[1]
+The deconvolution of energy spectra is a [common] problem in neutrino astronomy.
+As an inverse problem,
+  it requires special methods to solve.
+The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm (\dsea{}) \cite{dsea_unification}
+solves the deconvolution problem
+  by using a classifier to estimate the discretized energy spectrum
+  and iteratively reweighting the training data.
+%
+In the given problem,
+  neutrino energies are \emph{ordinal} quantities,
+    which means that the order of the energies is important. % COPILOT
+However,
+  most classifiers do not respect this property.
+%
+% NOTE: Duplicate of introduction.tex
+Previous works
+have focused either
+  on respecting ordinality \cite{dsea_jan}
+  or on using a neural network as a classifier \cite{dsea_samuel}.
+This thesis aims to combine the advantages of both approaches:
+  the flexibility of neural networks
+  and the potential improvements in physical plausibility
+    due to respecting ordinality.
+The \corn{} framework,
+  which [provides] ordinal neural networks,
+is adapted to work with \dsea{}
+and optimized and evaluated on simulated data from \icecube{}.
+
+
 
 \section*{Kurzfassung}
 \begin{foreignlanguage}{german}

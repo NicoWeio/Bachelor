@@ -17,7 +17,9 @@ In each case, 10-fold cross-validation is utilized to reduce the variance of sin
   (see \autoref{sec:hyperparameters:cross_validation}).
 
 % ↓ see pp. 46-48 of dsea_mirko
-The adaptive step size method of \dseaplus{} is used
+The adaptive step size method of \dseaplus{}
+  (see \autoref{sec:dsea:dsea:stepsize:adaptive})
+is used
 because it performs well with all reasonable convergence thresholds.
 It eliminates the need to optimize for step size related hyperparameters,
   such as
@@ -69,7 +71,6 @@ the results of previous runs are taken into account
     (in this case, the Wasserstein distance),
   which allows the search to focus on promising areas of the hyperparameter space.
 
-
 \autoref{fig:hyperparameter:bayesian} shows the results of the Bayesian hyperparameter search.
 Based on these results,
 the initial hyperparameters are set to the values shown in \autoref{tab:hyperparameters:initial}.
@@ -92,14 +93,18 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
     }
     \label{tab:hyperparameters:initial}
     \begin{tabular}{l r}
-        \toprule
-        hyperparameter & {value} \\
-        \midrule
-        %TODO: Placeholder values
-        batch size & \num{512} \\
-        convergence threshold $\epsilon$ & \num{E-4} \\
-        clusters $J$ & \num{100} \\
-        learning rate & \num{0.0009} \\
+      \toprule
+      hyperparameter & {value} \\
+      \midrule
+        % TODO: Re-run with new values
+        % TODO: Show J?
+        % ↓ Analyzed in detail
+        batch size & \num{1024} \\
+        convergence threshold $\epsilon$ & \num{E-2} \\
+        clusters $J$ & \num{250} \\
+        epochs & \num{12} \\
+        % ↓ Not analyzed further
+        learning rate & \num{0.0004} \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -142,40 +147,41 @@ A batch size of \num{4096} is chosen as the optimal value,
 
 
 \subsection{Convergence Threshold}
-As described in \autoref{sec:dsea:dsea:stepsize}, % TODO: redundant
-when using adaptive step sizes,
-  instead of setting a fixed number of DSEA iterations,
-a minimum $\chi^2$ distance between iterations $\epsilon$
-can be specified.
-When the $\chi^2$ distance becomes smaller than $\epsilon$,
-convergence is assumed and the training is stopped.
-
-% TODO: update with new sweep results (jz5nd4zq)
-The boxplot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold.
+The boxplot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold
+  (as described in \autoref{sec:dsea:dsea:stepsize:adaptive}).
 For small values of $\epsilon$
   (\numrange{E-10}{E-4}),
-the performance is roughly the same.
+the performance is mostly unaffected.
 %
-For larger values, better performance is achieved. % TODO: Up to a point. See the plot.
+For larger values,
+  the performance tends to improve,
+  until approximately $\epsilon > \num{E-2}$,
+  where the performance is worst.
 This is because a high convergence threshold can be thought of as
   a form of \emph{implicit regularization} \citationneeded{},
     analogous to early stopping,
   contrary to explicit regularization,
     as described in \autoref{sec:dsea:deconvolution_problem:regularization}.
+Selecting even higher values of $\epsilon$
+stops \dsea{} after the first iteration,
+  which results in a poor performance.
 $\epsilon = \num{0.01}$ is chosen as the optimal value.
 
 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{content/plots/hyperparam/epsilon_vs_wd_boxplot_lessheight.pdf}
-  \caption{Boxplot of the Wasserstein distance for different convergence thresholds.}
+  \caption{
+    Boxplot of the Wasserstein distance for different convergence thresholds.
+    Note that the abscissa is not uniformly spaced.
+  }
   \label{fig:hyperparameter:epsilon}
 \end{figure}
 
 
 \subsection{Number of Clusters}
 The adaptive step size function,
-  which has been explained in \autoref{sec:dsea:dsea:stepsize},
+  which has been explained in \autoref{sec:dsea:dsea:stepsize:adaptive}, % TODO: Schon bei epsilon verlinkt
 internally relies on clustering the data into $J$ clusters.
 The number of clusters $J$ is therefore a hyperparameter of the algorithm.
 %
