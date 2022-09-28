@@ -27,3 +27,6 @@ $ make
 ```
 
 For more information, have a look into [example.pdf](https://github.com/maxnoe/TuDoThesis/blob/master/example.pdf)
+
+# Style
+- [APA Title Case Capitalization](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)

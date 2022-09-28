@@ -33,7 +33,7 @@ This is verified by the initial Bayesian optimization (\autoref{sec:hyperparamet
   where the results have no significant correlation with the learning rate.
 
 
-\subsection{Cross-validation} \label{sec:hyperparameters:cross_validation}
+\subsection{Cross-Validation} \label{sec:hyperparameters:cross_validation}
 Cross-validation \cite{cross_validation} is a method to evaluate the performance of a model on unseen data
 without having to reserve a part of the data for testing.
 %
@@ -59,7 +59,7 @@ The number of folds is set to $k = 10$,
 % “These are the baseline hyperparameters as determined by a Bayesian optimization search.
 % Grid searches for individual hyperparameters will show that these are actually optimal.”
 % (I hope.)
-\subsection{Initial Bayesian search} \label{sec:hyperparameters:initial_bayesian}
+\subsection{Initial Bayesian Search} \label{sec:hyperparameters:initial_bayesian}
 Since a grid search is computationally expensive,
   especially for a large number of hyperparameters,
 a Bayesian optimization search \cite{wandb_bayesian} is used to find a good starting point for the grid search.
@@ -107,7 +107,7 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
 
 \FloatBarrier
 \clearpage % NOTE: This one has an impact.
-\subsection{Batch size}
+\subsection{Batch Size}
 The \emph{batch size} determines the number of events used for each training step.
 While larger batch sizes increase the speed of training
 on optimized hardware,
@@ -141,7 +141,7 @@ A batch size of \num{4096} is chosen as the optimal value,
 \end{figure}
 
 
-\subsection{Convergence threshold}
+\subsection{Convergence Threshold}
 As described in \autoref{sec:dsea:dsea:stepsize}, % TODO: redundant
 when using adaptive step sizes,
   instead of setting a fixed number of DSEA iterations,
@@ -173,7 +173,7 @@ $\epsilon = \num{0.01}$ is chosen as the optimal value.
 \end{figure}
 
 
-\subsection{Number of clusters}
+\subsection{Number of Clusters}
 The adaptive step size function,
   which has been explained in \autoref{sec:dsea:dsea:stepsize},
 internally relies on clustering the data into $J$ clusters.
@@ -193,7 +193,7 @@ which has a slightly better performance than \num{500}.
 \end{figure}
 
 
-\subsection{Number of epochs}
+\subsection{Number of Epochs}
 While a higher number of epochs typically increases the model's performance on the training data,
 it also increases the risk of overfitting.
 %
