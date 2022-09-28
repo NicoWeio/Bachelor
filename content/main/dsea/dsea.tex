@@ -3,11 +3,9 @@ The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm
   (\dsea{})
   \cite{dsea_unification}
 is an iterative method for solving the previously stated deconvolution problem.
-The extended version \cite{dsea_mirko}
-  that
-    % corrects the re-weighting of training examples and
-    gives more control over the speed of convergence
-is also referred to as \dseaplus{}.
+It improves upon its predecessor \dseanonplus{} \cite{dsea_tim} by
+  correcting the re-weighting of training examples and
+  giving more control over the speed of convergence.
 %
 A formal definition of the \dseaplus{} algorithm is given in \autoref{sec:alg:dseaplus}.
 
@@ -146,7 +144,7 @@ and added to the previous deconvolution result:
 \end{equation}
 This improved estimate $\hat \mathbf{f}_i^{(k)+}$ is then considered instead of $\hat \mathbf{f}_i^{(k)}$.
 
-While the original \dsea{} algorithm uses a fixed step size of $\alpha = 1$,
+While the original \dseanonplus{} algorithm uses a fixed step size of $\alpha = 1$,
 \dseaplus{} allows arbitrary constants $\alpha > 0$
 or functions of the iteration number $k$.
 Commonly used step size functions include
@@ -178,7 +176,7 @@ the method discretizes the training data
     that controls the number of its leaves.
 %
 When using adaptive step sizes,
-  instead of setting a fixed number of DSEA iterations,
+  instead of setting a fixed number of \dsea{} iterations,
 a minimum $\chi^2$ distance between iterations $\epsilon$
 can be specified.
 When the $\chi^2$ distance becomes smaller than $\epsilon$,

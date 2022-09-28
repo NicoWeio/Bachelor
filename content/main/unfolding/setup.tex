@@ -11,15 +11,14 @@ to ensure comparability of the results
 
 \subsection{Monte Carlo Dataset and Preprocessing}
 % █ Monte Carlo dataset
-\todo{
-  Full description from the website – what to include here?
-
-  Level2 w/systematics IC86.2012 neutrino-generator NuMu with weighted spectrum of E\^-2, using SpiceLea CLSim.
-  Angular range of 0. deg < theta < 180. deg and energy range of 1e2 GeV < Enu < 1e8 GeV.
-}
+%
+% NOTE: Full description from the website
+% Level2 w/systematics IC86.2012 neutrino-generator NuMu with weighted spectrum of E^-2, using SpiceLea CLSim.
+% Angular range of 0. deg < theta < 180. deg and energy range of 1e2 GeV < Enu < 1e8 GeV.
+%
 The unmodified dataset \emph{11374} \cite{icecube_mc} consists of about 13 million Monte Carlo simulated
   \hyperref[sec:neutrino_astronomy:icecube:up_going]{up-going}
-  neutrino events,
+  muon neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
 with a weighted $E^{-2}$ energy spectrum
 ranging from \SI{E2}{\giga\electronvolt} to \SI{E8}{\giga\electronvolt}.
@@ -58,7 +57,7 @@ the \emph{minimal-optimal} set of features is selected,
     which would also contain redundant features \citationneeded{}. % Spoiler alert: I can't find a citation for this.
     % which would be selected by a simple relevance-based feature selection algorithm. % Copilot blah blah
 A list of said features is provided in \autoref{tab:features_best}.
-They are re-used in this thesis.
+They are reused in this thesis.
 
 \begin{table}
     \centering
@@ -128,7 +127,7 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 \end{figure}
 
 
-\subsection{Neural Network and DSEA}
+\subsection{Neural Network and \dseatitle{}}
 % █ Neural network
 A PyTorch \cite{pytorch} implementation of the \corn{} method
 as well as several examples demonstrating its application on different datasets
