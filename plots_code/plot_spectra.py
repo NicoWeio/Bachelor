@@ -1,11 +1,11 @@
 # %%
-import wandb
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import wandb
 from matplotlib import rc_context
 
-from common import STYLES, console
+from common import PLOTS_DIR, STYLES, console
 
 # %%
 LOWER_LIMIT = 10**2.1
@@ -92,9 +92,9 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
     axs[0].legend()
 
     axs[1].step(BIN_EDGES, rel_error, where='post', color='C2')
-    axs[1].set_ylabel('relative deviation')
+    axs[1].set_ylabel("relative deviation")
     axs[1].set_xscale('log')
-    axs[1].set_xlabel(r'$\text{energy} \mathbin{/} \si{\giga\electronvolt}$')
+    axs[1].set_xlabel(r"$\text{energy} \mathbin{/} \si{\giga\electronvolt}$")
 
     # for single_rel_error in rel_errors:
     #     axs[1].step(BIN_EDGES, single_rel_error, where='post', color='C2')
@@ -119,7 +119,7 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
     ax3.tick_params(labelleft=False, labelbottom=False, left=False, right=False)
     ax3.set_xscale('log')
     ax3.get_shared_x_axes().join(ax3, axs[0])
-    ax3.grid(axis="x")
+    ax3.grid(axis='x')
 
     for ax in axs:
         # ax.set_xticks(BIN_EDGES)

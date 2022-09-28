@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib import rc_context
@@ -16,11 +17,15 @@ PLOTS = [
     },
     {
         'configvar': 'epsilon',
+        'configvar_filter': lambda x: x <= 1e-4 or str(x).endswith(('1', '05')),
         'metricvar': 'wd',
         'kind': 'boxplot',
         'style': 'lessheight',
-        # 'sweep_id': 'ju79broz',  # new version with correct binning and batch_size=512
-        'sweep_id': '61nuutm1',  # new version with correct binning and batch_size=4096
+        'sweep_id': [
+            # 'ju79broz',  # batch_size=512
+            '61nuutm1',  # batch_size=4096
+            'jz5nd4zq',  # batch_size=4096; extra values around 0.01
+        ],
     },
     {
         'configvar': 'J',
@@ -35,7 +40,7 @@ PLOTS = [
         'metricvar': 'wd',
         'kind': 'boxplot',
         'style': 'lessheight',
-        'sweep_id': 'zftou44c',
+        'sweep_id': 'uaufq3v7',
     },
 ]
 
@@ -44,7 +49,7 @@ AXIS_LABEL_MAP = {
     # ---
     'batch_size': 'batch size',
     'J_factor': r'$J$-factor',
-    'J': r'$J$',
+    'J': r'number of clusters $J$',
     'num_epochs': 'number of epochs',
     'epsilon': r'convergence threshold $\epsilon$',
 }
@@ -54,15 +59,28 @@ METRIC_OBJECTIVE_MAP = {
     'accuracy': 'max',
 }
 
+
+def listify(x):
+    if isinstance(x, list):
+        return x
+    return [x]
+
+
 for i, plot in enumerate(PLOTS):
     # If sweep_id is a list, merge the results
-    sweep_ids = (plot['sweep_id'] if isinstance(plot['sweep_id'], list) else [plot['sweep_id']])
+    sweep_ids = listify(plot['sweep_id'])
     dfs = [sweep.get_sweep_df(sweep_id) for sweep_id in sweep_ids]
     df_single = pd.concat(dfs, ignore_index=True)
 
     # Manually add J (for old sweeps)
     if 'J' not in df_single.columns:
         df_single['J'] = df_single['J_factor'] * 10
+
+    # Apply configvar filter
+    if 'configvar_filter' in plot:
+        filter_mask = np.array([plot['configvar_filter'](x) for x in df_single[plot['configvar']]])
+        df_single = df_single[filter_mask]
+        assert len(df_single) > 0, "No data left after filtering"
 
     with rc_context(STYLES[plot['style']]), console.status(f"Plotting ({i+1}/{len(PLOTS)})…"):
         plt.figure()  # Important! Otherwise, the style is not updated.

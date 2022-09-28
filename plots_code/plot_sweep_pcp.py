@@ -27,8 +27,8 @@ label_tuples = [
         'log',
     ),
     (
-        'learning_rate',
-        "learning\nrate",
+        'J',
+        ("number of\nclusters " r"$J$"),
         'linear',
     ),
     (
@@ -37,8 +37,13 @@ label_tuples = [
         'linear',
     ),
     (
+        'learning_rate',
+        "learning\nrate",
+        'linear',
+    ),
+    (
         'test/wd_mean',
-        "Wasserstein distance\n(mean)",
+        "Wasserstein\ndistance (mean)",
         'linear',
     ),
 ]
