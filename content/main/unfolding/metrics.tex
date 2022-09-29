@@ -22,10 +22,10 @@ it gives an indication of the overall performance of the model.
 
 
 \subsection{Mean Absolute Error} \label{sec:unfolding:metrics:mae}
-The \emph{mean absolute error} (\textsc{Mae}) \cite{mae} is a metric that is commonly used for regression tasks. % TODO
+The \acfi{MAE} \cite{mae} is a metric that is commonly used for regression tasks. % TODO
 It is defined as
 \begin{equation}
-  \text{\textsc{Mae}} = \frac{1}{N} \sum_{i=1}^N \left| y^{[i]} - \hat{y}^{[i]} \right|
+  \text{\acs{MAE}} = \frac{1}{N} \sum_{i=1}^N \left| y^{[i]} - \hat{y}^{[i]} \right|
 \end{equation}
 where $N$ is the number of events,
 $y^{[i]}$ is the true value of the $i$-th event,
@@ -38,8 +38,8 @@ Since the absolute value of the error is considered,
 overestimation and underestimation are treated equally
 and do not cancel each other out.
 % NOTE: The referenced paper gives some good arguments for using MAE over RMSE.
-In contrast to the \emph{root mean squared error} (\textsc{Rmse}),
-the \textsc{Mae} is not especially sensitive to outliers
+In contrast to the \acfi{RMSE},
+the \ac{MAE} is not especially sensitive to outliers
 and has a more natural interpretation \cite{mae}.
 
 
@@ -56,14 +56,14 @@ In contrast,
 the \emph{Wasserstein distance} \cite{wd}
 compares the unfolded spectrum to the true spectrum.
 %
-It is also known as \emph{earth mover's distance} (\textsc{Emd}),
+It is also known as \acfi{EMD},
   hinting at the analogy of moving earth to transform one distribution into another,
     where the cost is given as the product of the distance and the amount of earth moved.
       % essentially the physical work.
 
 Mathematically, the Wasserstein distance (of first kind) can be defined as
 \begin{equation}
-  \text{\textsc{Wd}}(\mathbf{p}, \mathbf{q}) = \inf_{\pi \in \Pi(\mathbf{p}, \mathbf{q})} \int_{\mathbb{R}^2} |x - y| \, \mathrm{d}\pi(x, y)
+  \text{\acs{WD}}(\mathbf{p}, \mathbf{q}) = \inf_{\pi \in \Pi(\mathbf{p}, \mathbf{q})} \int_{\mathbb{R}^2} |x - y| \, \mathrm{d}\pi(x, y)
 \end{equation}
 where
   $\mathbf{p}$ and $\mathbf{q}$ are the probability distributions subject to comparison,

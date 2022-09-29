@@ -144,9 +144,29 @@
 %------------------------------ Custom commands -------------------------------
 %------------------------------------------------------------------------------
 
-% █ Acronyms
+\usepackage[nolist,nohyperlinks]{acronym}
+
+% █ Acronyms → managed by acronym package
+% ▒ IceCube things
+\acrodef{DOM}{digital optical module}
+\acrodef{PMT}{photomultiplier tube}
+% ▒ Algorithms
+\acrodef{Adam}{Adaptive Moment Estimation}
+\acrodef{CORN}{\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks}
+\acrodef{CORAL}{\textbf{CO}onsistent \textbf{RA}ank \textbf{L}ogits}
+\acrodef{TRUEE}{Time-dependent Regularized Unfolding for Economics and Engineerings}
+\acrodef{RUN}{Regularized Unfolding}
+\acrodef{IBU}{Iterative Bayesian Unfolding}
+% ▒ Metrics
+\acrodef{MAE}{mean absolute error}
+\acrodef{RMSE}{root mean squared error}
+\acrodef{EMD}{earth mover's distance}
+\acrodef{WD}{Wasserstein distance}
+
+% █ Acronyms → custom
 % NOTE: These aren't used for section titles, since their font does not support textsc.
-\newcommand{\corn}{\textsc{Corn}}
+% \newcommand{\corn}{\textsc{Corn}}
+\newcommand{\corn}{\ac{CORN}}
 \newcommand{\icecube}{IceCube}
 
 % ▒ DSEA versions

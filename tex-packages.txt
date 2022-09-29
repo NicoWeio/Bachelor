@@ -56,3 +56,4 @@ cleveref
 pdfpages
 pdflscape
 hyphen-german
+acronym

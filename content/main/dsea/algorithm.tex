@@ -23,6 +23,7 @@
       \State $k \gets k-1$\;
       \State $\forall 1 \leq n \leq N': w_n^{(k)} \gets \hatf_{i (n)}^{(k-1)} / \f_{i (n)}^t$\;
       \State Infer $\mathcal{M}$ from $\mathcal{D}_\text{train}$ weighted by $w_n^{(k)+}$\;
+      % ↓ NOTE: The acronym style is taken from Mirko's thesis. `\ac{RUN}' looks weird.
       \State $\forall 1 \leq i \leq I: p_i^{(k)} \gets \frac{1}{N} \sum_{n=1}^N c_{\mathcal{M}}(i|\x_n) - \hatf^{(k-1)}$\;
       \State $\alpha_{\textsc{Run}}^{(k)} \gets \operatorname{argmin}_{\alpha \geq 0} \ell_r(\hatf^{(k-1)} + \alpha p^{(k)})$\;
       \State $\hatf_i^{(k)+} \gets \hatf^{(k-1)} + \alpha_{\textsc{Run}}^{(k)} \cdot p^{(k)}$\;
