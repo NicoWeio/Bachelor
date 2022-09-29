@@ -4,14 +4,14 @@ Astroparticle physics is a relatively new field of physics
   that explores the universe
     with the help of messenger particles.
 They carry information about
-    the processes that produced them
+    the production processes
     and the environment they were created in,
   which can be obtained upon their detection.
 % This way, AGN, supernovae, and other astrophysical phenomena can be studied.
 % █ neutrino astronomy
 Neutrinos are especially valuable messenger particles
   because their propagation path is not affected by electromagnetic fields,
-  and they can travel long distances without interacting with matter.
+  and they can propagate long distances without interacting with matter.
 % Therefore,
 %   both their source and their energy can be determined
 %   by measuring the direction and energy of
@@ -24,10 +24,13 @@ Neutrinos are especially valuable messenger particles
 \icecube{} is such a detector,
   which is located at the South Pole.
 % ↓ move to icecube.tex?
-It makes use of the Antarctic ice as detector material
+The Antarctic ice is used as detector material
   and is sensitive to high-energy neutrinos
     in the approximate range of \si{\tera\electronvolt} to \si{\peta\electronvolt} \cite{icecube_aartsen}.
       % \SI{E7}{\electronvolt} to \SI{E21}{\electronvolt}. % source?
+% ORIG[IceCube Masterclass]: IceCube ist in der Lage, Neutrinos mit einigen Dutzend GeV nachzuweisen,
+% was es erlaubt, sowohl den atmosphärischnen als auch den extraterrestrischen Neutrinofluss zu untersuchen.
+% Das Maximum der Sensitivität liegt im Energiebereich jenseits der TeV, in dem der extraterrestrische Fluss zunehmend dominanter werden sollte.
 %
 One goal of analyses with \icecube{} is
   to obtain a neutrino energy spectrum.
@@ -36,15 +39,14 @@ One goal of analyses with \icecube{} is
 The \textbf{D}ortmund \textbf{S}pectrum \textbf{E}stimation \textbf{A}lgorithm (\dsea{}) \cite{dsea_unification}
 is a method to reconstruct the neutrino energy spectrum
   from the measured data of \icecube{}.
-While conventional classifiers \todo{Find a better word for “conventional”}
-  such as random forests
-have been successfully applied to \icecube{} data in \dsea{},
+While classifiers such as random forests
+have been successfully applied to \icecube{} data in \dsea{} \cite{hymon2021seasonal},
 the possibilities of neural networks and deep learning are still largely unexplored. % Naja…
 %
 Previous works
 % that perform unfolding…
 have focused either
-  on respecting ordinality \cite{dsea_jan} % TODO: Can I explain ordinality here?
+  on respecting ordinality \cite{dsea_jan} % COULDDO: Can I explain ordinality here?
   or on using a neural network as a classifier \cite{dsea_samuel}.
 This thesis aims to combine the advantages of both approaches:
   the flexibility of neural networks
@@ -61,6 +63,6 @@ The proposed method is then optimized and evaluated
 This paper is organized as follows:
 \Cref{sec:neutrino_astronomy} briefly introduces \icecube{} and important concepts of neutrino astronomy.
 \Cref{sec:dsea} describes the deconvolution problem and the \dsea{} approach to solving it.
-\Cref{sec:ordinal} [rationalizes/justifies] the need for ordinal classification and introduces the \corn{} framework.
+\Cref{sec:ordinal} explains the need for ordinal classification and introduces the \corn{} framework.
 \Cref{sec:unfolding} describes the setup for hyperparameter searches and evaluates the performance of the optimized model.
 \Cref{sec:summary} concludes the thesis and discusses future work.

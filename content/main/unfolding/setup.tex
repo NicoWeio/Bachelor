@@ -61,10 +61,6 @@ They are reused in this thesis.
 
 \begin{table}
     \centering
-    \caption{
-      12 best features according to the \emph{mRMR} algorithm \cite{dsea_jan}.
-    }
-    \label{tab:features_best}
     \begin{tabular}{l}
         \toprule
         % \midrule
@@ -83,6 +79,10 @@ They are reused in this thesis.
         \texttt{SplineMPECharacteristicsIC.avg\_dom\_dist\_q\_tot\_dom} \\
         \bottomrule
     \end{tabular}
+  \caption{
+    12 best features according to the \emph{mRMR} algorithm \cite{dsea_jan}.
+  }
+  \label{tab:features_best}
 \end{table}
 
 
@@ -177,7 +177,6 @@ In order to retrieve probabilities from the output neurons,
       9 & leaky ReLU \\
     \bottomrule
   \end{tabular}
-  % TODO: Ich habe immer gelernt: „Abbildungen haben eine Unterschrift, Tabellen eine Überschrift.“ @Karolin widerspricht dem scheinbar.
   \caption{
     Shape and activation functions of the neural network.
     The number of neurons in the input and output layers is determined by the number of features and bins, respectively.

@@ -1,6 +1,5 @@
 \section{The Deconvolution Problem} % / Inverse problems
 % \subsection{Inverse Problems}
-% TODO: Make clear the difference between inverse problems and deconvolution
 Inverse problems are omnipresent in modern physics.
 They occur whenever a physical quantity is measured indirectly.
 For example,
@@ -22,27 +21,28 @@ The deconvolution problem
     from the indirect measurements.
 
 % █ Fredholm integral equation
-% NOTE: The notation is based on \citeauthor{deconvolution_blobel} \cite{deconvolution_blobel}.
-% In particular,
-%   the meaning of $x$ and $y$ is swapped in the other chapters.
+% NOTE: The notation is based on Blobel (→ deconvolution_blobel).
+% In particular, the meaning of $x$ and $y$ is swapped in the other chapters.
+% NOTE: There has been some discussion about what f(x) is.
+% - Blobel says that f is a probability density function (and therefore, f(x) is a probability density).
+%   I would have to integrate over an energy range to get a flux.
+% - Leonora says that f(x) is a flux or an event spectrum (and therefore a physical quantity itself).
+% - IMHO Leonora's interpretation is a special case.
+%   Leonora, on the other hand, considers Blobel's interpretation a special case.
 Mathematically,
 a set of single physical quantities $x$
   limited to an arbitrary range $a \leq x \leq b$
     (such as the energy of a neutrino)
-can be interpreted as samples from a probability density $f(x)$.
+can be interpreted as samples from an event spectrum $f(x)$.
 %
 Given
   % this true probability density,
-  the measured distribution $g(x)$
+  the measured distribution $g(y)$
   and a \emph{response function} $A(x, y)$,
     which describes the detector,
 the deconvolution problem is
   to find a distribution $f(x)$ that satisfies
-  the Fredholm integral equation of the first kind \cite{deconvolution_blobel}:
-\todo{
-  „Blobel und die Gleichung können nicht die selbe Quelle sein“ → !?
-  (@Karolin)
-}
+  the Fredholm integral equation of the first kind \cite{deconvolution_fredholm}:
 \begin{equation}
   % NOTE: Blobel adds a bias term, but it's not part of the Fredholm equation.
   \label{eq:deconvolution_problem:fredholm}
@@ -54,7 +54,7 @@ the deconvolution problem is
 In the context of physical measurements,
 the integral equation is discretized
   to account for the finite number of samples.
-The continuous distribution functions $f(x)$ and $g(x)$ are replaced by vectors $\vec{f}$ and $\vec{g}$,
+The continuous distribution functions $f(x)$ and $g(y)$ are replaced by vectors $\vec{f}$ and $\vec{g}$,
 and the kernel (response function) $A(x, y)$ by a \emph{transfer matrix} $\symbf{A}$.
 %
 The discretized deconvolution problem is then given by
@@ -64,12 +64,12 @@ The discretized deconvolution problem is then given by
 \end{equation}
 
 In practice,
-the transfer matrix $A(x, y)$ can be approximated
+the transfer matrix can be approximated
 by Monte Carlo simulations of the detector,
   where both the true and the measured quantities are known.
 Given an actual set of measurements $\vec{g}$,
 the deconvolution problem can then be solved
-by inverting the transfer matrix $\symbf{A}$:
+by inverting the transfer matrix:
 \begin{equation}
   \label{eq:deconvolution_problem:discretized:inverse}
   \vec{f} = \symbf{A}^{-1} \vec{g} \, .
