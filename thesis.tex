@@ -146,7 +146,7 @@
 
 \usepackage[nolist,nohyperlinks]{acronym}
 
-% █ Acronyms → managed by acronym package
+% █ Acronyms/… → managed by acronym package
 % ▒ IceCube things
 \acrodef{DOM}{digital optical module}
 \acrodef{PMT}{photomultiplier tube}
@@ -163,17 +163,15 @@
 \acrodef{EMD}{earth mover's distance}
 \acrodef{WD}{Wasserstein distance}
 
-% █ Acronyms → custom
-% NOTE: These aren't used for section titles, since their font does not support textsc.
-% \newcommand{\corn}{\textsc{Corn}}
-\newcommand{\corn}{\ac{CORN}}
+% █ Acronyms/… → custom
+% ▒ Misc.
 \newcommand{\icecube}{IceCube}
-
-% ▒ DSEA versions
+% ▒ DSEA versions → regular
+% NOTE: These aren't used for section titles, since their font does not support textsc.
 \newcommand{\dseanonplus}{\textsc{Dsea}}
 \newcommand{\dseaplus}{\textsc{Dsea}\textsuperscript{+}}
 \newcommand{\dsea}{\dseaplus{}} % default to DSEA+
-
+% ▒ DSEA versions → title
 \newcommand{\dseanonplustitle}{DSEA}
 \newcommand{\dseaplustitle}{\texorpdfstring{DSEA\textsuperscript{+}}{DSEA+}}
 \newcommand{\dseatitle}{\dseaplustitle{}} % default to DSEA+

@@ -1,5 +1,5 @@
 \section{Setup}
-In order to evaluate the performance of \corn{} in \dsea{},
+In order to evaluate the performance of \ac{CORN} in \dsea{},
 a dataset has to be prepared
 and hyperparameters need to be chosen.
 %
@@ -131,12 +131,12 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 \subsection{Neural Network and \dseatitle{}}
 % █ Neural network
-A PyTorch \cite{pytorch} implementation of the \corn{} method
+A PyTorch \cite{pytorch} implementation of the \ac{CORN} method
 as well as several examples demonstrating its application on different datasets
 is provided by \cite{corn}.
 % NOTE: https://raschka-research-group.github.io/coral-pytorch/tutorials/pytorch_lightning/ordinal-corn_cement/
 %
-This work makes use of said implementation of \corn{}
+This work makes use of said implementation of \ac{CORN}
 and hence the PyTorch framework.
 Additionally,
   PyTorch Lightning \cite{pytorch_lightning},
@@ -159,7 +159,7 @@ per layer
 are shown in \autoref{tab:nn_shape}.
 %
 In order to retrieve probabilities from the output neurons,
-  a modified version of the \corn{}-provided function \mintinline{python}{corn_label_from_logits(logits)} is used, % TODO: many "is used"
+  a modified version of the \ac{CORN}-provided function \mintinline{python}{corn_label_from_logits(logits)} is used, % TODO: many "is used"
     which implements the conversion
       from threshold- to per-class probabilities
     outlined in \autoref{sec:ordinal:corn:probas}.
@@ -188,7 +188,7 @@ In order to retrieve probabilities from the output neurons,
 
 \ac{Adam} \cite{adam} is used as the optimizer.
 % It combines the benefits of both AdaGrad and RMSProp.
-It minimizes the loss function provided by \corn{} (see \autoref{eqn:corn:loss}).
+It minimizes the loss function provided by \ac{CORN} (see \autoref{eqn:corn:loss}).
 
 The neural network keeps its weights between \dsea{} iterations.
 In theory,

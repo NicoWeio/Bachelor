@@ -60,7 +60,7 @@ whereby the probability of exceeding a rank $r_k$ is always greater than or equa
 While not strictly necessary for the computation of rank indices $q$ (or ranks $r_q$),
 it is intuitively clear that imposing such a restriction could improve the quality of predictions.
 
-\corn{} ensures rank monotony
+\Ac{CORN} ensures rank monotony
   $f_1(\mathbf{x}^{[i]}) \leq f_2(\mathbf{x}^{[i]}) \leq \ldots \leq f_{K-1}(\mathbf{x}^{[i]})$
 by applying the chain rule of probability
 to the conditional probabilities
@@ -77,7 +77,7 @@ to the conditional probabilities
   Put more emphasis on the conditional training subsets.
   Maybe move to appendix.
 }
-\corn{} also provides the loss function.
+\Ac{CORN} also provides the loss function.
 Its definition is shown in \autoref{eqn:corn:loss}.
 \begin{equation}
   \label{eqn:corn:loss}
@@ -97,7 +97,7 @@ Its definition is shown in \autoref{eqn:corn:loss}.
 % OR: Converting threshold to per-class probabilities
 As explained in \autoref{sec:corn:method},
 % CORN returns conditional (?) probabilities based on the binary classification subtasks it uses.
-\corn{} only returns a single predicted rank $r_q$ for a given input $\mathbf{x}$.
+\Ac{CORN} only returns a single predicted rank $r_q$ for a given input $\mathbf{x}$.
 % … and internally has no notion of “absolute” per-class probabilities.
 % NOTE: Don't get confused here:
 % - the output layer represents the conditional probabilities of exceeding a rank label
