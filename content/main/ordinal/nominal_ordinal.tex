@@ -27,34 +27,29 @@ In the context of the problem at hand,
   the neutrino energies are ordinal,
     since they are discretized into bins,
       while the ordering by energy remains intact.
-
+%
 A classifier can then either
   treat the data as nominal,
     disregarding the ordering,
   or as ordinal,
     taking the ordering into account.
-The latter is more appropriate,
-  since the ordering is known to be important. % TODO
-% TODO: Hier evtl. auf "single events" verweisen
+Disregarding the ordering
+is especially problematic for the reconstruction of
+  single events
+  or spectra that depend on an additional parameter
+    (such as the time \cite{hymon2021seasonal}),
+because in both cases,
+  not only the unfolded spectrum
+    (as a normalized sum of confidence distributions),
+  but also the confidence distribution of single events
+  is considered.
+With nominal classification,
+  there is no incentive for the classifier
+    to return an unimodal confidence distribution.
+An event could therefore yield
+  high confidences for both very low and very high energies,
+  which is not physically plausible.
 
 
-% This means that the classifier is trained to predict
-% which of the $I$ energy bins a sample belongs to
-%   without taking into account …. % TODO
-
-    % the relative abundance of the classes.
-% Given small enough bins,
-% a correlation between neighboring bins is expected.
-
-
-% █ Metric data → why not?
-% It shall be noted that
-% the discretized neutrino energies are not metric in the strictest sense,
-%   since the under-/overflow bins are of different width than the others.
-
-% due to the discretization necessary for \dsea{},
-%   the neutrino energies are no longer metric data.
-% This is acceptable
-% because all bins
-%   – apart from the under-/overflow bins –
-%  are of equal width.
+% NOTE: There's also metric data, which means that the distance between two categories is quantifiable.
+% One could argue that – since our inner bins are of equal width – the energy is even metric.

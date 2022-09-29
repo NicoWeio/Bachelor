@@ -122,7 +122,6 @@ is reached.
 %
 %
 % \subsubsection{Result}
-% TODO: Explain convergence…
 The final deconvolution result is the spectrum obtained in the last iteration.
 
 
@@ -156,9 +155,21 @@ each with a \emph{decay rate} $0 < \eta < 1$.
 %
 These decaying step sizes ensure that the algorithm converges,
 decreasing the importance of the maximum number of iterations $K$,
-while enabling the use of a stopping criterion,
-  expressed by a minimum $\chi^2$~distance $\epsilon$ between iterations.
-% NOTE: This had already been suggested in the original DSEA paper (→ dsea_tim).
+while enabling the use of a stopping criterion:
+  When the $\chi^2$~distance becomes smaller than $\epsilon$,
+  convergence is assumed and the training is stopped.
+  % NOTE: This had already been suggested in the original DSEA paper (→ dsea_tim).
+%
+In this work,
+the probabilistic symmetric $\chi^2$~distance \cite{chisquare, dsea_mirko}
+\begin{equation}
+  \newcommand{\myf}{\mathbf{f}_i}
+  \newcommand{\myfhat}{\hat\myf}
+  % \chi^2 =
+  \chi^2_\text{Sym}(\hat\mathbf{f}, \mathbf{f}) =
+  2 \cdot \sum_{i=1}^I \frac{(\myfhat - \myf)^2}{\myfhat + \myf}
+\end{equation}
+is used.
 
 \phantomsection \label{sec:dsea:dsea:stepsize:adaptive}
 The utilization of \emph{adaptive step sizes} \cite{dsea_mirko}
@@ -174,10 +185,3 @@ the method discretizes the training data
   using a decision tree,
   thus adding a hyperparameter $J$
     that controls the number of its leaves.
-%
-When using adaptive step sizes,
-  instead of setting a fixed number of \dsea{} iterations,
-a minimum $\chi^2$ distance between iterations $\epsilon$
-can be specified.
-When the $\chi^2$ distance becomes smaller than $\epsilon$,
-convergence is assumed and the training is stopped.

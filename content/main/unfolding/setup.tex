@@ -27,26 +27,28 @@ See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % NOTE: Jan claims the number of features to be 79,
 % but subtracting the index and 4 MCPrimary keys gives me 99-1-4=94
 
-To ensure comparability to \cite{dsea_jan} and \cite{dsea_samuel}, % TODO: already cited in intro
+To ensure comparability to \cite{dsea_jan} and \cite{dsea_samuel}, % COULDDO: already cited in intro
 only the first \num{500000} events of the dataset are considered.
 This also allows for more thorough hyperparameter optimization,
-which would otherwise be limited by the available computational resources as well as the timeframe of this thesis.
+which would otherwise be limited by
+  the available computational resources
+  as well as the timeframe of this thesis.
 % TODO: The smallest bin contains approximately XY events.
 %
-Unless otherwise stated, % TODO: Do I ever do this?
+Unless otherwise stated, % NOTE: ≙ Whenever I don't use bootstrapping
 \SI{90}{\percent} of the data is used for training,
 while the remaining \SI{10}{\percent} is used for evaluation.
-% No separate validation set is used.
+No separate validation set is used.
 
 
-\subsection{Feature Selection}
-Since
-  unfolding is highly dependent on the selection of features \citationneeded{}
-  and computational resources are limited,
-not all available features are used.
-
-\citeauthor{dsea_jan} has employed the \emph{mRMR} (Minimum Redundancy Maximum Relevance) feature selection algorithm \cite{mrmr}
-to select the 12 most relevant features \cite{dsea_jan}.
+% █ Feature Selection
+Because
+  unfolding is highly dependent on the selection of features \cite{dsea_jan} % COULDDO: find a better reference
+  and training is negatively affected by the presence of irrelevant ones \cite{dash1997},
+not all available features are considered.
+%
+\citeauthor{dsea_jan} \cite{dsea_jan} has employed the \emph{mRMR} (Minimum Redundancy Maximum Relevance) algorithm \cite{mrmr}
+to select the 12 most relevant features.
 The algorithm takes into account both
   the \emph{relevance} of a feature to the target variable,
     measured by their correlation,
