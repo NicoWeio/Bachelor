@@ -129,6 +129,7 @@
 %------------------------------ Custom dependencies ---------------------------
 %------------------------------------------------------------------------------
 
+\usepackage[nolist,nohyperlinks]{acronym}
 \usepackage{blindtext}
 \usepackage{todonotes}
 \usepackage[outputdir=build]{minted}
@@ -144,16 +145,19 @@
 %------------------------------ Custom commands -------------------------------
 %------------------------------------------------------------------------------
 
-\usepackage[nolist,nohyperlinks]{acronym}
 
-% █ Acronyms/… → managed by acronym package
+% █ Acronyms/… → managed by the acronym package
 % ▒ IceCube things
 \acrodef{DOM}{digital optical module}
 \acrodef{PMT}{photomultiplier tube}
 % ▒ Algorithms
+% {acronym} [short name] {full name}
 \acrodef{Adam}{Adaptive Moment Estimation}
 \acrodef{CORN}{\textbf{C}onditional \textbf{O}rdinal \textbf{R}egression for \textbf{N}eural Networks}
 \acrodef{CORAL}{\textbf{CO}onsistent \textbf{RA}ank \textbf{L}ogits}
+\acrodef{DSEANONPLUS}[DSEA]{Dortmund Spectrum Estimation Algorithm}
+\acused{DSEANONPLUS} % never print the full name
+\acrodef{DSEAPLUS}[DSEA\textsuperscript{+}]{Dortmund Spectrum Estimation Algorithm}
 \acrodef{TRUEE}{Time-dependent Regularized Unfolding for Economics and Engineerings}
 \acrodef{RUN}{Regularized Unfolding}
 \acrodef{IBU}{Iterative Bayesian Unfolding}
@@ -168,8 +172,8 @@
 \newcommand{\icecube}{IceCube}
 % ▒ DSEA versions → regular
 % NOTE: These aren't used for section titles, since their font does not support textsc.
-\newcommand{\dseanonplus}{\textsc{Dsea}}
-\newcommand{\dseaplus}{\textsc{Dsea}\textsuperscript{+}}
+\newcommand{\dseanonplus}{\ac{DSEANONPLUS}}
+\newcommand{\dseaplus}{\ac{DSEAPLUS}}
 \newcommand{\dsea}{\dseaplus{}} % default to DSEA+
 % ▒ DSEA versions → title
 \newcommand{\dseanonplustitle}{DSEA}
