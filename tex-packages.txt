@@ -55,3 +55,4 @@ algorithmicx
 cleveref
 pdfpages
 pdflscape
+hyphen-german
