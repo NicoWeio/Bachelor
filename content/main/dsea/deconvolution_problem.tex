@@ -81,23 +81,14 @@ the matrix is usually \emph{ill-conditioned},
     % since the underlying inverse problem is ill-posed,
   leading to numerical instabilities
   and oscillations in the solution.
-
-% It is \emph{ill-conditioned}:
-%   the solution can change drastically
-%     when the measurements are slightly perturbed.
-% % COPILOT: This is because the solution is not unique:
-% %   there are many different physical quantities
-% %     that can produce the same measurements.
-
+%
 \phantomsection \label{sec:dsea:deconvolution_problem:regularization}
 One approach to overcome this problem
 is \emph{regularization}.
-% Regularization is a technique
-% to make the deconvolution problem well-posed
-% by adding a penalty term to the objective function.
-Regularization allows for better results
+It allows for better results
   at the cost of introducing additional a priori assumptions and parameters
     (\emph{bias-variance trade-off}) \cite{bias_variance_tradeoff}. % aka smoothing/sharpening trade-off
+%
 A common regularization technique is
   to penalize the second derivative of the solution \cite{deconvolution_starck},
     which is known as \emph{Tikhonov regularization} \cite{tikhonov_regularization}.
