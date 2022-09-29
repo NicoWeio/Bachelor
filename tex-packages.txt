@@ -57,3 +57,4 @@ pdfpages
 pdflscape
 hyphen-german
 acronym
+bigfoot
