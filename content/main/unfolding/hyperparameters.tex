@@ -185,7 +185,7 @@ The number of clusters $J$ is therefore a hyperparameter of the algorithm.
 Large values of $J$ have previously been shown to lead to slightly better results \cite{dsea_mirko}.
 \autoref{fig:hyperparameter:J} confirms this,
 although the median does not decrease monotonically with $J$.
-The optimal value is \num{250},
+The optimal value is \num{200},
 which has a slightly better performance than \num{500}.
 
 \begin{figure}
@@ -202,6 +202,9 @@ it also increases the risk of overfitting.
 %
 \autoref{fig:hyperparameter:epochs} visualizes a hyperparameter search for the number of epochs per \dsea{} iteration.
 The results show that the model's performance on the training data is best for \num{12} epochs.
+\autoref{fig:hyperparameter:num_epochs_vs_wd_boxplot} shows that
+the accuracy is not negatively affected by a higher number of epochs,
+  indicating that the model is not overfitting.
 
 \begin{figure}
   \centering
