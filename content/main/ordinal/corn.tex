@@ -1,3 +1,4 @@
+\clearpage % NOTE: This one has an impact.
 \section{CORN} \label{sec:ordinal:corn}
 % Conditional Ordinal Regression for Neural Networks
 % NOTE: Ordinal Regression = Ordinal Classification. It's an intermediate problem between classification and regression. (→ corn)
@@ -91,8 +92,8 @@ by splitting the training data into conditional training subsets $S_k$
 In words,
 for $k > 1$,
   $S_k$ contains all training examples
-  for which the rank label exceeds rank $r_{k-1}$
-    (or, equivalently, for which the observed probability of exceeding rank $r_{k-1}$ is $1$).
+  for which the rank label exceeds rank $r_{k-1}$.
+    % (or, equivalently, for which the observed probability of exceeding rank $r_{k-1}$ is $1$).
 The first subset $S_1$ contains all training examples.
 
 The definition of the loss function is shown in \autoref{eqn:corn:loss}.

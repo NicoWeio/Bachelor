@@ -56,7 +56,9 @@ The algorithm takes into account both
 This way,
 the \emph{minimal-optimal} set of features is selected,
   in contrast to the \emph{all-relevant} set of features,
-    which would also contain redundant features. % COULDDO: \citationneeded{} | Spoiler alert: I can't find a citation for this.
+    % ↓ COULDDO: \citationneeded{} | Spoiler alert: I can't find a good citation for this.
+    % https://towardsdatascience.com/mrmr-explained-exactly-how-you-wished-someone-explained-to-you-9cf4ed27458b
+    which would also contain redundant features.
     % which would be selected by a simple relevance-based feature selection algorithm. % Copilot blah blah
 A list of said features is provided in \autoref{tab:features_best}.
 They are reused in this thesis.
@@ -127,7 +129,11 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
   \centering
   % COULDDO: I cheat and scale this down so that all text fits on the page.
   \includegraphics[scale=0.9]{content/plots/dataset_500k:discretized:histogram_full.pdf}
-  \caption{Energy spectrum of the 500k Monte Carlo data set using the discretized energy ranges as bins.}
+  \caption{
+    Energy spectrum of the first \num{500000} events
+    in the Monte Carlo data set
+    using the discretized energy ranges as bins.
+  }
   \label{fig:dataset:discretized:histogram}
 \end{figure}
 
@@ -136,7 +142,7 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 % █ Neural network
 A PyTorch \cite{pytorch} implementation of the \ac{CORN} method
 as well as several examples demonstrating its application on different data sets
-is provided by \cite{corn}.
+are provided by \cite{corn}.
 % NOTE: https://raschka-research-group.github.io/coral-pytorch/tutorials/pytorch_lightning/ordinal-corn_cement/
 %
 This work makes use of said implementation of \ac{CORN}

@@ -22,6 +22,7 @@ This is an advantage,
 % because it translates the deconvolution problem into a multinomial classification task,
 % thus opening deconvolution to the field of machine learning and the rapid advances being made in that field.
 Contrary to other algorithms like
+  % ↓ NOTE: “TRUEE is a conversion of RUN to C++, which works within the powerful ROOT framework.”
   \ac{TRUEE} / \ac{RUN} \cite{milke2013} or
   \ac{IBU} \cite{dagostini1995, dagostini2010},
 no restrictions on the input data are imposed.
@@ -115,7 +116,7 @@ until
     % (determined by the $\chi^2$ distance between the current and previous deconvolution result)
   or,
     in case of fixed step sizes,
-  a maximum number of iterations
+  a maximum number of iterations % $K$
 is reached.
 %
 %
@@ -172,10 +173,10 @@ is used.
 \phantomsection \label{sec:dsea:dsea:step_size:adaptive}
 The utilization of \emph{adaptive step sizes} \cite{dsea_mirko}
 can further improve the convergence of the algorithm
-  by choosing an optimal step size for each iteration.
+  by choosing an optimal step size for each iteration. % COULDDO: language
 This is achieved by searching
   along the direction of the step $p_i^{(k)}$ % aka. search direction
-  for the step size $\alpha \leq 0$
+  for the step size $\alpha \geq 0$
     which minimizes the \ac{RUN} \cite{milke2013} loss function.
     % COULDDO: Add more details about the RUN loss function.
 In the process,
