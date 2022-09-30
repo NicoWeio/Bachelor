@@ -34,7 +34,8 @@ STYLE = 'full'
 pred_spectra = np.vstack(run.summary['multi/pred_spectra'])
 true_spectra = np.vstack(run.summary['multi/true_spectra'])
 # train_spectra = np.vstack(run.summary['multi/train_spectra'])
-train_spectra = np.vstack(run.summary.get('multi/train_spectra', true_spectra))  # TODO: temporary workaround
+# ↓ COULDDO: Though not really wrong, this is just a workaround for old runs without this key
+train_spectra = np.vstack(run.summary.get('multi/train_spectra', true_spectra))
 
 # repeat the last entry to match the number of bin EDGES
 pred_spectra = np.append(pred_spectra, pred_spectra[:, -1, np.newaxis], axis=1)
@@ -121,7 +122,7 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
                     drawstyle='steps-post',
                     # color='blue',
                     zorder=20,
-                    # label="predicted probas (bootstrap median, TODO%ile)"
+                    # label="predicted probas (bootstrap median, 68%ile)"
                     linewidth=0,
                     elinewidth=1,
                     ecolor='C2',
@@ -161,7 +162,7 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
         COMMON_AXVSPAN_KWARGS = {
             'alpha': 0.3,
             'color': 'grey',
-            # 'facecolor': 'grey', # Edges cause artifacts between subplots; but this looks bad, too.
+            # 'facecolor': 'grey', # Edges cause artifacts between subplots; but this looks at least as bad.
             'hatch': '///',
         }
         ax.axvspan(LOWER_LIMIT, BIN_EDGES[0], **COMMON_AXVSPAN_KWARGS)
@@ -172,5 +173,3 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
     # %%
     # plt.savefig(PLOTS_DIR / f"bootstrap:spectrum_{STYLE}.pdf")
     plt.savefig(PLOTS_DIR / f"bias:spectrum_{STYLE}.pdf")
-# %%
-# TODO: Für single_events / per_bin_spectra: https://seaborn.pydata.org/tutorial/axis_grids.html

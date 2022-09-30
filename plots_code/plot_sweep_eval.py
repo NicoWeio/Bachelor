@@ -13,18 +13,17 @@ PLOTS = [
         'metricvar': 'wd',
         'kind': 'boxplot',
         'style': 'lessheight',
-        'sweep_id': 'ci6ro33c',
+        'sweep_id': 'ef962wf1',  # v3
     },
     {
         'configvar': 'epsilon',
-        'configvar_filter': lambda x: x <= 1e-4 or str(x).endswith(('1', '05')),
+        # 'configvar_filter': lambda x: x <= 1e-4 or str(x).endswith(('1', '05')),
         'metricvar': 'wd',
         'kind': 'boxplot',
         'style': 'lessheight',
         'sweep_id': [
-            # 'ju79broz',  # batch_size=512
-            '61nuutm1',  # batch_size=4096
-            'jz5nd4zq',  # batch_size=4096; extra values around 0.01
+            '5efslxfk',  # v3
+            'r1p3zu52',  # v3, extra values
         ],
     },
     {
@@ -33,16 +32,24 @@ PLOTS = [
         'kind': 'boxplot',
         'style': 'lessheight',
         # 'sweep_id': ['ruwybza6', 'iqnnx67c'],
-        'sweep_id': 'ruwybza6',
+        'sweep_id': [
+            '8b5afo8h',  # v3
+            'w8vdkf4x',  # v3, extra values
+        ],
     },
     {
         'configvar': 'num_epochs',
         'metricvar': 'wd',
         'kind': 'boxplot',
         'style': 'lessheight',
-        'sweep_id': 'uaufq3v7',
+        'sweep_id': [
+            '2alop93j',  # v3
+            '19h34dc7',  # v3, extra values
+        ],
     },
 ]
+
+# PLOTS = [PLOTS[1]]
 
 AXIS_LABEL_MAP = {
     'wd': 'Wasserstein distance',
