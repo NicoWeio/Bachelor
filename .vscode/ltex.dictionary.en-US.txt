@@ -1,3 +1,4 @@
+astroparticle
 deconvolution
 deconvolved
 DSEA
@@ -6,3 +7,6 @@ Haefs
 IceCube
 LogisticAT
 Nöthe
+softmax
+unimodality
+Wasserstein

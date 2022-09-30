@@ -33,7 +33,7 @@ Each rank label is an element of the set of all ranks $\{r_1, r_2, \ldots, r_K\}
   and $r_1 < r_2 < \ldots < r_K$.
 
 For every rank label $y^{[i]}$,
-$K$ subtasks are created. % TODO: Not K-1 ?
+$K - 1$ subtasks are created.
 Each subtask $y^{[i]}_k \in \{0, 1\}$ is a binary classification task,
   where
     $y^{[i]}_k = 1$ if $y^{[i]} > r_k$ (in words: {$y^{[i]}$ exceeds rank $r_k$})
@@ -119,12 +119,14 @@ the conditional probabilities are
   P[q=3] &= P[q>2]
 \end{align*}
 
+% COULDDO: Explain in layman's terms (@Leonora)
 A more detailed explanation is given in \autoref{sec:appendix:corn_probas}.
 
 
 % \subsection{…}
-% \todo{This does not belong to the subsection "Getting probabilities from CORN", but isn't really a subsection on its own either.}
+% COULDDO: This does not belong to the subsection "Getting probabilities from CORN", but isn't really a subsection on its own either.
 % In order to support the weighting of individual samples,
 % the CORN loss function is modified
 % to include the weight as a factor.
 % The updated code is shown in \autoref{sec:appendix:corn_weighting}.
+% NOTE: I followed @Karolins suggestion to remove the code completely.

@@ -1,5 +1,5 @@
 \section{Uncertainty and Results}
-Using the best-performing hyperparameters from the hyperparameter search, % TODO: language
+Using the best-performing hyperparameters from the hyperparameter search, % COULDDO: language
 the final model is evaluated in more detail.
 Specifically,
   the uncertainty of the predictions is analyzed, % Oxford comma
@@ -36,17 +36,23 @@ both the relative deviation and the quantile range are large for the higher ener
 It can be speculated that this is due to the fact that the number of events in these bins is small in comparison,
 which leads to a large uncertainty in the estimation of the spectrum.
 % NOTE: Quadrupling the data set size did not help. :(
-
+%
 % TODO: more
+% Wasserstein distance
+% Accuracy
+% MAE
+%
+The \hyperref[sec:unfolding:metrics:mae]{mean absolute error}… % TODO (this is the only place where it is used so far)
 
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/bootstrap:spectrum_full.pdf}
   \caption{
     Energy spectrum and relative deviations of the bootstrap.
-    The error bars show the \SI{68}{\percent} confidence intervals,
+    The lines show the median of each bin.
+    The error bars indicate the \SI{68}{\percent} confidence intervals,
     ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
-    The greyed out areas show the under- and overflow bins.
+    The greyed out areas mark the under- and overflow bins.
   }
   \label{fig:bootstrap:spectrum}
 \end{figure}

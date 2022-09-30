@@ -68,7 +68,7 @@ in the observed~(/test) data.
 % NOTE: (break removed so this section fits on one page)
 Third,
 the predicted classes are used to
-  % reweight the training samples
+  % re-weight the training samples
   get an updated estimate of the spectrum
   and,
     consequently,
@@ -111,7 +111,7 @@ The iterative procedure is repeated
   with the updated weights
 until
   convergence
-    (see \autoref{sec:dsea:dsea:stepsize})
+    (see \autoref{sec:dsea:dsea:step_size})
     % (determined by the $\chi^2$ distance between the current and previous deconvolution result)
   or,
     in case of fixed step sizes,
@@ -124,7 +124,7 @@ The final deconvolution result is the spectrum obtained in the last iteration.
 
 
 \clearpage % guidance only
-\subsection{Step Size Functions} \label{sec:dsea:dsea:stepsize}
+\subsection{Step Size Functions} \label{sec:dsea:dsea:step_size}
 \dseaplus{} introduces the concept of a step size $\alpha$,
 which allows the user to control the speed of convergence,
 which in turn has a significant impact on the quality of the result.
@@ -169,7 +169,7 @@ the probabilistic symmetric $\chi^2$~distance \cite{chisquare, dsea_mirko}
 \end{equation}
 is used.
 
-\phantomsection \label{sec:dsea:dsea:stepsize:adaptive}
+\phantomsection \label{sec:dsea:dsea:step_size:adaptive}
 The utilization of \emph{adaptive step sizes} \cite{dsea_mirko}
 can further improve the convergence of the algorithm
   by choosing an optimal step size for each iteration.

@@ -1,5 +1,7 @@
 \clearpage % NOTE: This one has an impact.
 \section{Hyperparameters}
+% TODO: see comment of @Leonora
+
 Hyperparameters are parameters that are not learned from the data,
 but adjusted by the user.
 %
@@ -18,7 +20,7 @@ In each case, 10-fold cross-validation is utilized to reduce the variance of sin
 
 % ↓ see pp. 46-48 of dsea_mirko
 The adaptive step size method of \dseaplus{}
-  (see \autoref{sec:dsea:dsea:stepsize:adaptive})
+  (see \autoref{sec:dsea:dsea:step_size:adaptive})
 is used
 because it performs well with all reasonable convergence thresholds.
 It eliminates the need to optimize for step size related hyperparameters,
@@ -86,22 +88,21 @@ Based on these results,
 the initial hyperparameters are set to the values shown in \autoref{tab:hyperparameters:initial}.
 
 \begin{table}
-    \centering
-    \begin{tabular}{l r}
-      \toprule
-      hyperparameter & {value} \\
-      \midrule
-        % TODO: Re-run with new values
-        % TODO: Show J?
-        % ↓ Analyzed in detail
-        batch size & \num{1024} \\
-        convergence threshold $\epsilon$ & \num{E-2} \\
-        clusters $J$ & \num{250} \\
-        epochs & \num{12} \\
-        % ↓ Not analyzed further
-        learning rate & \num{0.0004} \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \begin{tabular}{l r}
+    \toprule
+    hyperparameter & {value} \\
+    \midrule
+    % TODO: Re-run with new values
+    % ↓ Analyzed in detail
+    batch size & \num{1024} \\
+    convergence threshold $\epsilon$ & \num{E-2} \\
+    clusters $J$ & \num{250} \\
+    epochs & \num{12} \\
+    % ↓ Not analyzed further
+    learning rate & \num{0.0004} \\
+    \bottomrule
+  \end{tabular}
   \caption{
     Optimal hyperparameters as determined by a Bayesian optimization search.
   }
@@ -118,7 +119,7 @@ on optimized hardware,
 the performance of the model can be negatively affected \cite{batchsize_kandel}.
 % NOTE: not-so-relevant citation
 
-The boxplot in \autoref{fig:hyperparameter:batch_size} shows the results of a grid search for the batch size.
+The box plot in \autoref{fig:hyperparameter:batch_size} shows the results of a grid search for the batch size.
 As expected, the performance is worse for larger batch sizes.
 A batch size of \num{4096} is chosen as the optimal value,
   not only because it has
@@ -130,7 +131,7 @@ A batch size of \num{4096} is chosen as the optimal value,
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/hyperparam/batch_size_vs_wd_boxplot_lessheight.pdf}
-  \caption{Boxplot of the performance of the model for different batch sizes.
+  \caption{Box plot of the performance of the model for different batch sizes.
     The performance is measured using the \emph{Wasserstein distance}.
     The box shows the 25th to 75th percentile,
     the center line denotes the median,
@@ -146,8 +147,8 @@ A batch size of \num{4096} is chosen as the optimal value,
 
 
 \subsection{Convergence Threshold}
-The boxplot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold
-  (as described in \autoref{sec:dsea:dsea:stepsize}).
+The box plot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold
+  (as described in \autoref{sec:dsea:dsea:step_size}).
 For small values of $\epsilon$
   (\numrange{E-10}{E-4}),
 the performance is mostly unaffected.
@@ -171,7 +172,7 @@ $\epsilon = \num{0.01}$ is chosen as the optimal value.
   \centering
   \includegraphics[width=\textwidth]{content/plots/hyperparam/epsilon_vs_wd_boxplot_lessheight.pdf}
   \caption{
-    Boxplot of the Wasserstein distance for different convergence thresholds.
+    Box plot of the Wasserstein distance for different convergence thresholds.
     Note that the abscissa is not uniformly spaced.
   }
   \label{fig:hyperparameter:epsilon}
@@ -180,7 +181,7 @@ $\epsilon = \num{0.01}$ is chosen as the optimal value.
 
 \subsection{Number of Clusters}
 The adaptive step size function,
-  which has been explained in \autoref{sec:dsea:dsea:stepsize:adaptive}, % TODO: Schon bei epsilon verlinkt
+  which has been explained in \autoref{sec:dsea:dsea:step_size:adaptive}, % TODO: Schon bei epsilon verlinkt
 internally relies on clustering the data into $J$ clusters.
 The number of clusters $J$ is therefore a hyperparameter of the algorithm.
 %
@@ -193,7 +194,8 @@ which has a slightly better performance than \num{500}.
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/hyperparam/J_vs_wd_boxplot_lessheight.pdf}
-  \caption{Boxplot of the Wasserstein distance for different numbers of clusters.}
+  \caption{Box plot of the Wasserstein distance for different numbers of clusters.}
+  % TODO: Plot J=250, since we used that before.
   \label{fig:hyperparameter:J}
 \end{figure}
 
@@ -213,7 +215,7 @@ Similar performance is achieved for \num{18} epochs,
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{content/plots/hyperparam/num_epochs_vs_wd_boxplot_lessheight.pdf}
-  \caption{Boxplot of the Wasserstein distance for different epoch counts. TODO: Preliminary data.}
+  \caption{Box plot of the Wasserstein distance for different epoch counts.}
+  % TODO: rerun 16 epochs
   \label{fig:hyperparameter:epochs}
 \end{figure}
-

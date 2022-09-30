@@ -1,6 +1,6 @@
 \begin{algorithm}
   \caption{
-    The \dseaplus{} algorithm with reweighting of training examples and adjustable stepsize \cite{dsea_mirko}.
+    The \dseaplus{} algorithm with re-weighting of training examples and adjustable step size \cite{dsea_mirko}.
     % NOTE: This is taken 1:1 from Mirko's thesis.
   }
   \label{alg:dseaplus}
@@ -13,7 +13,7 @@
       \\
       Observed data set $\mathcal{D}_\text{obs} = \{ \x_n \in \mathcal{X} : 1 \leq n \leq N \}$ \\
       Training data set $\mathcal{D}_\text{test} = \{ (\x_n, y_n) \in \mathcal{X} \times \{1,\ldots,I\} : 1 \leq n \leq N' \}$ \\
-      $\tau \geq 0$, regularization strength employed in the stepsize adaptation (default: \num{0}) \\
+      $\tau \geq 0$, regularization strength employed in the step size adaptation (default: \num{0}) \\
       $\epsilon > 0$, the minimal $\chi_\text{Sym}^2$ distance between subsequent iterations (default: \num{E-6}) \\
       Prior density $\hatf^{(0)}$ (default: $\hatf_i^{(0)} = \frac{1}{I} \forall 1 \leq j \leq J$)
     }

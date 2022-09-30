@@ -1,5 +1,5 @@
 \clearpage % guidance only
-\section{Bias}
+\section{Bias} \label{sec:unfolding:bias}
 As explained in \autoref{sec:dsea:dsea},
 \dsea{} is intended to eliminate the bias introduced by the energy spectrum of the Monte Carlo training data.
 %
@@ -9,10 +9,7 @@ the model is evaluated on a \emph{stratified} dataset,
     where each bin contains an equal number of events,
 whereas the training data is the same as before.
 % TODO: explain that dataset(s): number of events etc.
-\todo{
-  Samuel did the opposite: stratified training data, but not test data.
-  I should consider doing the same. (@Leonora)
-}
+% COULDDO: Samuel did the opposite: stratified training data, but not test data. I should consider doing the same. (@Leonora)
 
 The results are shown in \autoref{fig:bias_comparison}.
 As can be seen,
@@ -21,7 +18,7 @@ No bias is observed.
 
 … in comparison to \autoref{fig:bootstrap:spectrum}.
 
-% TODO: Move to summary?
+% COULDDO: Move to summary?
 For comparison,
 in the work by \citeauthor{dsea_samuel} \cite{dsea_samuel},
 relative deviations of more than \SI{1500}{\percent} are observed.

@@ -49,22 +49,46 @@ the probability distributions of single events are not strictly unimodal.
 
 % █ future work
 There is still a multitude of ways in which \dsea{} and the application thereof could be improved.
-\begin{itemize}
-  \item Regularization / smoothing
-  \item Optimization of other hyperparameters, such as the shape of the neural network
-  \item Different network architecture, e.g. with convolutional layers
-  \item More data
-\end{itemize}
+%
+Explicit \hyperref[sec:dsea:deconvolution_problem:regularization]{regularization}
+could dampen the currently observed oscillations in higher-energy bins.
+%
+Other hyperparameters,
+  such as the shape of the neural network,
+are yet to be optimized.
+%
+It might be possible to modify \ac{CORN}
+  so that the per-class confidence distributions are strictly unimodal.
+In general,
+other neural network architectures
+  could be investigated.
+For example,
+  graph neural networks
+  already exceed boosted decision trees
+    in terms of both resolution and speed \cite{minh2021gnn}.
+%
+Graph neural networks
+have the additional benefit of
+being less dependent on feature engineering
+  as they can be applied to \enquote{raw} data
+    (%
+      which \ac{DOM} was hit,
+      the collected charge, % Oxford comma
+      and time of arrival%
+    ).
+%
+Finally,
+  more data could be used for training.
+Because of the shape of the spectrum,
+  the number of events in the highest energy bins
+  remains relatively small
+    relative to the complete dataset.
+Although this thesis has \hyperref[sec:unfolding:bias]{demonstrated that \dsea{} eliminates the training bias},
+  the effect of stratified training data on the overall performance
+  has not been investigated.
+% NOTE: We can't stratify the real-world data, only the training data.
 
-A benefit of neural networks is their good performance on \enquote{raw} data.
-However,
-the present work has relied on a preprocessing step % aka feature engineering
-  – the computation of features such as angles and cone fits –
-that is not necessarily required.
-Given an adequate neural network architecture and sufficient computing power,
-it might be possible to train a neural network directly on the raw data.
 
-TODO: Link to the CNN paper that already exists \cite{minh2021gnn}.
-
+% COULDDO:
 % \section{(Comparison to Conventional Neural Networks)}
 % \section{(Comparison to LogisticAT)}

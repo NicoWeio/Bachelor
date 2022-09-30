@@ -33,7 +33,7 @@ This also allows for more thorough hyperparameter optimization,
 which would otherwise be limited by
   the available computational resources
   as well as the timeframe of this thesis.
-% TODO: The smallest bin contains approximately XY events.
+% COULDDO: The smallest bin contains approximately XY events.
 %
 Unless otherwise stated, % NOTE: ≙ Whenever I don't use bootstrapping
 \SI{90}{\percent} of the data is used for training,
@@ -62,25 +62,25 @@ A list of said features is provided in \autoref{tab:features_best}.
 They are reused in this thesis.
 
 \begin{table}
-    \centering
-    \begin{tabular}{l}
-        \toprule
-        % \midrule
-        % NOTE: MCPrimary.energy is excluded
-        \texttt{SplineMPEDirectHitsICE.n\_dir\_doms} \\
-        \texttt{VariousVariables.Cone\_Angle} \\
-        \texttt{SplineMPECramerRaoParams.variance\_theta} \\
-        \texttt{Borderness.Q\_ratio\_in\_border} \\
-        \texttt{SplineMPETruncatedEnergy\_SPICEMie\_BINS\_MuEres.value} \\
-        \texttt{SplineMPETruncatedEnergy\_SPICEMie\_DOMS\_Neutrino.energy} \\
-        \texttt{SplineMPEDirectHitsICB.n\_late\_doms} \\
-        \texttt{Dustyness.n\_doms\_in\_dust} \\
-        \texttt{LineFitGeoSplit1Params.n\_hits} \\
-        \texttt{SplineMPEDirectHitsICC.dir\_track\_hit\_distribution\_smoothness} \\
-        \texttt{SPEFit2GeoSplit1BayesianFitParams.logl} \\
-        \texttt{SplineMPECharacteristicsIC.avg\_dom\_dist\_q\_tot\_dom} \\
-        \bottomrule
-    \end{tabular}
+  \centering
+  \begin{tabular}{l}
+    \toprule
+    % \midrule
+    % NOTE: MCPrimary.energy is excluded
+    \texttt{SplineMPEDirectHitsICE.n\_dir\_doms} \\
+    \texttt{VariousVariables.Cone\_Angle} \\
+    \texttt{SplineMPECramerRaoParams.variance\_theta} \\
+    \texttt{Borderness.Q\_ratio\_in\_border} \\
+    \texttt{SplineMPETruncatedEnergy\_SPICEMie\_BINS\_MuEres.value} \\
+    \texttt{SplineMPETruncatedEnergy\_SPICEMie\_DOMS\_Neutrino.energy} \\
+    \texttt{SplineMPEDirectHitsICB.n\_late\_doms} \\
+    \texttt{Dustyness.n\_doms\_in\_dust} \\
+    \texttt{LineFitGeoSplit1Params.n\_hits} \\
+    \texttt{SplineMPEDirectHitsICC.dir\_track\_hit\_distribution\_smoothness} \\
+    \texttt{SPEFit2GeoSplit1BayesianFitParams.logl} \\
+    \texttt{SplineMPECharacteristicsIC.avg\_dom\_dist\_q\_tot\_dom} \\
+    \bottomrule
+  \end{tabular}
   \caption{
     12 best features according to the \emph{mRMR} algorithm \cite{dsea_jan}.
   }
@@ -97,6 +97,7 @@ a power transformation which reduces skewness.
 % NOTE: Positive effect on OUR performance is unverified.
 %
 Additionally, zero-mean, unit-variance normalization is applied to all features.
+% TODO: Expand on this.
 
 
 % █ Discretization
@@ -153,13 +154,13 @@ while the output layer has \num{9} neurons,
 In total,
 the neural network has about \num{6100} trainable parameters.
 %
-The number of neurons
-and the activation function
+  The number of neurons
+  and the activation function
 per layer
 are shown in \autoref{tab:nn_shape}.
 %
 In order to retrieve probabilities from the output neurons,
-  a modified version of the \ac{CORN}-provided function \mintinline{python}{corn_label_from_logits(logits)} is used, % TODO: many "is used"
+  a modified version of the \ac{CORN}-provided function \mintinline{python}{corn_label_from_logits(logits)} is used,
     which implements the conversion
       from threshold- to per-class probabilities
     outlined in \autoref{sec:ordinal:corn:probas}.
