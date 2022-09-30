@@ -28,17 +28,17 @@ as well as the \SI{68}{\percent} confidence intervals.
   %[saving space] ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
 In \autoref{fig:bootstrap:distributions},
 the per-bin histograms of the estimations for individual bootstrap runs are shown.
-While the probability density in the bins from \SI{E2}{\giga\electronvolt} to \SI{E4}{\giga\electronvolt} is estimated with high precision
+While the probability density in the bins from \SI{E2}{\giga\electronvolt} to \SI{E4}{\giga\electronvolt} is estimated with high precision,
   %[saving space] (relative deviation of \SI{6}{\percent} or less),
 both the relative deviation and the quantile range are large for the higher energy bins.
-It can be speculated that this is caused by the comparably small number of events in these bins,
+This may be caused by the comparably small number of events in these bins,
 which leads to a large uncertainty in the estimation of the spectrum.
 Additionally,
 oscillations are a common issue in deconvolution problems.
 They have also been observed in \cite{dsea_samuel}.
 % NOTE: Quadrupling the data set size did not help. :(
 %
-% NOTE: This is the only place where it is used so far.
+% ↓ NOTE: This is the only place where it is used so far.
 The \hyperref[sec:unfolding:metrics:mae]{\ac{MAE}} of the predictions is \num{0.809} ranks,
   which explains the rather low accuracy of \SI{42.7}{\percent}.
 The \hyperref[sec:unfolding:metrics:wasserstein]{Wasserstein distance}
@@ -67,8 +67,10 @@ In contrast to \emph{LogisticAT}
     (used by \citeauthor{dsea_jan} \cite{dsea_jan}),
   unimodality of the probability distribution is not enforced directly.
 Instead,
-  only the threshold probabilities ($f_k(\mathbf{x}^{[i]})$) are constrained to be monotonically increasing
-    by the chain rule of probability
+  only the threshold probabilities
+    %[saving space] ($f_k(\mathbf{x}^{[i]})$)
+  are constrained to be monotonically increasing
+    %[saving space] by the chain rule of probability
   (see \autoref{sec:corn:method}).
 As can be seen in \autoref{fig:bootstrap:single_events},
   slight deviations from unimodality do occur.

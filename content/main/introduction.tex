@@ -33,7 +33,7 @@ The \acf{DSEAPLUS} \cite{dsea_unification}
 is a method to reconstruct the (discretized) neutrino energy spectrum
   from measured data of \icecube{}.
 While classifiers such as random forests
-have been successfully applied to \icecube{} data in \dsea{} \cite{hymon2021seasonal},
+have been successfully applied to \icecube{} data using \dsea{} \cite{hymon2021seasonal},
 the possibilities of neural networks and deep learning are still largely unexplored. % Naja…
 %
 \citeauthor{dsea_samuel} \cite{dsea_samuel}
@@ -54,16 +54,16 @@ This thesis aims to combine the advantages of both approaches:
   and the potential improvements in physical plausibility
     due to respecting ordinality.
 % █ CORN
-The \acf{CORN} framework \cite{corn}
+The \ac{CORN} framework \cite{corn}
   allows neural networks to respect ordinality
   by using a special
     loss function
     and activation function
       in the output layer.
-It is adapted to work with \dsea{}
-  by converting from conditional confidences to per-class confidences
-  and by adding support for sample weights.
-This combination of \acf{CORN} and \dsea{}
+It is adapted to work with \dsea{} by
+  converting from conditional confidences to per-class confidences
+  and adding support for sample weights.
+This combination of \ac{CORN} and \dsea{}
 is then optimized and evaluated
   on simulated data from \icecube{}.
 
@@ -71,6 +71,6 @@ is then optimized and evaluated
 This paper is organized as follows:
 \Cref{sec:neutrino_astronomy} briefly introduces \icecube{} and important concepts of neutrino astronomy.
 \Cref{sec:dsea} describes the deconvolution problem and the \dsea{} approach to solving it.
-\Cref{sec:ordinal} explains the need for ordinal classification and introduces the \ac{CORN} framework.
+\Cref{sec:ordinal} explains the benefits of ordinal classification and introduces the \ac{CORN} framework.
 \Cref{sec:unfolding} describes the setup for hyperparameter searches and evaluates the performance of the optimized model.
 \Cref{sec:summary} summarizes the thesis and discusses future work.
