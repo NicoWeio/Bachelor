@@ -14,44 +14,44 @@ This was enabled by
   to \ac{CORN}.
 
 % █ comparisons
-In contrast to previous works \cite{dsea_jan, dsea_samuel},
-  adaptive step sizes \cite{dsea_mirko} are used in \dsea{},
-    % This isn't exactly verified in this thesis…
-    drastically reducing the number of iterations required for convergence.
-Furthermore,
-  under- and overflow bins are added
-    to allow for the application to real data.
-
-% With regard to the resulting spectra,
-The new method is not unambiguously superior to the previous ones:
+The new method is not unambiguously superior to the previous ones
+  (\cite{dsea_jan} and \cite{dsea_samuel}).
+A strict comparison is not possible
+    in the first place,
+  as this work introduces under-/overflow bins
+  and makes use of adaptive step sizes.
 % 1. confidence distributions → Samuel
-  The randomly selected confidence distributions of a common neural network using softmax \cite{dsea_samuel}
-    are of comparable quality to those obtained in this work (see \autoref{fig:bootstrap:single_events}),
-      even though ordinality is disregarded in the former case.
+The randomly selected confidence distributions of a common neural network using softmax \cite{dsea_samuel}
+  are of comparable quality to those obtained in this work (see \autoref{fig:bootstrap:single_events}),
+    even though ordinality is disregarded in the former case.
   % Compared to the confidence distributions of \emph{LogisticAT} \cite{dsea_jan}, …
 %
 % 2. accuracy → Samuel
-The accuracy …
+Compared to \cite{dsea_samuel},
+  higher \hyperref[sec:unfolding:metrics:accuracy]{accuracy} is achieved
+    (\SI{42.7}{\percent} vs. $< \SI{39}{\percent}$).
+Both the \ac{RMSE}
+  (\num{0.0164} vs. \num{0.000269})
+and the $\chi^2$ distance
+  (\num{0.0392} vs. \num{0.003123})
+are worse,
+  however,
+because of the large deviations in higher energy bins.
+%
 % 3. Wasserstein distance → Jan
-The Wasserstein distance …
-% The resulting spectra are not unambiguously better
-
-A strict comparison is not possible,
-  as this work introduces under-/overflow bins.
-
-Compared to \cite{dsea_jan},
-  better \hyperref[sec:unfolding:metrics:wd]{Wasserstein distances} are achieved
-    (\num{0.00879} vs. TODO),
+In comparison to \cite{dsea_jan},
+  similar \hyperref[sec:unfolding:metrics:wd]{Wasserstein distances} are achieved
+    (ours: \num{0.0108} vs. theirs: \num{0.00879}),
     but using \num{10} instead of \num{12} bins.
 On the other hand,
-the probability distributions of single events are not strictly unimodal.
+our probability distributions of single events are not strictly unimodal.
 
 
 % █ future work
 There is still a multitude of ways in which \dsea{} and the application thereof could be improved.
 %
 Explicit \hyperref[sec:dsea:deconvolution_problem:regularization]{regularization}
-could dampen the currently observed oscillations in higher-energy bins.
+could dampen the currently observed oscillations in higher energy bins.
 %
 Other hyperparameters,
   such as the shape of the neural network,

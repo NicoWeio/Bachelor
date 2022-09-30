@@ -2,7 +2,7 @@
 % █ astroparticle physics
 Astroparticle physics is a relatively new field of physics
   that explores the universe
-    with the help of messenger particles.
+    with messenger particles.
 They carry information about
     the production processes
     and the environment they were created in,
@@ -21,42 +21,50 @@ Neutrinos are especially valuable messenger particles
 % Many high-energy processes are assumed to produce neutrinos.
 
 % █ IceCube
-\icecube{} is such a detector,
+\icecube{} is a detector for such neutrinos,
   which is located at the South Pole.
-% ↓ move to icecube.tex?
 The Antarctic ice is used as detector material
-  and is sensitive to high-energy neutrinos
-    in the approximate range of \si{\tera\electronvolt} to \si{\peta\electronvolt} \cite{icecube_aartsen}.
-      % \SI{E7}{\electronvolt} to \SI{E21}{\electronvolt}. % source?
-% ORIG[IceCube Masterclass]: IceCube ist in der Lage, Neutrinos mit einigen Dutzend GeV nachzuweisen,
-% was es erlaubt, sowohl den atmosphärischnen als auch den extraterrestrischen Neutrinofluss zu untersuchen.
-% Das Maximum der Sensitivität liegt im Energiebereich jenseits der TeV, in dem der extraterrestrische Fluss zunehmend dominanter werden sollte.
-%
+  and is sensitive to high-energy neutrinos. % COULDDO: imprecise
 One goal of analyses with \icecube{} is
   to obtain a neutrino energy spectrum.
 
 % █ DSEA
 The \acf{DSEAPLUS} \cite{dsea_unification}
-is a method to reconstruct the neutrino energy spectrum
-  from the measured data of \icecube{}.
+is a method to reconstruct the (discretized) neutrino energy spectrum
+  from measured data of \icecube{}.
 While classifiers such as random forests
 have been successfully applied to \icecube{} data in \dsea{} \cite{hymon2021seasonal},
 the possibilities of neural networks and deep learning are still largely unexplored. % Naja…
 %
-Previous works
-% that perform unfolding…
-have focused either
-  on respecting ordinality \cite{dsea_jan} % COULDDO: Can I explain ordinality here?
-  or on using a neural network as a classifier \cite{dsea_samuel}.
+\citeauthor{dsea_samuel} \cite{dsea_samuel}
+combined \dsea{} with a neural network for the first time.
+%
+\citeauthor{dsea_jan} \cite{dsea_jan},
+  on the other hand,
+focused on the ordinality of the discretized energy spectrum
+  by employing \emph{LogisticAT} \cite{logisticat},
+    a classifier
+      that considers
+        the ordering of energy bins
+      in its loss function.
+%
+% COULDDO: Differentiate from abstract ↓
 This thesis aims to combine the advantages of both approaches:
   the flexibility of neural networks
   and the potential improvements in physical plausibility
     due to respecting ordinality.
 % █ CORN
-This is done by adapting the
-\acf{CORN} framework \cite{corn}
-to \dsea{}.
-The proposed method is then optimized and evaluated
+The \acf{CORN} framework \cite{corn}
+  allows neural networks to respect ordinality
+  by using a special
+    loss function
+    and activation function
+      in the output layer.
+It is adapted to work with \dsea{}
+  by converting from conditional confidences to per-class confidences
+  and by adding support for sample weights.
+This combination of \acf{CORN} and \dsea{}
+is then optimized and evaluated
   on simulated data from \icecube{}.
 
 % █ structure
@@ -65,4 +73,4 @@ This paper is organized as follows:
 \Cref{sec:dsea} describes the deconvolution problem and the \dsea{} approach to solving it.
 \Cref{sec:ordinal} explains the need for ordinal classification and introduces the \ac{CORN} framework.
 \Cref{sec:unfolding} describes the setup for hyperparameter searches and evaluates the performance of the optimized model.
-\Cref{sec:summary} concludes the thesis and discusses future work.
+\Cref{sec:summary} summarizes the thesis and discusses future work.

@@ -1,6 +1,6 @@
-\clearpage % NOTE: This one has an impact.
+% \clearpage % NOTE: This one has an impact.
 \section{Hyperparameters}
-% TODO: see comment of @Leonora
+% COULDDO[no time]: Explain the hyperparameters prior to showing any results. (@Leonora)
 
 Hyperparameters are parameters that are not learned from the data,
 but adjusted by the user.
@@ -93,7 +93,6 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
     \toprule
     hyperparameter & {value} \\
     \midrule
-    % TODO: Re-run with new values
     % ↓ Analyzed in detail
     batch size & \num{1024} \\
     convergence threshold $\epsilon$ & \num{E-2} \\
@@ -114,13 +113,13 @@ the initial hyperparameters are set to the values shown in \autoref{tab:hyperpar
 \clearpage % NOTE: This one has an impact.
 \subsection{Batch Size}
 The \emph{batch size} determines the number of events used for each training step.
-While larger batch sizes increase the speed of training
+While larger batch sizes increase the training speed
 on optimized hardware,
 the performance of the model can be negatively affected \cite{batchsize_kandel}.
 % NOTE: not-so-relevant citation
 
 The box plot in \autoref{fig:hyperparameter:batch_size} shows the results of a grid search for the batch size.
-As expected, the performance is worse for larger batch sizes.
+% As expected, the performance is worse for larger batch sizes.
 A batch size of \num{4096} is chosen as the optimal value,
   not only because it has
     the smallest Wasserstein distance
@@ -149,23 +148,21 @@ A batch size of \num{4096} is chosen as the optimal value,
 \subsection{Convergence Threshold}
 The box plot in \autoref{fig:hyperparameter:epsilon} shows the results of a grid search for the convergence threshold
   (as described in \autoref{sec:dsea:dsea:step_size}).
-For small values of $\epsilon$
-  (\numrange{E-10}{E-4}),
-the performance is mostly unaffected.
 %
 For larger values,
   the performance tends to improve,
-  until approximately $\epsilon > \num{E-2}$,
-  where the performance is worst.
+  % NOTE: Mirko had better results for smaller values, at least with non-adaptive step sizes.
+  until approximately $\epsilon > \num{0.05}$.
 This is because a high convergence threshold can be thought of as
-  a form of \emph{implicit regularization} \citationneeded{},
+  a form of \emph{implicit}, % @Mirko
     analogous to early stopping,
-  contrary to explicit regularization,
+  contrary to \emph{explicit} regularization,
     as described in \autoref{sec:dsea:deconvolution_problem:regularization}.
 Selecting even higher values of $\epsilon$
+  (not shown in the plot)
 stops \dsea{} after the first iteration,
-  which results in a poor performance.
-$\epsilon = \num{0.01}$ is chosen as the optimal value.
+  which results in particularly poor performance.
+$\epsilon = \num{0.025}$ is chosen as the optimal value.
 
 
 \begin{figure}
@@ -181,21 +178,20 @@ $\epsilon = \num{0.01}$ is chosen as the optimal value.
 
 \subsection{Number of Clusters}
 The adaptive step size function,
-  which has been explained in \autoref{sec:dsea:dsea:step_size:adaptive}, % TODO: Schon bei epsilon verlinkt
+  which has been explained in \autoref{sec:dsea:dsea:step_size:adaptive}, % NOTE: already linked in the previous subsection
 internally relies on clustering the data into $J$ clusters.
 The number of clusters $J$ is therefore a hyperparameter of the algorithm.
 %
 Large values of $J$ have previously been shown to lead to slightly better results \cite{dsea_mirko}.
 \autoref{fig:hyperparameter:J} confirms this,
 although the median does not decrease monotonically with $J$.
-The optimal value is chosen to be \num{100},
+The optimal value is \num{250},
 which has a slightly better performance than \num{500}.
 
 \begin{figure}
   \centering
   \includegraphics[scale=1]{content/plots/hyperparam/J_vs_wd_boxplot_lessheight.pdf}
   \caption{Box plot of the Wasserstein distance for different numbers of clusters.}
-  % TODO: Plot J=250, since we used that before.
   \label{fig:hyperparameter:J}
 \end{figure}
 
@@ -216,6 +212,5 @@ Similar performance is achieved for \num{18} epochs,
   \centering
   \includegraphics[width=\textwidth]{content/plots/hyperparam/num_epochs_vs_wd_boxplot_lessheight.pdf}
   \caption{Box plot of the Wasserstein distance for different epoch counts.}
-  % TODO: rerun 16 epochs
   \label{fig:hyperparameter:epochs}
 \end{figure}

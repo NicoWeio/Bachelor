@@ -13,11 +13,8 @@ and eliminates bias from the training data
   by iteratively re-weighting the samples.
 %
 In the problem at hand,
-  neutrino energies are \emph{ordinal} quantities,
-    % which means that the order of the energies is important. % COPILOT
-    meaning that a misclassification of a high-energy event as a low-energy event
-    is more severe than a slight overestimation,
-    for example.
+  discretized neutrino energies are \emph{ordinal} quantities,
+    implying that misclassification can be of different severity.
 However,
   most classifiers do not respect this property.
 % █ Objective
@@ -36,9 +33,10 @@ the \ac{CORN} framework \cite{corn} is adapted to work with \dsea{}.
 The proposed method is then optimized and evaluated
   on simulated data from \icecube{}.
 % █ Results
-% TODO
+% COULDDO
 
 
+\acresetall % reset all acronyms
 \section*{Kurzfassung}
 \begin{foreignlanguage}{german}
 Hier steht eine Kurzfassung der Arbeit in deutscher Sprache inklusive der Zusammenfassung der
@@ -47,3 +45,5 @@ Zusammen mit der englischen Zusammenfassung muss sie auf diese Seite passen.
 
 \blindtext[1]
 \end{foreignlanguage}
+
+% NOTE: Acronyms are reset again in thesis.tex

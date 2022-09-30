@@ -95,9 +95,10 @@ the features are therefore transformed using the \emph{Yeo-Johnson} transformati
 a power transformation which reduces skewness.
 % https://en.wikipedia.org/wiki/Power_transform#Yeo–Johnson_transformation
 % NOTE: Positive effect on OUR performance is unverified.
+% We do it because Jan did it.
 %
 Additionally, zero-mean, unit-variance normalization is applied to all features.
-% TODO: Expand on this.
+% COULDDO: Expand on this. (@Leonora)
 
 
 % █ Discretization
@@ -124,7 +125,8 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 
 \begin{figure}
   \centering
-  \includegraphics[scale=1]{content/plots/dataset_500k:discretized:histogram_full.pdf}
+  % COULDDO: I cheat and scale this down so that all text fits on the page.
+  \includegraphics[scale=0.9]{content/plots/dataset_500k:discretized:histogram_full.pdf}
   \caption{Energy spectrum of the 500k Monte Carlo dataset using the discretized energy ranges as bins.}
   \label{fig:dataset:discretized:histogram}
 \end{figure}
@@ -183,6 +185,7 @@ In order to retrieve probabilities from the output neurons,
   \caption{
     Shape and activation functions of the neural network.
     The number of neurons in the input and output layers is determined by the number of features and bins, respectively.
+    Each activation function precedes the neurons in the same row.
   }
   \label{tab:nn_shape}
 \end{table}
@@ -211,6 +214,7 @@ a wrapper class is implemented,
   which exposes a constructor as well as the needed methods
   \mintinline{python}{fit(X, y, sample_weight)} and
   \mintinline{python}{predict_proba(X)}.
+% COULDDO: fix overfull hbox
 
 \smallskip % COULDDO: Hack to prevent page break
 % \FloatBarrier

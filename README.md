@@ -30,3 +30,22 @@ For more information, have a look into [example.pdf](https://github.com/maxnoe/T
 
 # Style
 - [APA Title Case Capitalization](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)
+- Acronyms are written using the corresponding LaTeX command `\ac{}`.
+  - This will be expanded to the full name in the first occurrence of the acronym in the text:
+    > Conditional Ordinal Regression for Neural Networks (CORN)
+- Figures **and tables** have their caption below
+  - Though I've always heard „Abbildungen haben eine Unterschrift, Tabellen eine Überschrift.“
+
+## Consistency
+- re-weighting, not reweighting
+- step size, not stepsize
+- Wasserstein, not Vaseršteĭn
+- box plot, not boxplot
+- ordinality → ?
+- TODO: data set, not dataset
+- `\num{3}` vs. `three` for small numbers
+
+
+# Future work
+- add test metrics directly to PyTorch
+  - for Wasserstein distance, see [here](https://github.com/t-vi/pytorch-tvmisc/blob/master/wasserstein-distance/Pytorch_Wasserstein.ipynb)

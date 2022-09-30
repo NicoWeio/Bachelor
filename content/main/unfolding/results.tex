@@ -18,31 +18,32 @@ For the present work, \num{50} bootstrap samples are used.
 Since using a bootstrap sample of the same size as the original (\enquote{bag}) data set
 might produce an inconsistent bootstrap estimator \cite{bootstrap_samplesize},
 \num{1000000} events are used as the original data set,
-while the bootstrap samples contain \num{500000} events as before.
+while the bootstrap samples used for training contain \num{500000} events as before.
 
 
 \subsection{Energy Spectrum}
-\todo{
-  This is (probably) the most important plot. Discuss it in more detail!
-}
+% COULDDO: This is (probably) the most important plot. Discuss it in more detail!
 \autoref{fig:bootstrap:spectrum} shows the unfolded energy spectrum of the optimized model,
-as well as the \SI{68}{\percent} confidence intervals,
-  ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
+as well as the \SI{68}{\percent} confidence intervals.
+  %[saving space] ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
 In \autoref{fig:bootstrap:distributions},
 the per-bin histograms of the estimations for individual bootstrap runs are shown.
 While the probability density in the bins from \SI{E2}{\giga\electronvolt} to \SI{E4}{\giga\electronvolt} is estimated with high precision
-  (relative deviation of \SI{6}{\percent} or less apart from the underflow bin),
+  %[saving space] (relative deviation of \SI{6}{\percent} or less),
 both the relative deviation and the quantile range are large for the higher energy bins.
-It can be speculated that this is due to the fact that the number of events in these bins is small in comparison,
+It can be speculated that this is caused by the comparably small number of events in these bins,
 which leads to a large uncertainty in the estimation of the spectrum.
+Additionally,
+oscillations are a common issue in deconvolution problems.
+They have also been observed in \cite{dsea_samuel}.
 % NOTE: Quadrupling the data set size did not help. :(
 %
-% TODO: more
-% Wasserstein distance
-% Accuracy
-% MAE
-%
-The \hyperref[sec:unfolding:metrics:mae]{mean absolute error}… % TODO (this is the only place where it is used so far)
+% NOTE: This is the only place where it is used so far.
+The \hyperref[sec:unfolding:metrics:mae]{mean absolute error} of the predictions is \num{0.809} ranks,
+  which explains the rather low accuracy of \SI{42.7}{\percent}.
+The \hyperref[sec:unfolding:metrics:wasserstein]{Wasserstein distance}
+  %[saving space] between the true and the predicted spectrum
+is unexpectedly high at \num{0.0108}.
 
 \begin{figure}
   \centering
@@ -53,25 +54,27 @@ The \hyperref[sec:unfolding:metrics:mae]{mean absolute error}… % TODO (this is
     The error bars indicate the \SI{68}{\percent} confidence intervals,
     ranging from the \SI{16}{\percent} to the \SI{84}{\percent} percentile.
     The greyed out areas mark the under- and overflow bins.
+    The training spectrum is indistinguishable from the training spectrum
+      and is therefore not shown.
   }
   \label{fig:bootstrap:spectrum}
 \end{figure}
 
 
 \subsection{Individual Events}
-Ordinal classification methods promise physically plausible results… % TODO
-In contrast to \emph{LogisticAT},
-    which \citeauthor{dsea_jan} \cite{dsea_jan} used,
-  the unimodality of the probability distribution is not enforced directly.
+Ordinal classification methods promise physically plausible probability distributions.
+In contrast to \emph{LogisticAT}
+    (used by \citeauthor{dsea_jan} \cite{dsea_jan}),
+  unimodality of the probability distribution is not enforced directly.
 Instead,
   only the threshold probabilities ($f_k(\mathbf{x}^{[i]})$) are constrained to be monotonically increasing
-  by the chain rule of probability
+    by the chain rule of probability
   (see \autoref{sec:corn:method}).
 As can be seen in \autoref{fig:bootstrap:single_events},
   slight deviations from unimodality do occur.
 Still,
   the indirect constraint on the threshold probabilities
-  might be beneficial.
+  might have had a positive impact.
 
 \begin{figure}
   \centering

@@ -26,7 +26,7 @@
   \end{subfigure}
   \caption{
     Shapes of the Cherenkov light produced by neutrinos of different flavors.
-    The coloring of the \acp{DOM} indicates the time of the interaction,
+    The coloring of the \acp{DOM} indicates the time of interaction,
     with red being the earliest and blue being the latest.
     \cite{kowalski2017} % CC-BY 3.0
   }
@@ -42,33 +42,34 @@
 \clearpage
 \section{From Threshold to Per-Class Probabilities}
 \label{sec:appendix:corn_probas}
+\renewcommand{\myP}{\hat{P}} % COULDDO: solve this more elegantly
 Given four ranks with indices $q \in \{1, 2, 3, 4\}$,
 \Ac{CORN}'s output layer has three neurons, which
   – after applying sigmoid and a cumulative product –
 yield three threshold probabilities:
-	$P[q>1]$,
-	$P[q>2]$ and
-	$P[q>3]$.
+	$\myP(q>1)$,
+	$\myP(q>2)$ and
+	$\myP(q>3)$.
 The goal is to calculate the probability of each class $q$,
-i.e. $P[q=1]$, $P[q=2]$, $P[q=3]$ and $P[q=4]$.
+i.e. $\myP(q=1)$, $\myP(q=2)$, $\myP(q=3)$ and $\myP(q=4)$.
 
 % The solution explicitly requires the assumption that…
 Using $q \in \{1, 2, 3, 4\}$,
 the following equations hold:
 \begin{align*}
-  P[q=1] &= \neg P[q>1] = 1 - P[q>1] \\
+  \myP(q=1) &= \neg \myP(q>1) = 1 - \myP(q>1) \\
   \\
-  P[q=2] &= \neg P[q≠2] \\
-  &= \neg(P[q<2] \lor P[q>2]) \\
-  &= 1 - ((1 - P[q>1]) + P[q>2]) \\
-  &= P[q>1] - P[q>2] \\
+  \myP(q=2) &= \neg \myP(q≠2) \\
+  &= \neg(\myP(q<2) \lor \myP(q>2)) \\
+  &= 1 - ((1 - \myP(q>1)) + \myP(q>2)) \\
+  &= \myP(q>1) - \myP(q>2) \\
   \\
-  P[q=3] &= \neg P[q≠3] \\
-  &= \neg(P[q<3] \lor P[q>3]) \\
-  &= 1 - ((1 - P[q>2]) + P[q>3]) \\
-  &= P[q>2] - P[q>3] \\
+  \myP(q=3) &= \neg \myP(q≠3) \\
+  &= \neg(\myP(q<3) \lor \myP(q>3)) \\
+  &= 1 - ((1 - \myP(q>2)) + \myP(q>3)) \\
+  &= \myP(q>2) - \myP(q>3) \\
   \\
-  P[q=4] &= P[q>3] % NOTE: no “.” (@Karolin)
+  \myP(q=4) &= \myP(q>3) % NOTE: no “.” (@Karolin)
 \end{align*}
 
 The same principle can be applied to any number of classes.

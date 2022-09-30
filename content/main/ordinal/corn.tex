@@ -63,6 +63,9 @@ it is intuitively clear that imposing such a restriction could improve the quali
 \Ac{CORN} ensures rank monotony
   $f_1(\mathbf{x}^{[i]}) \leq f_2(\mathbf{x}^{[i]}) \leq \ldots \leq f_{K-1}(\mathbf{x}^{[i]})$
 by applying the chain rule of probability
+\begin{equation}
+  \hat{P}\left(y^{[i]} > r_k\right) = \prod_{j=1}^k f_j(\mathbf{x}^{[i]})
+\end{equation}
 to the conditional probabilities
 % COULDDO: It should be noted at the first mention (above) that these are conditional probabilities.
 \begin{equation}
@@ -80,10 +83,10 @@ by splitting the training data into conditional training subsets $S_k$
   each time the loss function is computed:
 \begin{align*}
   S_1 &: \text{all } \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right)\right\} \, \text{ for } i \in \{1, \ldots, N\} \, , \\
-  S_2 &: \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right) \;\big\vert\; y^{[i]} > r_1 \right\} \, , \\
+  S_2 &: \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right) \mid y^{[i]} > r_1 \right\} \, , \\
   &\cdots \\
   % NOTE: I made `K-2` uppercase, because I think it's lowercase by mistake in the paper.
-  S_{K-1} &: \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right) \;\big\vert\; y^{[i]} > r_{K-2} \right\} \, .
+  S_{K-1} &: \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right) \mid y^{[i]} > r_{K-2} \right\} \, .
 \end{align*}
 In words,
 for $k > 1$,
@@ -127,12 +130,13 @@ such a conversion is realizable.
 
 As an example, given four rank indices $q \in \{0, 1, 2, 3\}$,
 the conditional probabilities are
+\newcommand{\myP}{\hat{P}}
 \begin{align*}
   % NOTE: P[q>(-1)] = 1 and P[q>3] = 0 :)
-  P[q=0] &= 1 - P[q>0] \\
-  P[q=1] &= P[q>1] - P[q>1] \\
-  P[q=2] &= P[q>1] - P[q>2] \\
-  P[q=3] &= P[q>2]
+  \myP(q=0) &= 1 - \myP(q>0) \\
+  \myP(q=1) &= \myP(q>1) - \myP(q>1) \\
+  \myP(q=2) &= \myP(q>1) - \myP(q>2) \\
+  \myP(q=3) &= \myP(q>2)
 \end{align*}
 
 % COULDDO: Explain in layman's terms (@Leonora)
