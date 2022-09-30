@@ -1,6 +1,6 @@
 \section{Setup}
 In order to evaluate the performance of \ac{CORN} in \dsea{},
-a dataset has to be prepared
+a data set has to be prepared
 and hyperparameters need to be chosen.
 %
 The setup is largely based on previous works
@@ -9,14 +9,14 @@ to ensure comparability of the results
   as much as possible.
 
 
-\subsection{Monte Carlo Dataset and Preprocessing}
-% █ Monte Carlo dataset
+\subsection{Monte Carlo Data Set and Preprocessing}
+% █ Monte Carlo data set
 %
 % NOTE: Full description from the website
 % Level2 w/systematics IC86.2012 neutrino-generator NuMu with weighted spectrum of E^-2, using SpiceLea CLSim.
 % Angular range of 0. deg < theta < 180. deg and energy range of 1e2 GeV < Enu < 1e8 GeV.
 %
-The unmodified dataset \emph{11374} \cite{icecube_mc} consists of about 13 million Monte Carlo simulated
+The unmodified data set \emph{11374} \cite{icecube_mc} consists of about 13 million Monte Carlo simulated
   \hyperref[sec:neutrino_astronomy:icecube:up_going]{up-going}
   muon neutrino events,
 % NOTE: Exact number is 13336413 before any preprocessing.
@@ -28,7 +28,7 @@ See \autoref{fig:dataset:raw:histogram} for a histogram of the data.
 % but subtracting the index and 4 MCPrimary keys gives me 99-1-4=94
 
 To ensure comparability to \cite{dsea_jan} and \cite{dsea_samuel}, % COULDDO: already cited in intro
-only the first \num{500000} events of the dataset are considered.
+only the first \num{500000} events of the data set are considered.
 This also allows for more thorough hyperparameter optimization,
 which would otherwise be limited by
   the available computational resources
@@ -115,11 +115,11 @@ ensuring sufficient statistics.
 A lower energy limit of \SI{E5}{\giga\electronvolt} (in accordance with \cite{dsea_samuel}) was found to satisfy this requirement.
 %
 The underflow bin is assigned the energy range from \SI{E2}{\giga\electronvolt} to $10^{2.1} \si{\giga\electronvolt}$
-  because the dataset does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
+  because the data set does not contain any events with exceptionally low energies below \SI{E2}{\giga\electronvolt}.
 This way, the event count in the underflow bin is similar to the neighboring bin.
 %
 The remaining \num{8} bins are spaced logarithmically between the under- and overflow bins
-  so that the entire energy range of the Monte Carlo dataset is covered.
+  so that the entire energy range of the Monte Carlo data set is covered.
 %
 A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:discretized:histogram}.
 
@@ -127,7 +127,7 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
   \centering
   % COULDDO: I cheat and scale this down so that all text fits on the page.
   \includegraphics[scale=0.9]{content/plots/dataset_500k:discretized:histogram_full.pdf}
-  \caption{Energy spectrum of the 500k Monte Carlo dataset using the discretized energy ranges as bins.}
+  \caption{Energy spectrum of the 500k Monte Carlo data set using the discretized energy ranges as bins.}
   \label{fig:dataset:discretized:histogram}
 \end{figure}
 
@@ -135,7 +135,7 @@ A histogram utilizing the aforementioned bins is shown in \autoref{fig:dataset:d
 \subsection{Neural Network and \dseatitle{}}
 % █ Neural network
 A PyTorch \cite{pytorch} implementation of the \ac{CORN} method
-as well as several examples demonstrating its application on different datasets
+as well as several examples demonstrating its application on different data sets
 is provided by \cite{corn}.
 % NOTE: https://raschka-research-group.github.io/coral-pytorch/tutorials/pytorch_lightning/ordinal-corn_cement/
 %
