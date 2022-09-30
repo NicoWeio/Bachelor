@@ -59,38 +59,54 @@ whereby the probability of exceeding a rank $r_k$ is always greater than or equa
 %
 While not strictly necessary for the computation of rank indices $q$ (or ranks $r_q$),
 it is intuitively clear that imposing such a restriction could improve the quality of predictions.
-
+%
 \Ac{CORN} ensures rank monotony
   $f_1(\mathbf{x}^{[i]}) \leq f_2(\mathbf{x}^{[i]}) \leq \ldots \leq f_{K-1}(\mathbf{x}^{[i]})$
 by applying the chain rule of probability
 to the conditional probabilities
+% COULDDO: It should be noted at the first mention (above) that these are conditional probabilities.
 \begin{equation}
   f_k(\mathbf{x}^{[i]}) = \hat{P}\left( y^{[i]} > r_k \mid y^{[i]} > r_{k-1} \right) \ .
+  \label{eq:corn:conditional_probabilities}
 \end{equation}
-
-
-
+%
 % COULDDO: Add a TikZ visualization similar to Fig. 1 in the CORN paper | see content/tikz/rank_consistency.tex
 
-\todo{
-  Not integrated with the text yet.
-  Put more emphasis on the conditional training subsets.
-  Maybe move to appendix.
-}
 \Ac{CORN} also provides the loss function.
-Its definition is shown in \autoref{eqn:corn:loss}.
-\begin{equation}
+The conditional nature of the predictions $f_k(\mathbf{x}^{[i]})$
+  (see \autoref{eq:corn:conditional_probabilities})
+is respected
+by splitting the training data into conditional training subsets $S_k$
+  each time the loss function is computed:
+\begin{align*}
+  S_1 &: \text{all } \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right)\right\} \, \text{ for } i \in \{1, \ldots, N\} \, , \\
+  S_2 &: \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right) \;\big\vert\; y^{[i]} > r_1 \right\} \, , \\
+  &\cdots \\
+  % NOTE: I made `K-2` uppercase, because I think it's lowercase by mistake in the paper.
+  S_{K-1} &: \left\{\left( \mathbf{x}^{[i]}, y^{[i]} \right) \;\big\vert\; y^{[i]} > r_{K-2} \right\} \, .
+\end{align*}
+In words,
+for $k > 1$,
+  $S_k$ contains all training examples
+  for which the rank label exceeds rank $r_{k-1}$
+    (or, equivalently, for which the observed probability of exceeding rank $r_{k-1}$ is $1$).
+The first subset $S_1$ contains all training examples.
+
+The definition of the loss function is shown in \autoref{eqn:corn:loss}.
+Here, $|S_k|$ denotes the number of elements in the subset $S_k$.
+\begin{multline}
   \label{eqn:corn:loss}
   L(\mathbf{X}, \mathbf{y}) =
   - \frac{1}{\sum_{j=1}^{K-1} |S_j|}
   \sum_{j=1}^{K-1}
   \sum_{i=1}^{|S_j|}
-  \left[
+  \Bigl[
     \log(f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} > r_j\right\}
+    \\
     +
     \log(1 - f_j(\mathbf{x}^{[i]})) · \mathbb{1}\left\{y^{[i]} \leq r_j\right\}
-  \right]
-\end{equation}
+  \Bigr]
+\end{multline}
 
 
 \subsection{Obtaining Probabilities from CORN} \label{sec:ordinal:corn:probas}
