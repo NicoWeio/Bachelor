@@ -19,25 +19,37 @@ XTICKS = np.geomspace(10**2, 10**8, (8-2+1))
 # %%
 api = wandb.Api()
 
-run = api.run("nicoweio/dsea-corn/24sfwi8p")
+
+# RUN_ID = '24sfwi8p'  # ??? | without multi/train_spectra!
+# RUN_ID = 'ffzxcq98'  # ??? | without multi/train_spectra!
+# RUN_ID = 'p0iam6rs' # bias (<50 iters), small epsilon
+# RUN_ID = 'hcoro29d'  # 2 Mio. events
+RUN_ID = 'r3dx5m3y'  # v3
+
+run = api.run(f"nicoweio/dsea-corn/{RUN_ID}")
 BIN_EDGES = np.array(run.summary['bin_edges'])
 STYLE = 'full'
 # %%
 
-pred_spectra = np.vstack(run.summary['bootstrap/pred_spectra'])
-true_spectra = np.vstack(run.summary['bootstrap/true_spectra'])
+pred_spectra = np.vstack(run.summary['multi/pred_spectra'])
+true_spectra = np.vstack(run.summary['multi/true_spectra'])
+# train_spectra = np.vstack(run.summary['multi/train_spectra'])
+train_spectra = np.vstack(run.summary.get('multi/train_spectra', true_spectra))  # TODO: temporary workaround
 
 # repeat the last entry to match the number of bin EDGES
 pred_spectra = np.append(pred_spectra, pred_spectra[:, -1, np.newaxis], axis=1)
 true_spectra = np.append(true_spectra, true_spectra[:, -1, np.newaxis], axis=1)
+train_spectra = np.append(train_spectra, train_spectra[:, -1, np.newaxis], axis=1)
 
 # %%
 # determine median and 68% confidence interval
 pred_spectrum = np.median(pred_spectra, axis=0)
 true_spectrum = np.median(true_spectra, axis=0)
+train_spectrum = np.median(train_spectra, axis=0)
 
 pred_spectrum_error = np.percentile(pred_spectra, [16, 84], axis=0)
 true_spectrum_error = np.percentile(true_spectra, [16, 84], axis=0)
+train_spectrum_error = np.percentile(train_spectra, [16, 84], axis=0)
 
 # %%
 rel_errors = (pred_spectra - true_spectra) / true_spectra
@@ -65,9 +77,11 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
 
     # plt.hist(BINS[:-1], BINS, weights=spectrum_from_labels(labels), color='red', label='true class')
 
-    axs[0].step(BIN_EDGES, true_spectrum, where='post', drawstyle='steps-mid', color='C1', linewidth=2, label='true class')
-
-    axs[0].step(BIN_EDGES, pred_spectrum, where='post', drawstyle='steps-mid', color='C0', zorder=10, label='predicted probas')
+    if run.config['stratify_train'] or run.config['stratify_test']:  # untested
+        axs[0].step(BIN_EDGES, train_spectrum, where='post', drawstyle='steps-mid',
+                    color='C3', linewidth=2, label="training: true")
+    axs[0].step(BIN_EDGES, true_spectrum, where='post', drawstyle='steps-mid', color='C1', linewidth=2, label="test: true")
+    axs[0].step(BIN_EDGES, pred_spectrum, where='post', drawstyle='steps-mid', color='C0', zorder=10, label="test: predicted")
 
     # get the middle points of the bin edges
     # bin_centers = (BIN_EDGES[:-1] + BIN_EDGES[1:]) / 2
@@ -94,6 +108,7 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
     axs[1].step(BIN_EDGES, rel_error, where='post', color='C2')
     axs[1].set_ylabel("relative deviation")
     axs[1].set_xscale('log')
+    # axs[1].set_yscale('symlog')
     axs[1].set_xlabel(r"$\text{energy} \mathbin{/} \si{\giga\electronvolt}$")
 
     # for single_rel_error in rel_errors:
@@ -110,6 +125,16 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
                     linewidth=0,
                     elinewidth=1,
                     ecolor='C2',
+                    )
+
+    # print relative deviation in percent
+    ore_offset = (axs[1].get_ylim()[1] - axs[1].get_ylim()[0]) * 0.025
+    for onebin_center, onebin_rel_error in list(zip(bin_centers, rel_error)):
+        # ore_textpos = onebin_rel_error + np.sign(onebin_rel_error) * 0.05/5
+        ore_textpos = onebin_rel_error + np.sign(onebin_rel_error) * ore_offset
+        axs[1].text(onebin_center, ore_textpos, f"{onebin_rel_error:.1%}",
+                    fontsize=6,
+                    va=('bottom' if onebin_rel_error > 0 else 'top'),
                     )
 
     # connect grid lines
@@ -145,6 +170,7 @@ with rc_context(STYLES[STYLE]), console.status(f"Plotting spectrum…"):
     sns.despine()
     plt.tight_layout()
     # %%
-    plt.savefig(f"../content/plots/bootstrap:spectrum_{STYLE}.pdf")
+    # plt.savefig(PLOTS_DIR / f"bootstrap:spectrum_{STYLE}.pdf")
+    plt.savefig(PLOTS_DIR / f"bias:spectrum_{STYLE}.pdf")
 # %%
 # TODO: Für single_events / per_bin_spectra: https://seaborn.pydata.org/tutorial/axis_grids.html
