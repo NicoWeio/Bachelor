@@ -29,7 +29,7 @@ The randomly selected confidence distributions of a common neural network using 
 % 2. accuracy → Samuel
 Compared to \cite{dsea_samuel},
   higher \hyperref[sec:unfolding:metrics:accuracy]{accuracy} is achieved
-    (\SI{42.7}{\percent} vs. $< \SI{39}{\percent}$).
+    (ours: \SI{42.7}{\percent} vs. theirs: $< \SI{39}{\percent}$).
 Both the \ac{RMSE}
   (\num{0.0164} vs. \num{0.000269})
 and the $\chi^2$ distance
@@ -41,7 +41,7 @@ because of the large deviations in higher energy bins.
 % 3. Wasserstein distance → Jan
 In comparison to \cite{dsea_jan},
   similar \hyperref[sec:unfolding:metrics:wd]{Wasserstein distances} are achieved
-    (ours: \num{0.0108} vs. theirs: \num{0.00879}),
+    (\num{0.0108} vs. \num{0.00879}),
     but using \num{10} instead of \num{12} bins.
 On the other hand,
 our probability distributions of single events are not strictly unimodal.
@@ -74,7 +74,7 @@ being less dependent on feature engineering
     (%
       which \ac{DOM} was hit,
       the collected charge, % Oxford comma
-      and time of arrival%
+      and the time of arrival%
     ).
 %
 Finally,
@@ -82,7 +82,7 @@ Finally,
 Because of the shape of the spectrum,
   the number of events in the highest energy bins
   remains relatively small
-    relative to the complete data set.
+    compared to the complete data set.
 Although this thesis has \hyperref[sec:unfolding:bias]{demonstrated that \dsea{} eliminates the training bias},
   the effect of stratified training data on the overall performance
   has not been investigated.

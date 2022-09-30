@@ -47,9 +47,19 @@ PLOTS = [
             '19h34dc7',  # v3, extra values
         ],
     },
+    {
+        'configvar': 'num_epochs',
+        'metricvar': 'accuracy',
+        'kind': 'boxplot',
+        'style': 'lessheight',
+        'sweep_id': [
+            '2alop93j',  # v3
+            '19h34dc7',  # v3, extra values
+        ],
+    },
 ]
 
-# PLOTS = [PLOTS[1]]
+PLOTS = [PLOTS[-1]]
 
 AXIS_LABEL_MAP = {
     'wd': 'Wasserstein distance',
