@@ -4,7 +4,7 @@
 % █ Background
 The deconvolution of energy spectra is a common problem in neutrino astronomy.
 As an inverse problem,
-  it requires special methods to solve.
+  its solution requires special methods.
 The \acf{DSEAPLUS} \cite{dsea_unification}
 solves the deconvolution problem
   by reinterpreting it as a multinomial classification problem
@@ -39,11 +39,39 @@ The proposed method is then optimized and evaluated
 \acresetall % reset all acronyms
 \section*{Kurzfassung}
 \begin{foreignlanguage}{german}
-Hier steht eine Kurzfassung der Arbeit in deutscher Sprache inklusive der Zusammenfassung der
-Ergebnisse.
-Zusammen mit der englischen Zusammenfassung muss sie auf diese Seite passen.
-
-\blindtext[1]
+Die Entfaltung von Energiespektren ist ein gängiges Problem in der Neutrinoastronomie.
+Da es sich um ein Inversionsproblem handelt,
+  erfordert seine Lösung spezielle Methoden.
+Der \ac{DSEAPLUS} \cite{dsea_unification}
+löst das Entfaltungsproblem,
+  indem es dieses als ein mehrklassiges Klassifikationsproblem uminterpretiert
+  % using an arbitrary classifier to estimate the discretized energy spectrum
+und Bias aus den Trainingsdaten eliminiert,
+  indem es die Samples iterativ neu gewichtet.
+%
+Im vorliegenden Problem
+  sind diskretisierte Neutrinoenergien \emph{ordinal},
+    was impliziert, dass Fehlklassifikationen unterschiedlich stark sein können.
+Allerdings
+  respektieren die meisten Klassifizierer diese Eigenschaft nicht.
+% █ Objective
+% NOTE: Duplicate of introduction.tex
+Vorherige Arbeiten
+haben sich entweder
+  auf die Berücksichtigung der Ordinalität \cite{dsea_jan}
+  oder auf die Verwendung eines neuronalen Netzwerks als Klassifizierer \cite{dsea_samuel}
+fokussiert.
+Diese Arbeit hat zum Ziel,
+  die Vorteile beider Ansätze zu kombinieren:
+    die Flexibilität von neuronalen Netzwerken
+    und die potenzielle Verbesserung der physikalischen Plausibilität
+      aufgrund der Berücksichtigung von Ordinalität.
+% █ Methods
+Zunächst wird \ac{CORN} \cite{corn} angepasst,
+  um mit \dsea{} kompatibel zu sein.
+Die vorgeschlagene Methode wird dann
+  optimiert
+  und auf simulierten Daten von \icecube{} evaluiert.
 \end{foreignlanguage}
 
 % NOTE: Acronyms are reset again in thesis.tex
