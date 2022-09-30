@@ -1,26 +1,26 @@
 \thispagestyle{plain}
 
 \section*{Abstract}
-% - Neutrinos
-% - IceCube
-% - DSEA
-% - CORN
-% - THIS THESIS
-
-The deconvolution of energy spectra is a [common] problem in neutrino astronomy.
+% █ Background
+The deconvolution of energy spectra is a common problem in neutrino astronomy.
 As an inverse problem,
   it requires special methods to solve.
 The \acf{DSEAPLUS} \cite{dsea_unification}
 solves the deconvolution problem
-  by using a classifier to estimate the discretized energy spectrum
-  and iteratively reweighting the training data.
+  by reinterpreting it as a multinomial classification problem
+  % using an arbitrary classifier to estimate the discretized energy spectrum
+and eliminates bias from the training data
+  by iteratively re-weighting the samples.
 %
-In the given problem,
+In the problem at hand,
   neutrino energies are \emph{ordinal} quantities,
-    which means that the order of the energies is important. % COPILOT
+    % which means that the order of the energies is important. % COPILOT
+    meaning that a misclassification of a high-energy event as a low-energy event
+    is more severe than a slight overestimation,
+    for example.
 However,
   most classifiers do not respect this property.
-%
+% █ Objective
 % NOTE: Duplicate of introduction.tex
 Previous works
 have focused either
@@ -30,11 +30,13 @@ This thesis aims to combine the advantages of both approaches:
   the flexibility of neural networks
   and the potential improvements in physical plausibility
     due to respecting ordinality.
-The \ac{CORN} framework,
-  which [provides] ordinal neural networks,
-is adapted to work with \dsea{}
-and optimized and evaluated on simulated data from \icecube{}.
-
+% █ Methods
+First,
+the \ac{CORN} framework \cite{corn} is adapted to work with \dsea{}.
+The proposed method is then optimized and evaluated
+  on simulated data from \icecube{}.
+% █ Results
+% TODO
 
 
 \section*{Kurzfassung}
