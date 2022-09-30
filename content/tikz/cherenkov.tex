@@ -1,0 +1,20 @@
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+\xdefinecolor{tugreen}{RGB}{132, 184, 25}
+
+\begin{document}
+\begin{tikzpicture}
+  \filldraw[tugreen] (0,0) circle (5pt); % particle
+
+  \draw[tugreen, very thick] (-4,2) -- (0,0); % wave front
+  \draw[tugreen, very thick] (-4,-2) -- (0,0); % wave front
+
+  % \draw[tugreen, very thick](0,0) circle (2);
+  % https://en.wikipedia.org/wiki/Tangent_lines_to_circles#With_analytic_geometry
+  \renewcommand{\a}{0.45} % found by trial and error
+  \foreach \r in {0.5,1,...,2}
+  {
+    \draw[tugreen, very thick]({-\r/(\a)},0) circle (\r);
+  }
+\end{tikzpicture}
+\end{document}
